@@ -57,7 +57,6 @@ if (file_exists(__DIR__ . "/custom_config.php"))
 	$db['default']['database'] = $_G_DB;
 }
 
-
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

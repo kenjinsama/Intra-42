@@ -49,12 +49,14 @@ $active_group = 'default';
 $active_record = TRUE;
 
 if (file_exists(__DIR__ . "/custom_config.php"))
+{
 	include("custom_config.php");
+	$db['default']['hostname'] = $_G_HOSTNAME;
+	$db['default']['username'] = $_G_USER;
+	$db['default']['password'] = $_G_PWD;
+	$db['default']['database'] = $_G_DB;
+}
 
-$db['default']['hostname'] = $_G_HOSTNAME;
-$db['default']['username'] = $_G_USER;
-$db['default']['password'] = $_G_PWD;
-$db['default']['database'] = $_G_DB;
 
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

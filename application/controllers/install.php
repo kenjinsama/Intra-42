@@ -16,6 +16,8 @@ class install extends CI_Controller
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|matches[conf_pass]');
 		$this->form_validation->set_rules('database', 'Password', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('login', 'Login', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('pwd', 'Password', 'trim|required|xss_clean');
 
 		if ($this->form_validation->run() == TRUE)
 		{
@@ -35,6 +37,8 @@ class install extends CI_Controller
 				"$" . "_G_USER = '" . $this->input->post('username') . "';" .PHP_EOL .
 				"$" . "_G_PWD = '" . $this->input->post('password') . "';" .PHP_EOL .
 				"$" . "_G_DB = '" . $this->input->post('database') . "';" .PHP_EOL .
+				"$" . "_G_LOGIN = '" . $this->input->post('login') . "';" .PHP_EOL .
+				"$" . "_G_MDP = '" . $this->input->post('pwd') . "';" .PHP_EOL .
 				"?>";
 
 		return ($result);

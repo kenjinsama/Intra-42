@@ -18,6 +18,12 @@ echo	form_input(array('name' => 'conf_pass', 'placeholder' => 'Password Confirma
 echo	form_error('database', '<span class="error">', '</span>');
 echo	form_input(array('name' => 'database', 'placeholder' => 'Database name'));
 
+echo	form_error('login', '<span class="error">', '</span>');
+echo	form_input(array('name' => 'login', 'placeholder' => 'login 42'));
+
+echo	form_error('pwd', '<span class="error">', '</span>');
+echo	form_input(array('name' => 'pwd', 'placeholder' => 'password 42', 'type' => 'password'));
+
 echo	form_submit('submit', 'Install');
 
 echo form_close();

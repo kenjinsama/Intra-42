@@ -13,11 +13,10 @@ class check_log extends		CI_Model
 {
 	public function		check_login()
 	{
-		// if ($this->session->userdata('logged_in') && $this->session->userdata('user_login'))
-		// 	return TRUE;
-		// else
-		// 	return FALSE;
-		return TRUE;
+		if ($this->session->userdata('logged_in') && $this->session->userdata('user_login'))
+			return TRUE;
+		else
+			return FALSE;
 	}
 
 	public function		check_log_admin()

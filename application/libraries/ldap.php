@@ -92,8 +92,7 @@ class ldap
 
 /*
 **	get_img($uid) renvoie l'image profil en base64 du user tel que uid = $uid
-**	si il n'y a pas de resultat get_cn renvoi NULL
-**	Exemple : get_uid("dsousa") renvoie "Dany SOUSA"
+**	si il n'y a pas de resultat get_img renvoi NULL
 */
 	public function		get_img($uid)
 	{

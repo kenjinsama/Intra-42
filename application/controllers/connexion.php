@@ -20,11 +20,11 @@ class connexion extends CI_Controller
 		{
 			if ($this->ldap->log($this->input->post('login'), $this->input->post('password')))
 			{
-				// if ($this::db_check() == FALSE)
-				// {
-				// 	header("Location: " . base_url() . "connexion");
-				// 	return ;
-				// }
+				if ($this::db_check() == FALSE)
+				{
+					header("Location: " . base_url() . "connexion");
+					return ;
+				}
 				$session =		array(
 									'user_login' => $this->input->post('login'),
 									'logged_in' => TRUE,
@@ -49,28 +49,29 @@ class connexion extends CI_Controller
 		header("Location: " . base_url());
 	}
 
-	// private function		db_check()
-	// {
-	// 	$query = $this->db->query("SELECT `status` FROM `users` WHERE `login` LIKE ?", [$this->input->post('login')]);
+	private function		db_check()
+	{
+		$query = $this->db->query("SELECT `status` FROM `users` WHERE `login` LIKE ?", [$this->input->post('login')]);
 
-	// 	$query = $query->result_array();
-	// 	if (isset($query[0]["status"]))
-	// 	{
-	// 		if ($query[0]["status"] == "CLOSE")
-	// 			return FALSE;
-	// 	}
-	// 	else
-	// 	{
-	// 		$this->db->query("INSERT INTO `users` (`login`, `cn`, `picture`, `status`) VALUES(?, ?, ?, ?)",
-	// 			array(
-	// 				$this->input->post('login'),
-	// 				?,
-	// 				?,
-	// 				"STUDENT"
-	// 			)
-	// 		);
-	// 	}
-	// 	return TRUE;
-	// }
+		$query = $query->result_array();
+		if (isset($query[0]["status"]))
+		{
+			if ($query[0]["status"] == "CLOSE")
+				return FALSE;
+		}
+		else
+		{
+			$uid = $this->input->post('login');
+			$this->db->query("INSERT INTO `users` (`login`, `cn`, `picture`, `status`) VALUES(?, ?, ?, ?)",
+				array(
+					$uid,
+					$this->ldap->get_cn($uid),
+					$this->ldap->get_img($uid),
+					"STUDENT"
+				)
+			);
+		}
+		return TRUE;
+	}
 
 }

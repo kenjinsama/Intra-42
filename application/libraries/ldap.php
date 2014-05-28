@@ -11,15 +11,15 @@ class ldap
 
 	public function		__construct()
 	{
-		if (!defined('ENVIRONMENT') OR ! file_exists($file_path = APPPATH.'config/'.ENVIRONMENT.'/custom_config.php'))
+		if (current_url() == site_url("install"))
+			return ;
+		if (!file_exists(__DIR__ . "/../config/custom_config.php"))
 		{
-			if (!file_exists($file_path = APPPATH.'config/custom_config.php'))
-			{
-				show_error('The configuration file custom_config.php does not exist.');
-			}
+			header("Location: " . base_url() . "install/");
+			return ;
 		}
 
-		include($file_path);
+		include(__DIR__ . "/../config/custom_config.php");
 		$this->_ldapconn = ldap_connect("ldap.42.fr")
 			or die("Could not connect to LDAP server.<BR />");
 

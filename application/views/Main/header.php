@@ -7,7 +7,7 @@
 	<SCRIPT type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="<?PHP echo base_url(); ?>assets/js/main.js"></SCRIPT>
 </HEAD>
-<BODY>
+<BODY style="overflow-x: hidden;">
 <HEADER>
 	<DIV id="logo">
 		<A id="home" href="/">LOGO</A>

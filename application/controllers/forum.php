@@ -10,7 +10,7 @@ class Forum extends CI_Controller {
 	function index()
 	{
 		$data['categories'] = $this->Forum_m->get_index();
-		$this->load->view('forum/forum', $data);
+		loader($this, 'forum/forum', $data);
 	}
 
 	function categories()
@@ -20,7 +20,7 @@ class Forum extends CI_Controller {
 		$name = $name[$ac - 1];
 
 		$data['categories'] = $this->Forum_m->get_categories_for($name);
-		$this->load->view('forum/forum', $data);
+		loader($this, 'forum/forum', $data);
 	}
 }
 ?>

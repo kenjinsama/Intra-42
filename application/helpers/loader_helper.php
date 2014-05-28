@@ -2,7 +2,7 @@
 
 if ( ! function_exists('loader'))
 {
-	function loader($controller, array $view)
+	function loader($controller, $view)
 	{
 		if (!file_exists(__DIR__ . "/../config/custom_config.php"))
 			header("Location: " . base_url() . "install/");
@@ -10,9 +10,13 @@ if ( ! function_exists('loader'))
 			header("Location: " . base_url() . "connexion/");
 		$controller->load->view('main/header');
 
-		foreach ($view as $data)
-			$controller->load->view($data);
-
+		if (is_array($view))
+		{
+			foreach ($view as $data)
+				$controller->load->view($data);
+		}
+		else if (is_string($view))
+			$controller->load->view($view);
 		$controller->load->view('main/footer');
 	}
 }

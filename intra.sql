@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: May 28, 2014 at 01:22 PM
+-- Generation Time: May 28, 2014 at 01:38 PM
 -- Server version: 5.5.34
 -- PHP Version: 5.5.10
 
@@ -38,7 +38,7 @@ CREATE TABLE `answer` (
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `id_parent` int(11) NOT NULL,
+  `id_parent` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 

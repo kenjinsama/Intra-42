@@ -28,7 +28,7 @@ class add_module extends CI_Controller
 
 		if ($this->form_validation->run() == TRUE)
 		{
-			$this->db->query("INSERT INTO `modules` (`name`, `desc`, `credit`, `dt_start`, `dt_end`, `dt_end_insc`) VALUES(?,?,?,?,?,?)",
+			$this->db->query("INSERT INTO `modules` (`name`, `desc`, `credits`, `dt_start`, `dt_end`, `dt_end_insc`) VALUES(?,?,?,?,?,?)",
 				array(
 					$this->input->post("name"),
 					$this->input->post("description"),

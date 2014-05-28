@@ -79,6 +79,20 @@ HEADER
 	top: 50px;
 }
 
+#profile
+{
+	height: 80px;
+	width: 80px;
+	border-radius: 80px;
+	border: 2px solid gray;
+	overflow: hidden;
+}
+
+#img-profile
+{
+	width: 80px;
+}
+
 /*
 ** NAV
 */

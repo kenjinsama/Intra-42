@@ -21,11 +21,7 @@
 	</DIV>
 	<DIV id="profile">
 		<?PHP
-		// TODO:
-		// if ($this->session->userdata('logged'))
-		// 	echo img( array( 'src' => echo base_url() . LIEN_IMAGE_PROFILE_USER ) );
-		// else
-		echo img( array( 'src' => base_url() . 'assets/images/default-profile.png', 'id' => 'img-profile' ) );
+		echo "<img src='" . $profil_img . "' id='img-profile'>";
 		?>
 	</DIV>
 	<DIV id="option">

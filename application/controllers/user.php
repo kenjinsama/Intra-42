@@ -9,11 +9,11 @@ class user extends CI_Controller
 
 	public function profile()
 	{
-		$this->load->view('user/profile');
+		loader($this, 'user/profile');
 	}
 
 	public function tickets()
 	{
-		$this->load->view('user/tickets');
+		loader($this, 'user/tickets');
 	}
 }

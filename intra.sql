@@ -1,32 +1,54 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.9
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost:3306
--- Généré le :  Sam 24 Mai 2014 à 07:52
--- Version du serveur :  5.5.36
--- Version de PHP :  5.4.26
+-- Host: localhost:3306
+-- Generation Time: May 28, 2014 at 01:22 PM
+-- Server version: 5.5.34
+-- PHP Version: 5.5.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
--- Base de données :  `intra`
+-- Database: `intra`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `modules`
+-- Table structure for table `answer`
 --
 
-CREATE TABLE IF NOT EXISTS `modules` (
+CREATE TABLE `answer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(8192) COLLATE utf8_unicode_ci NOT NULL,
+  `id_post` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `id_parent` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `modules`
+--
+
+CREATE TABLE `modules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `desc` mediumtext NOT NULL,
@@ -40,10 +62,26 @@ CREATE TABLE IF NOT EXISTS `modules` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `projects`
+-- Table structure for table `posts`
 --
 
-CREATE TABLE IF NOT EXISTS `projects` (
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `content` varchar(8192) COLLATE utf8_unicode_ci NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projects`
+--
+
+CREATE TABLE `projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `desc` varchar(8192) NOT NULL,
@@ -60,10 +98,10 @@ CREATE TABLE IF NOT EXISTS `projects` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ratings`
+-- Table structure for table `ratings`
 --
 
-CREATE TABLE IF NOT EXISTS `ratings` (
+CREATE TABLE `ratings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
   `id_project` int(11) NOT NULL,
@@ -75,10 +113,10 @@ CREATE TABLE IF NOT EXISTS `ratings` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(8) NOT NULL,
   `cn` varchar(255) NOT NULL,
@@ -86,7 +124,3 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` enum('ADMIN','MOD','STUDENT','CLOSE') NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

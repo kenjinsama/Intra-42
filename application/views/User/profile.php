@@ -3,13 +3,7 @@
 	$titre='Profil';
 	$user_login=$this->session->userdata('user_login');
 ?>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="<?php echo base_url();?>css/style.css" />
-		<title><?php echo $titre; ?></title>
-	</head>
-	<body>
+<?php $this->load->view('Main/header'); ?>
 		<div id="content">
 			<h1><?php echo $titre;?></h1>
 
@@ -39,5 +33,6 @@
 			echo "Nationalité : ".$result[0]["nationality"][0]."<br />";
 			echo "Nationalité : ".$result[0]["nationality"][0]."<br />";
 		?>
-	</body>
-</html>
+		</div>
+
+<?php $this->load->view('Main/footer'); ?>

@@ -9,13 +9,10 @@ body
 */
 SELECTION
 {
-    position: absolute;
-    left: 200px;
-    top: 100px;
-    background-color: #EEE;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+	position: absolute;
+	left: 200px;
+	top: 100px;
+	z-index: -1;
 }
 
 /*
@@ -42,14 +39,14 @@ HEADER
 
 #option
 {
-    display: none;
-    opacity: 0;
-    position: absolute;
-    right: 10px;
-    top: 110px;
-    width: 150px;
-    height: 200px;
-    background-color: #AAA;
+	display: none;
+	opacity: 0;
+	position: absolute;
+	right: 10px;
+	top: 110px;
+	width: 150px;
+	height: 200px;
+	background-color: #AAA;
 }
 
 /*
@@ -57,7 +54,7 @@ HEADER
 */
 NAV
 {
-	position: absolute;
+	position: fixed;
 	top: 100px;
 	width: 200px;
 	height: 100%;

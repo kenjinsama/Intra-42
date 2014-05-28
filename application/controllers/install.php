@@ -5,7 +5,10 @@ class install extends CI_Controller
 	public function index()
 	{
 		if (file_exists(__DIR__ . "/../config/custom_config.php"))
+		{
 			header("Location:" . base_url());
+			return ;
+		}
 		$this->load->view('install/install');
 	}
 

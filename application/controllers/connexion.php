@@ -32,4 +32,16 @@ class connexion extends CI_Controller
 		header("Location: " . base_url());
 	}
 
+	public function		logout()
+	{
+		$session =		array(
+							'logged_in' => FALSE
+						);
+
+		$this->session->set_userdata($session);
+		$this->session->unset_userdata("user_login");
+		$this->session->unset_userdata("admin_login");
+		header("Location: " . base_url());
+	}
+
 }

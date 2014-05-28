@@ -6,7 +6,7 @@ class forum
 	private $_img_max_h = 1280;
 	private $_bad_words = array(
 		'french' => "connard|conar|connar|pute|tête de bite|salope|enculé|encule|porn|pr0n|con|conne",
-		'english' => "fuck you|fuck|fucking|asshole|shit"
+		'english' => "fuck you|fuck|fucking|asshole|shit|ass|twat"
 	);
 	private $_censored = array(
 		'french' => "<3 chaton(s) tout mignon(s) <3",

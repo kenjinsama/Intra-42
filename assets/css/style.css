@@ -101,11 +101,20 @@ NAV
 {
 	position: fixed;
 	top: 100px;
+	left: 0;
 	width: 200px;
 	height: 100%;
 	background-color: #777;
 }
 
+#img-nav
+{
+	position: relative;
+	left: 130px;
+	top: 10px;
+	-webkit-transition: transform 1s;
+	-webkit-transform: rotate(0deg);
+}
 
 /*
 ** FOOTER

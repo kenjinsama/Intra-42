@@ -42,7 +42,32 @@ $(document).ready(function()
             $("#search-input").css("display", "none");
         });
     });
+
+    $("#img-nav").click(function()
+    {
+        if ($("NAV").position().left == 0)
+        {
+            $("NAV").animate({
+                left: -175
+            }, 300);
+            $("SELECTION").animate({
+                left: 25
+            }, 300);
+            $("#img-nav").css("-webkit-transform", "rotate(180deg)");
+        }
+        else
+        {
+            $("NAV").animate({
+                left: 0
+            }, 300)
+            $("SELECTION").animate({
+                left: 200
+            }, 300);
+            $("#img-nav").css("-webkit-transform", "rotate(0deg)");
+        }
+    });
 });
+
 
 //function search()
 //{

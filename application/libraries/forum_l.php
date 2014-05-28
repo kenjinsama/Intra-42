@@ -11,7 +11,7 @@ class forum_l
 	private $_censored = array(
 		'french' => "<3 chaton(s) tout mignon(s) <3",
 		'english' => "<3 little bird <3"
-	)
+	);
 
 	public function setImgMaxSize($width, $height)
 	{

@@ -7,4 +7,4 @@ echo	form_error('password', '<span class="error">', '</span>');
 echo	form_input(array('name' => 'password', 'type' => 'password', 'placeholder' => 'mot de passe'));
 echo	form_submit('submit', 'Sign in');
 
-echo form_close(base_url() . "connexion/logout", "Log out");
+echo form_close();

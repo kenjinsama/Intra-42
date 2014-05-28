@@ -1,6 +1,6 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class forum
+class forum_l
 {
 	private $_img_max_w = 720;
 	private $_img_max_h = 1280;

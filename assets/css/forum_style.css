@@ -63,6 +63,12 @@
 	padding-left: 3px;
 }
 
+#thread p
+{
+	margin-right: 215px;
+	text-align: justify;
+}
+
 #thread span
 {
 	font-size: 14px;

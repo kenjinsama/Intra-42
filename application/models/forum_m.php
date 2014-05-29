@@ -37,6 +37,7 @@ class Forum_m extends CI_Model {
 		foreach ($exploded as $category)
 		{
 			$url .= $category . '/';
+			$category = preg_replace('/%20/', ' ', $category);
 			$urls[$category] = $url;
 		}
 		return ($urls);

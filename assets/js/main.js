@@ -28,6 +28,7 @@ $(document).ready(function()
 
     $("#img-search").click(function()
     {
+        $("#img-search").css("-webkit-transform", "rotate(360deg)");
         $("#search-background").css("display", "block");
         $("#search-background").animate({
             opacity: 0.33
@@ -44,6 +45,7 @@ $(document).ready(function()
             opacity: 0
         }, 300, function() {
             $("#search-background").css("display", "none");
+            $("#img-search").css("-webkit-transform", "rotate(0deg)");
         });
         $("#search-input").animate({
             opacity: 0

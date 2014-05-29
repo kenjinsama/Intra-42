@@ -46,7 +46,7 @@ class connexion extends CI_Controller
 		$this->session->set_userdata($session);
 		$this->session->unset_userdata("user_login");
 		$this->session->unset_userdata("admin_login");
-		header("Location: " . base_url());
+		header("Location: " . base_url() . "connexion");
 	}
 
 	private function		db_check()

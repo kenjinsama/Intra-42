@@ -33,7 +33,17 @@
 	</DIV>
 </HEADER>
 <NAV>
-	<?PHP echo img( array( 'src' => base_url() . 'assets/images/arrow.png', 'id' => 'img-nav') );
-	print_r($nav); ?>
+	<?PHP echo img( array( 'src' => base_url() . 'assets/images/arrow.png', 'id' => 'img-nav') );?>
+	<?php
+		foreach ($nav as $data)
+		{
+			echo anchor(base_url() . "module/projects/" . $data['name'], $data['name'], ["class" => "module"]) . "<br />";
+			if (isset($data['project']))
+			{
+				foreach ($data['project'] as $project)
+					echo anchor(base_url() . "module/project/" . $project['name'], $project['name'], ["class" => "project"]);
+			}
+		}
+	?>
 </NAV>
 <SELECTION>

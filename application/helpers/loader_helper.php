@@ -73,10 +73,11 @@ if ( ! function_exists('loader'))
 		foreach ($project as $data)
 		{
 			$i = 0;
+			$y = 0;
 			while (isset($modules[$i]) && $data['id_modules'] != $modules[$i]['id'])
 				$i++;
 			if (isset($modules[$i]))
-				$modules[$i]['project'] = $data;
+				$modules[$i]['project'][$y++] = $data;
 		}
 		return ($modules);
 	}

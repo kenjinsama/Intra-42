@@ -27,7 +27,6 @@
 		<div>
 		<p><b>Informations Administratives</b></p>
 		<?php
-		// verifier si set
 			if (isset($result[0]["gender"][0]))
 				echo "Genre : ".$result[0]["gender"][0]."<br />";
 			if (isset($result[0]["nationality"][0]))
@@ -35,16 +34,16 @@
 			if (isset($result[0]["scholarity"][0]))
 				echo "Niveau scolaire : ".$result[0]["scholarity"][0]."<br />";
 			if (isset($result[0]["emergency-first-name"][0]))
-				echo "Contact d'urgence : ".$result[0]["emergency-first-name"][0]." ".$result[0]["emergency-last-name"][0]."<br />";
+				echo "<br /><b>Contact d'urgence</b><br /><br />".$result[0]["emergency-first-name"][0]." ".$result[0]["emergency-last-name"][0]."<br />";
 			if (isset($result[0]["emergency-home-phone"][0]))
 				echo "Numéro : ".$result[0]["emergency-home-phone"][0]."<br />";
 			if (isset($result[0]["emergency-postal-address"][0]))
 				echo "Adresse : "."<br />".$result[0]["emergency-postal-address"][0]."<br />".$result[0]["emergency-postal-code"][0]." ".$result[0]["emergency-city"][0]."<br />".$result[0]["emergency-country"][0]."<br />";
 			echo "<br />";
 			if (isset($result[0]["mother-last-name"][0]) && isset($result[0]["father-last-name"][0]))
-				echo "<b>Parents</b><br />";
+				echo "<b>Parents</b><br /><br />";
 			elseif (isset($result[0]["mother-last-name"][0]) || isset($result[0]["father-last-name"][0]))
-				echo "<b>Parent</b><br />";
+				echo "<b>Parent</b><br /><br />";
 			if (isset($result[0]["mother-first-name"][0]))
 				echo "Mère : ".$result[0]["mother-first-name"][0]." ".$result[0]["mother-last-name"][0]."<br />";
 			if (isset($result[0]["mother-home-phone"][0]))

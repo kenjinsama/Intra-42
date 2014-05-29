@@ -39,7 +39,7 @@ class Add_project extends CI_Controller
 					$this->input->post("dt_end") . " " . $this->input->post("dt_end_h") . ":00",
 					$this->input->post("dt_end_insc") . " " . $this->input->post("dt_end_insc_h") . ":00",
 					$this->input->post("dt_end_corr") . " " . $this->input->post("dt_end_corr_h") . ":00",
-					$this->input->post("modules"),
+					$this->input->post("module"),
 					$this->input->post("pdf_url"),
 					$this->input->post("rating_scale")
 				)

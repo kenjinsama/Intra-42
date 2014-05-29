@@ -8,9 +8,9 @@ if ( ! function_exists('loader'))
 		**	Verif de la config et de la connexion, redirection associé
 		*/
 		if (!file_exists(__DIR__ . "/../config/custom_config.php"))
-			header("Location: " . base_url() . "install/");
+			redirect(base_url() . "install/");
 		if ($controller->check_log->check_login() == FALSE)
-			header("Location: " . base_url() . "connexion/");
+			redirect(base_url() . "connexion/");
 
 		/*
 		**	Chargment img profile en fonction de l'utilisateur
@@ -51,9 +51,10 @@ if ( ! function_exists('loader'))
 		foreach ($query as $data)
 		{
 			$i = 0;
-			while ($data['module_id'] != $modules[$i]['id'])
+			while (isset($modules[$i]) && $data['module_id'] != $modules[$i]['id'])
 				$i++;
-			$modules[$i]['state'] = $data['state'];
+			if (isset($modules[$i]))
+				$modules[$i]['state'] = $data['state'];
 		}
 
 		$query = $controller->db->query("SELECT `id`, `id_modules`, `name`, `dt_start` FROM `projects` WHERE `dt_start` <= NOW()
@@ -64,16 +65,18 @@ if ( ! function_exists('loader'))
 		foreach ($query as $data)
 		{
 			$i = 0;
-			while ($data['project_id'] != $project[$i]['id'])
+			while (isset($project[$i]) && $data['project_id'] != $project[$i]['id'])
 				$i++;
-			$project[$i]['state'] = $data['state'];
+			if (isset($project[$i]))
+				$project[$i]['state'] = $data['state'];
 		}
 		foreach ($project as $data)
 		{
 			$i = 0;
-			while ($data['id_modules'] != $modules[$i]['id'])
+			while (isset($modules[$i]) && $data['id_modules'] != $modules[$i]['id'])
 				$i++;
-			$modules[$i]['project'] = $data;
+			if (isset($modules[$i]))
+				$modules[$i]['project'] = $data;
 		}
 		return ($modules);
 	}

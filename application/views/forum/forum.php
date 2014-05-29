@@ -19,7 +19,8 @@
 <?php if (isset($posts)): ?>
 <div id="posts">
 	<?php foreach ($posts as $post): ?>
-	<a href="<?php echo current_url() . '/thread?id=' . strtolower($post->id) ?>"><?php echo $post->title; ?></a>
+	<?php $author = $this->Forum_m->get_user($post->id_user); ?>
+	<a class="link" href="<?php echo current_url() . '/thread?id=' . strtolower($post->id) ?>"><div class="picture"><img class="resize" src="data:image/jpeg;base64,<?php echo $author->picture; ?>" /></div><?php echo $post->title; ?></a>
 	<?php endforeach; ?>
 </div>
 <?php endif; ?>

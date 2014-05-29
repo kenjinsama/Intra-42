@@ -3,28 +3,41 @@
 	position: relative;
 	top: 10px;
 	left: 10px;
-	height: 100px;
+	height: 150px;
 	margin-bottom: 10px;
 	background: #33A3FF;
 	color: #FFF;
-}
-
-.module:hover
-{
-	background-color: #FFB300;
 }
 
 .module a
 {
 	text-decoration: none;
 	position: relative;
-	top: 30px;
+	top: 10px;
 	left: 30px;
 	font-size: 2em;
 	color: #FFF;
 }
 
-.module:hover a
+.module a:hover
 {
-	color: #33A3FF;
+	color: #FFB300;
+}
+
+.module-desc
+{
+	text-decoration: none;
+	position: relative;
+	top: 15px;
+	left: 10px;
+	font-size: 0.8em;
+	color: #FFF;
+}
+
+.arrow-module
+{
+	position: absolute;
+	bottom: 0px;
+	-webkit-transition: 0.3s;
+	-webkit-transform: rotate(-90deg);
 }

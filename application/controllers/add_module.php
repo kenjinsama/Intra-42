@@ -30,7 +30,7 @@ class add_module extends CI_Controller
 					$this->input->post("name"),
 					$this->input->post("description"),
 					$this->input->post("nb_credit"),
-					$this->input->post("dt_start") . " " . $this->input->post("dt_start_h") . ":00",
+					strtotime($this->input->post("dt_start") . " " . $this->input->post("dt_start_h") . ":00",
 					$this->input->post("dt_end") . " " . $this->input->post("dt_end_h") . ":00",
 					$this->input->post("dt_end_insc") . " " . $this->input->post("dt_end_insc_h") . ":00"
 					)

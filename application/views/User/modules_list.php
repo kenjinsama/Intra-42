@@ -3,9 +3,11 @@
 <?PHP
 	foreach ($modules as $module): ?>
 		<DIV class="module">
-			<a href="<?PHP echo base_url(); ?>module/projects/<?PHP echo $module->name; ?>">
-			<?PHP echo $module->name; ?>
-			</a>
+			<a href="<?PHP echo base_url(); ?>module/projects/<?PHP echo $module->name; ?>"><?PHP echo $module->name; ?></a>
+			<DIV class="module-desc">
+				<?PHP echo $module->desc; ?>
+			</DIV>
+			<?PHP echo img( array( 'src' => base_url() . 'assets/images/arrow.png', 'class' => 'arrow-module') ); ?>
 		</DIV>
 	<?PHP endforeach;
 ?>

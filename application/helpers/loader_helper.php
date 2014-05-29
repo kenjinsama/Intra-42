@@ -4,10 +4,19 @@ if ( ! function_exists('loader'))
 {
 	function loader($controller, $view, $data = NULL)
 	{
+		/*
+		**	Verif de la config et de la connexion, redirection associé
+		*/
 		if (!file_exists(__DIR__ . "/../config/custom_config.php"))
 			redirect(base_url() . "install/");
 		if ($controller->check_log->check_login() == FALSE)
 			redirect(base_url() . "connexion/");
+
+		/*
+		**	Chargment img profile en fonction de l'utilisateur
+		*/
+		$elem = array();
+
 		if ($controller->check_log->check_login() == FALSE)
 			$elem['profil_img'] = base_url() . 'assets/images/default-profile.png';
 		else
@@ -17,6 +26,8 @@ if ( ! function_exists('loader'))
 			$result = $result->result_array();
 			$elem['profil_img'] = "data:image/jpeg;base64," . $result[0]["picture"];
 		}
+
+		$elem['nav'] = load_nav($controller);
 
 		$controller->load->view('main/header', $elem);
 		if (is_array($view))

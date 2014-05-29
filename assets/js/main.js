@@ -47,22 +47,16 @@ $(document).ready(function()
     {
         if ($("NAV").position().left == 0)
         {
-            $("NAV").animate({
-                left: -175
-            }, 300);
-            $("SELECTION").animate({
-                left: 25
-            }, 300);
+            $("NAV").animate({left: -175}, 300);
+            $("SELECTION").animate({left: 25}, 300);
+            $("FOOTER").animate({left: -175}, 300);
             $("#img-nav").css("-webkit-transform", "rotate(180deg)");
         }
         else
         {
-            $("NAV").animate({
-                left: 0
-            }, 300)
-            $("SELECTION").animate({
-                left: 200
-            }, 300);
+            $("NAV").animate({left: 0}, 300)
+            $("SELECTION").animate({left: 200}, 300);
+            $("FOOTER").animate({left: 0}, 300)
             $("#img-nav").css("-webkit-transform", "rotate(0deg)");
         }
     });

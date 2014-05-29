@@ -112,7 +112,7 @@ NAV
 	position: relative;
 	left: 130px;
 	top: 10px;
-	-webkit-transition: transform 1s;
+	-webkit-transition: 0.3s;
 	-webkit-transform: rotate(0deg);
 }
 

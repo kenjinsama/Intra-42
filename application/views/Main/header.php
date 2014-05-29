@@ -33,7 +33,7 @@
 	</DIV>
 </HEADER>
 <NAV>
-	Nav
-	<?PHP echo img( array( 'src' => base_url() . 'assets/images/arrow.png', 'id' => 'img-nav') ); ?>
+	<?PHP echo img( array( 'src' => base_url() . 'assets/images/arrow.png', 'id' => 'img-nav') );
+	print_r($nav); ?>
 </NAV>
 <SELECTION>

@@ -9,7 +9,11 @@ class ldap
 
 	private				$_ldapconn;
 
-	public function		__construct()
+/*
+**	log() est utilisé pour la connexion user,
+**	elle permet de se connecter et acceder au ldap en fonction des droits de l'utilisateur
+*/
+	public function		log($uid, $pwd)
 	{
 		if (current_url() == site_url("install"))
 			return ;
@@ -19,23 +23,14 @@ class ldap
 			return ;
 		}
 
-		include(__DIR__ . "/../config/custom_config.php");
 		$this->_ldapconn = ldap_connect("ldap.42.fr")
 			or die("Could not connect to LDAP server.<BR />");
 
 		if (!ldap_set_option($this->_ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3))
 			show_error('Failed to set protocol version to 3<BR />');
-		$bind = @ldap_bind($this->_ldapconn, 'uid=' .  $_G_LOGIN . ',ou=2013,ou=people,dc=42,dc=fr', $_G_MDP);
+		$bind = @ldap_bind($this->_ldapconn, 'uid=' .  $uid . ',ou=2013,ou=people,dc=42,dc=fr', $pwd);
 		if (!$bind)
 			show_error('Failed to bind<BR />');
-	}
-
-/*
-**	log() est utilisé pour la connexion user,
-**	elle permet de se connecter et acceder au ldap en fonction des droits de l'utilisateur
-*/
-	public function		log($uid, $pwd)
-	{
 		$bind = @ldap_bind($this->_ldapconn, 'uid=' . $uid . ',ou=2013,ou=people,dc=42,dc=fr', $pwd);
 		return ($bind);
 	}

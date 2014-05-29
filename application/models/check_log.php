@@ -16,12 +16,25 @@ class check_log extends		CI_Model
 		if ($this->session->userdata('logged_in') && $this->session->userdata('user_login'))
 		{
 			if ($this->session->userdata('logged_in') == TRUE)
-				return TRUE;
+				return (TRUE);
 			else
-				return FALSE;
+				return (FALSE);
 		}
 		else
-			return FALSE;
+			return (FALSE);
+	}
+
+	/*
+	**	Retourne l'id de l'utilisateur connecté ou NULL si aucun utilisateur est connecté obtain_id renvoi NULL
+	*/
+	public function		obtain_id()
+	{
+		if ($this::check_login() == FALSE)
+			return (NULL);
+		$query = $this->db->query("SELECT `id` FROM `users` WHERE `login` LIKE ?", [$this->session->userdata('user_login')]);
+		$query = $query->result_array();
+
+		return ($query[0]['id']);
 	}
 
 	public function		check_log_admin()
@@ -35,7 +48,7 @@ class check_log extends		CI_Model
 		// 		return TRUE;
 		// }
 		// return FALSE;
-		return TRUE;
+		return (TRUE);
 	}
 
 	public function		is_admin($uid)
@@ -49,6 +62,6 @@ class check_log extends		CI_Model
 		// 		return TRUE;
 		// }
 		// return FALSE;
-		return TRUE;
+		return (TRUE);
 	}
 }

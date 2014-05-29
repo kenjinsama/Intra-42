@@ -2,12 +2,9 @@
 {
 	display: block;
 	text-decoration: none;
-}
 
-#categories a
-{
 	background-color: #33A3FF;
-	color: #FFFFFF;
+	color: #FFF;
 
 	margin-bottom: 1px;
 	padding-left: 10px;
@@ -22,4 +19,16 @@
 {
 	background-color: #FFB300;
 	color: #33A3FF;
+}
+
+#tree a
+{
+	text-decoration: none;
+
+	color: #D00;
+}
+
+#tree span
+{
+	color: #000;
 }

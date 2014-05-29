@@ -26,6 +26,21 @@ class Forum_m extends CI_Model {
 		$query = $this->db->get('categories');
 		return ($query->result()); 
 	}
+
+	function format_urls($curr_url)
+	{
+		$exploded = explode('/', $curr_url);
+		$exploded = array_splice($exploded, 3);
+		$url = base_url();
+
+		$urls = array('home' => base_url());
+		foreach ($exploded as $category)
+		{
+			$url .= $category . '/';
+			$urls[$category] = $url;
+		}
+		return ($urls);
+	}
 }
 
 ?>

@@ -8,8 +8,31 @@
 	<div id="d_toggle">categories</div>
 </div>
 
+<?php if (isset($categories)): ?>
 <div id="categories">
 	<?php foreach ($categories as $category): ?>
 	<a href="<?php echo current_url() . '/' . strtolower($category->name) ?>"><?php echo $category->name; ?></a>
 	<?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+<?php if (isset($posts)): ?>
+<div id="posts">
+	<?php foreach ($posts as $post): ?>
+	<?php $author = $this->Forum_m->get_user($post->id_user); ?>
+	<a class="link" href="<?php echo current_url() . '/thread?id=' . strtolower($post->id) ?>"><div class="picture"><img class="resize" src="data:image/jpeg;base64,<?php echo $author->picture; ?>" /></div><?php echo $post->title; ?></a>
+	<?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+<?php if (isset($thread) && !is_int($thread)): ?>
+<div id="thread">
+	<?php $author = $this->Forum_m->get_user($thread->id_user); ?>
+	<h1><?php echo $thread->title; ?></h1>
+	<p><?php echo $thread->content; ?></p>
+	<span><?php echo '<a href="'. base_url() . 'profile?login=' . $author->login . '">' . $author->login . '</a> (' . $author->cn . ') '; echo $thread->date; ?></span>
+
+	<?php elseif (!isset($categories)): ?>
+	<h1 style='color:#F00;'>404 NOT FOUND :'(</h1>
+	<?php endif; ?>
 </div>

@@ -13,7 +13,7 @@ class add_module extends CI_Controller
 
 	public function validate()
 	{
-		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|alpha_dash');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nb_credit', 'nb_credit', 'trim|required|xss_clean|is_natural|numeric');
 		$this->form_validation->set_rules('dt_start', 'Start date', 'trim|required|xss_clean');

@@ -19,7 +19,17 @@ class Forum extends CI_Controller {
 		$ac = func_num_args();
 		$name = func_get_args();
 		$name = $name[$ac - 1];
-		$data['categories'] = $this->Forum_m->get_categories_for($name);
+
+		if ($name != "thread")
+		{
+			$data['categories'] = $this->Forum_m->get_categories_for($name);
+			$data['posts'] = $this->Forum_m->get_posts_for($name);
+		}
+		else if (isset($_GET['id']))
+		{
+			$data['thread'] = $this->Forum_m->get_thread($_GET['id']);
+		}
+
 		$data['urls'] = $this->Forum_m->format_urls(current_url());
 		loader($this, 'forum/forum', $data);
 	}

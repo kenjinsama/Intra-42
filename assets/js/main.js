@@ -1,6 +1,15 @@
 
 $(document).ready(function()
 {
+    $(window).resize(function(){window_resize()});
+    window_resize();
+
+    function window_resize()
+    {
+        $(".module").css( "width", $(window).width() - 220);
+        $(".arrow-module").css( "left", ( $(window).width() - 220 ) / 2 - 16);
+    }
+
     $("#img-profile").click(function()
     {
         if ( $("#option").css("display") != "none" )
@@ -19,6 +28,7 @@ $(document).ready(function()
 
     $("#img-search").click(function()
     {
+        $("#img-search").css("-webkit-transform", "rotate(360deg)");
         $("#search-background").css("display", "block");
         $("#search-background").animate({
             opacity: 0.33
@@ -35,12 +45,27 @@ $(document).ready(function()
             opacity: 0
         }, 300, function() {
             $("#search-background").css("display", "none");
+            $("#img-search").css("-webkit-transform", "rotate(0deg)");
         });
         $("#search-input").animate({
             opacity: 0
         }, 300, function() {
             $("#search-input").css("display", "none");
         });
+    });
+
+    $(".arrow-module").click(function()
+    {
+        if ($(this).parent().height() != 150)
+        {
+            $(this).css("-webkit-transform", "rotate(-90deg)");
+            $(this).parent().animate({height: 150}, 300);
+        }
+        else
+        {
+            $(this).css("-webkit-transform", "rotate(90deg)");
+            $(this).parent().animate({height: 250}, 300);
+        }
     });
 
     $("#img-nav").click(function()

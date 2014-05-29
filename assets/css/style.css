@@ -77,6 +77,8 @@ HEADER
 	position: absolute;
 	right: 150px;
 	top: 50px;
+	-webkit-transition: 0.3s;
+	-webkit-transform: rotate(0deg);
 }
 
 #profile

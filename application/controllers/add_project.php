@@ -8,7 +8,7 @@ class Add_project extends CI_Controller
 {
 	public function index()
 	{
-		$this->load->model('modules');
+		$this->load->model('modules_m');
 		$data['modules'] = $this->modules->get_modules();
 		loader($this, 'admin/add_project', $data);
 	}

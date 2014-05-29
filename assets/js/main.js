@@ -1,6 +1,14 @@
 
 $(document).ready(function()
 {
+    $(window).resize(function(){window_resize()});
+    window_resize();
+
+    function window_resize()
+    {
+        $(".module").css( "width", $(window).width() - 220);
+    }
+
     $("#img-profile").click(function()
     {
         if ( $("#option").css("display") != "none" )

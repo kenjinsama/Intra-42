@@ -1,0 +1,30 @@
+.module
+{
+	position: relative;
+	top: 10px;
+	left: 10px;
+	height: 100px;
+	margin-bottom: 10px;
+	background: #33A3FF;
+	color: #FFF;
+}
+
+.module:hover
+{
+	background-color: #FFB300;
+}
+
+.module a
+{
+	text-decoration: none;
+	position: relative;
+	top: 30px;
+	left: 30px;
+	font-size: 2em;
+	color: #FFF;
+}
+
+.module:hover a
+{
+	color: #33A3FF;
+}

@@ -5,9 +5,9 @@ if ( ! function_exists('loader'))
 	function loader($controller, $view, $data = NULL)
 	{
 		if (!file_exists(__DIR__ . "/../config/custom_config.php"))
-			header("Location: " . base_url() . "install/");
+			redirect(base_url() . "install/");
 		if ($controller->check_log->check_login() == FALSE)
-			header("Location: " . base_url() . "connexion/");
+			redirect(base_url() . "connexion/");
 		if ($controller->check_log->check_login() == FALSE)
 			$elem['profil_img'] = base_url() . 'assets/images/default-profile.png';
 		else

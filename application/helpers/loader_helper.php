@@ -27,9 +27,12 @@ if ( ! function_exists('loader'))
 			$elem['profil_img'] = "data:image/jpeg;base64," . $result[0]["picture"];
 		}
 
+		// chargement du NAV
 		$elem['nav'] = load_nav($controller);
 
 		$controller->load->view('main/header', $elem);
+
+		// load des views a chargé passé en parametre
 		if (is_array($view))
 		{
 			foreach ($view as $v)
@@ -37,16 +40,25 @@ if ( ! function_exists('loader'))
 		}
 		else if (is_string($view))
 			$controller->load->view($view, $data);
+
 		$controller->load->view('main/footer');
 	}
 
 	function load_nav($controller)
 	{
+		/*
+		**	selection des modules commencé par semestre croissant et date decroissante
+		*/
+		$id = $controller->check_log->obtain_id();
 		$query = $controller->db->query("SELECT `id`, `name`, `dt_start`, `semestre` FROM `modules` WHERE `dt_start` <= NOW()
 			ORDER BY `semestre` ASC, `dt_start` DESC");
 
 		$modules = $query->result_array();
-		$query = $controller->db->query("SELECT * FROM `user_modules` WHERE `user_id` LIKE ?", [$controller->check_log->obtain_id()]);
+
+		/*
+		**	Ajout de l'état du module pour l'utilisateur connecté
+		*/
+		$query = $controller->db->query("SELECT * FROM `user_modules` WHERE `user_id` LIKE ?", [$id]);
 		$query = $query->result_array();
 		foreach ($query as $data)
 		{
@@ -57,11 +69,16 @@ if ( ! function_exists('loader'))
 				$modules[$i]['state'] = $data['state'];
 		}
 
+		/*
+		**	Selection des projets associé et ajout du tableau des projets aux modules associé avec leurs états
+		*/
 		$query = $controller->db->query("SELECT `id`, `id_modules`, `name`, `dt_start` FROM `projects` WHERE `dt_start` <= NOW()
 			ORDER BY `id_modules` ASC, `dt_start` DESC");
 		$project = $query->result_array();
-		$query = $controller->db->query("SELECT * FROM `user_projects` WHERE `user_id` LIKE ?", [$controller->check_log->obtain_id()]);
+		$query = $controller->db->query("SELECT * FROM `user_projects` WHERE `user_id` LIKE ?", [$id]);
 		$query = $query->result_array();
+
+			// Ajout de l'état du projet
 		foreach ($query as $data)
 		{
 			$i = 0;
@@ -70,6 +87,8 @@ if ( ! function_exists('loader'))
 			if (isset($project[$i]))
 				$project[$i]['state'] = $data['state'];
 		}
+
+			// Ajout des projets aux modules
 		foreach ($project as $data)
 		{
 			$i = 0;

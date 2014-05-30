@@ -2,9 +2,18 @@
 
 class Home extends CI_Controller
 {
-	public function index()
+	public function		index()
 	{
-		loader($this, array('home'));
+		$data["project"] = $this::get_projects();
+		loader($this, array('home'), $data);
+	}
+
+	public function		get_projects()
+	{
+		$query = $this->db->query("SELECT `id`, `name`, `dt_end`, `dt_start`, `pdf_url`, `desc` FROM `projects` WHERE `dt_start` <= NOW() AND `dt_end` > NOW()");
+		$query = $query->result_array();
+
+		return ($query);
 	}
 }
 

@@ -56,15 +56,17 @@ $(document).ready(function()
 
     $(".arrow-module").click(function()
     {
-        if ($(this).parent().height() != 150)
+        if ($(this).parent().height() != 60)
         {
             $(this).css("-webkit-transform", "rotate(-90deg)");
-            $(this).parent().animate({height: 150}, 300);
+            $(this).parent().animate({height: 60}, 300);
         }
         else
         {
             $(this).css("-webkit-transform", "rotate(90deg)");
-            $(this).parent().animate({height: 250}, 300);
+            $size = $(this).parent().children(".module-desc").height() + 100;
+            console.log($size);
+            $(this).parent().animate({height: $size}, 300);
         }
     });
 

@@ -2,9 +2,11 @@
 
 class Home extends CI_Controller
 {
-	public function index()
+	public function		index()
 	{
-		loader($this, array('home'));
+		$this->load->model('projects_m');
+		$data["projects"] = $this->projects_m->get_projects();
+		loader($this, array('home'), $data);
 	}
 }
 

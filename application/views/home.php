@@ -2,22 +2,32 @@
 	/*
 	**	Affichage des projets en cours
 	*/
-	foreach ($project as $data)
+	foreach ($projects as $project)
 	{
 ?>
 
 		<div class='current_project'>
-			<h1><?php echo $data["name"]; ?></h1>
+			<h1><?php echo $project->name; ?></h1>
 
 <?php
-			echo anchor(base_url() . $data["pdf_url"], "Sujet", ["class" => "sujet_button"]) . "</br>";
-			echo anchor(base_url() . "module/inscription/" . $data["name"], "inscription", ["class" => "insc_button"]);
+			echo anchor(base_url() . $project->pdf_url, "Sujet", ["class" => "sujet_button"]) . "</br>";
+
+			/*
+			 *	Etat du projet
+			 */
+			if (!isset($this->projects_m))
+				$this->load->model('projects_m');
+			$state = $this->projects_m->get_project_stats($project->id, $this->session->userdata['user_login']);
+			if ($state == -1)
+				echo anchor(base_url().'module/project_register?id='.$project->id.'&name='.$project->name, 'Inscription', array('class' => 'button'));
+			else
+				echo $state;
 
 			/*
 			**	Calcule temps restant & progression (%)
 			*/
-			$rest = strtotime($data["dt_end"]) - time();
-			$state = round($rest / ((strtotime($data["dt_end"]) - strtotime($data["dt_start"])) / 100), 1);
+			$rest = strtotime($project->dt_end) - time();
+			$state = round($rest / ((strtotime($project->dt_end) - strtotime($project->dt_start)) / 100), 1);
 			$rest = ($rest / 60) / 60;
 			if ($rest < 24)
 				$rest = round($rest) < 2 ? round($rest) . " heure restante" : round($rest) . " heures restante";
@@ -27,7 +37,7 @@
 
 			<div><?php echo $rest; ?></div>
 			<div><?php echo $state . "%"; ?></div>
-			<div class='current_p_desc'><?php echo $data["desc"]; ?></div>
+			<div class='current_p_desc'><?php echo $project->desc; ?></div>
 		</div>
 
 <?php

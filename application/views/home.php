@@ -10,8 +10,6 @@
 			<h1><?php echo $project->name; ?></h1>
 
 <?php
-			echo anchor(base_url() . $project->pdf_url, "Sujet", ["class" => "sujet_button"]) . "</br>";
-
 			/*
 			 *	Etat du projet
 			 */
@@ -21,7 +19,10 @@
 			if ($state == -1)
 				echo anchor(base_url().'module/project_register?id='.$project->id.'&name='.$project->name, 'Inscription', array('class' => 'button'));
 			else
+			{
+				echo anchor(base_url() . $project->pdf_url, "Sujet", ["class" => "sujet_button"]) . "</br>";
 				echo $state;
+			}
 
 			/*
 			**	Calcule temps restant & progression (%)
@@ -35,7 +36,7 @@
 				$rest = round($rest / 24) < 2 ? round($rest / 24) . " jour restant" : round($rest / 24) . " jours restant";
 ?>
 
-			<div><?php echo $rest; ?></div>
+			<div><?php echo 'Durée: '.$this->projects_m->get_totaltime($project->id); ?></div>
 			<div><?php echo $state . "%"; ?></div>
 			<div class='current_p_desc'><?php echo $project->desc; ?></div>
 		</div>

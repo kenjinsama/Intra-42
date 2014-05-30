@@ -32,6 +32,16 @@
 			echo 'Durée: '.$this->projects_m->get_totaltime($project->id);
 			?>
 			</SPAN>
+			<SPAN class="project-percent">
+			<?PHP
+			/*
+			**	Calcule progression (%)
+			*/
+			$rest = strtotime($project->dt_end) - time();
+			$state = round($rest / ((strtotime($project->dt_end) - strtotime($project->dt_start)) / 100), 1);
+			echo $state;
+			?>
+			</SPAN>
 		</DIV>
 	</DIV>
 <?PHP endforeach; ?>

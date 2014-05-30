@@ -16,6 +16,72 @@
 	margin-top: -8px;
 }
 
+.required
+{
+	color: #F00;
+	font-weight: bold;
+}
+
+.f_form
+{
+	opacity: 0;
+	display: none;
+}
+
+.f_form input#text
+{
+	width: 600px;
+	height: 21px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.f_form textarea
+{
+	width: 800px;
+	height: 500px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.f_form select
+{
+	border: 0 !important;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: #33A3FF url(../images/drop.png) no-repeat center;
+	width: 210px;
+	height: 32px;
+	text-indent: 0.01px;
+	text-overflow: "";
+	font-size: 14px;
+	color: #FFF;
+	border-radius: 10px 0;
+	padding: 5px;
+	margin-left: 8px;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.f_form select:hover
+{
+	background: #FFB300 url(../images/drop.png) no-repeat center;
+	color: #000;
+}
+
+#options
+{
+	margin-top: 96px;
+	margin-left: 42px;
+	height: 500px;
+	float: left;
+}
+
+#new_subject
+{
+	cursor: pointer;
+	margin-left: 42px;
+}
+
 #categories a 
 {
 	display: block;

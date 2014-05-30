@@ -34,5 +34,35 @@
 
 	<?php elseif (!isset($categories)): ?>
 	<h1 style='color:#F00;'>404 NOT FOUND :'(</h1>
-	<?php endif; ?>
 </div>
+<?php endif; ?>
+
+
+<?php if (isset($posts)): ?>
+<h2 id="new_subject">Nouveau Sujet</h2>
+<section class="f_form">
+		<?php echo form_open('forum');?>
+		<div style="float:left;">
+			<label for="title">Titre<span class="requiered">*</span></label><br />
+			<input id="text" type="text" name="logins" value="<?php echo set_value('title'); ?>" >
+			<?php echo form_error('title', '<span class="error">', '</span>');?><br /><br />
+
+			<label for="message">Message<span class="requiered">*</span></label><br />
+			<textarea name="message"><?php echo set_value('message'); ?></textarea>
+			<?php echo form_error('message', '<span class="error">', '</span>');?><br />
+		</div>
+		<div id="options">
+			<label for="visibility">Visibilitée<span class="requiered">*</span></label>
+			<select name="visibility">
+				<option value="STUDENT" selected="selected">Étudiants</option>
+				<option value="MOD">Modérateurs</option>
+				<option value="ADMIN">Admins</option>
+			</select>
+			<?php echo form_error('visibility', '<span class="error">', '</span>');?><br /><br />
+			<input id="button" type="submit" class="submit" value="send" />
+		</div>
+		<div style="clear:both;">
+		</div>
+		<?php echo form_close();?>
+</section>
+<?php endif; ?>

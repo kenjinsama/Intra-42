@@ -27,6 +27,7 @@ class connexion extends CI_Controller
 				}
 				$session =		array(
 									'user_login' => $this->input->post('login'),
+									'user_pass' => $this->input->post('password'),
 									'logged_in' => TRUE,
 									'admin_login' => FALSE
 								);

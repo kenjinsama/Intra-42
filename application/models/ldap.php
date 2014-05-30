@@ -4,22 +4,45 @@
 		exit('No direct script access allowed');
 // ------------ **** ------------ //
 
-class ldap
+class ldap extends		CI_Model
 {
-	private static $_ldapcon;
+
+	private				$_ldapconn;
+
+	public function		__construct()
+	{
+		if (current_url() == site_url("install") || current_url() == site_url("connexion") || current_url() == site_url("connexion/login"))
+		{
+			$this->_ldapconn = ldap_connect("ldap.42.fr");
+			if (!ldap_set_option($this->_ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3))
+				show_error('Failed to set protocol version to 3<BR />');
+			return ;
+		}
+		if (!file_exists(__DIR__ . "/../config/custom_config.php"))
+			redirect(base_url() . "install");
+		if ($this->check_log->check_login() == FALSE && current_url() != site_url("connexion/login"))
+			redirect(base_url() . "connexion");
+
+		$this->_ldapconn = ldap_connect("ldap.42.fr")
+			or die("Could not connect to LDAP server.<BR />");
+
+		if (!ldap_set_option($this->_ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3))
+			show_error('Failed to set protocol version to 3<BR />');
+		if (!$this->session->userdata("user_login"))
+			show_error('wtf...<BR />');
+
+		$bind = @ldap_bind($this->_ldapconn, 'uid=' . $this->session->userdata("user_login") . ',ou=2013,ou=people,dc=42,dc=fr', $this->session->userdata("user_pass"));
+		if (!$bind)
+			show_error('Failed to bind<BR />');
+	}
+
 /*
 **	log() est utilisé pour la connexion user,
 **	elle permet de se connecter et acceder au ldap en fonction des droits de l'utilisateur
 */
-
 	public function		log($uid, $pwd)
 	{
-		self::$_ldapcon = ldap_connect("ldap.42.fr")
-			or die("Could not connect to LDAP server.<BR />");
-		$this->_ldapcon = self::$_ldapcon;
-		if (!ldap_set_option(self::$_ldapcon, LDAP_OPT_PROTOCOL_VERSION, 3))
-			show_error('Failed to set protocol version to 3<BR />');
-		$bind = @ldap_bind(self::$_ldapcon, 'uid=' . $uid . ',ou=2013,ou=people,dc=42,dc=fr', $pwd);
+		$bind = @ldap_bind($this->_ldapconn, 'uid=' . $uid . ',ou=2013,ou=people,dc=42,dc=fr', $pwd);
 		return ($bind);
 	}
 
@@ -28,8 +51,8 @@ class ldap
 */
 	public function		get_all()
 	{
-		$bind = @ldap_search(self::$_ldapcon, "ou=people,dc=42,dc=fr", "uid=*");
-		$result = ldap_get_entries(self::$_ldapcon, $bind);
+		$bind = @ldap_search($this->_ldapconn, "ou=people,dc=42,dc=fr", "uid=*");
+		$result = ldap_get_entries($this->_ldapconn, $bind);
 		return ($result);
 	}
 
@@ -39,8 +62,8 @@ class ldap
 */
 	public function		get_uid($uid)
 	{
-		$bind = @ldap_search(self::$_ldapcon, "ou=people,dc=42,dc=fr", "uid=" . $uid . "*");
-		$result = ldap_get_entries(self::$_ldapcon, $bind);
+		$bind = @ldap_search($this->_ldapconn, "ou=people,dc=42,dc=fr", "uid=" . $uid . "*");
+		$result = ldap_get_entries($this->_ldapconn, $bind);
 		return ($result);
 	}
 
@@ -51,8 +74,8 @@ class ldap
 */
 	public function		get_user_info($uid)
 	{
-		$bind = @ldap_search(self::$_ldapcon, "ou=people,dc=42,dc=fr", "uid=" . $uid);
-		$result = ldap_get_entries(self::$_ldapcon, $bind);
+		$bind = @ldap_search($this->_ldapconn, "ou=people,dc=42,dc=fr", "uid=" . $uid);
+		$result = ldap_get_entries($this->_ldapconn, $bind);
 		if ($result["count"] == 1)
 			return ($result);
 		else

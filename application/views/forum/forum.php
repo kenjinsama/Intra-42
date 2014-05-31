@@ -41,27 +41,37 @@
 <?php if (isset($posts)): ?>
 <h2 id="new_subject">Nouveau Sujet</h2>
 <section class="f_form">
-		<?php echo form_open('forum');?>
+		<?php echo form_open(current_url());?>
 		<div style="float:left;">
 			<label for="title">Titre<span class="requiered">*</span></label><br />
 			<input id="text" type="text" name="logins" value="<?php echo set_value('title'); ?>" >
 			<?php echo form_error('title', '<span class="error">', '</span>');?><br /><br />
 
 			<label for="message">Message<span class="requiered">*</span></label><br />
-			<textarea name="message"><?php echo set_value('message'); ?></textarea>
+			<textarea id="content" name="message"><?php echo set_value('message'); ?></textarea>
 			<?php echo form_error('message', '<span class="error">', '</span>');?><br />
 		</div>
 		<div id="options">
-			<label for="visibility">Visibilitée<span class="requiered">*</span></label>
-			<select name="visibility">
-				<option value="STUDENT" selected="selected">Étudiants</option>
-				<option value="MOD">Modérateurs</option>
-				<option value="ADMIN">Admins</option>
-			</select>
-			<?php echo form_error('visibility', '<span class="error">', '</span>');?><br /><br />
-			<input id="button" type="submit" class="submit" value="send" />
+			<div>
+				<div class="opt" onclick="tag('[url]', '[/url]', 'content');">[URL]</div>
+				<div class="opt" onclick="tag('[b]', '[/b]', 'content');">[BIG]</div>
+				<div class="opt" onclick="tag('[img]', '[/img]', 'content');">[IMG]</div>
+				<div class="opt" onclick="tag('[i]', '[/i]', 'content');">[ITA]</div>
+				<div class="opt" onclick="tag('[em]', '[/em]', 'content');">[EM]</div>
+			</div>
+			<div style="clear:both;">
+				<div class="preview" onclick="">Prévisualiser</div>
+				<label for="visibility">Visibilitée</label>
+				<select name="visibility">
+					<option value="STUDENT" selected="selected">Étudiants</option>
+					<option value="MOD">Modérateurs</option>
+					<option value="ADMIN">Admins</option>
+				</select>
+				<?php echo form_error('visibility', '<span class="error">', '</span>');?><br /><br />
+				<input id="button" type="submit" class="submit" value="Envoyer" />
+			</div>
 		</div>
-		<div style="clear:both;">
+			<div style="clear:both;">
 		</div>
 		<?php echo form_close();?>
 </section>

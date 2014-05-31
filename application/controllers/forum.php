@@ -22,6 +22,12 @@ class Forum extends CI_Controller {
 
 		if ($name != "thread")
 		{
+			$this->form_validation->set_rules('title', '', 'requiered');
+			$this->form_validation->set_rules('message', '', 'requiered');
+			if ($this->form_validation->run())
+			{
+
+			}
 			$data['categories'] = $this->Forum_m->get_categories_for($name);
 			$data['posts'] = $this->Forum_m->get_posts_for($name);
 		}

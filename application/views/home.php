@@ -43,4 +43,15 @@
 
 <?php
 	}
+	// include(APPPATH . "config/config.php");
+
+
+	// for ($y=0; $y < 10000; $y++)
+	// {
+
+
+	// 	echo $test . "<br/>";
+
+	// 	 . "<br/>";
+	// }
 ?>

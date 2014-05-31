@@ -11,7 +11,7 @@ class ldap extends		CI_Model
 
 	public function		__construct()
 	{
-		if (current_url() == site_url("install") || current_url() == site_url("connexion") || current_url() == site_url("connexion/login") || current_url() == site_url("install/validate"))
+		if (current_url() == site_url("install") || strstr(current_url(), site_url("connexion")) || current_url() == site_url("install/validate"))
 		{
 			$this->_ldapconn = ldap_connect("ldap.42.fr");
 			if (!ldap_set_option($this->_ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3))

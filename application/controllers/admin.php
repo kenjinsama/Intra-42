@@ -43,10 +43,13 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('grp_size', 'grp_size', 'trim|required|xss_clean|is_natural|numeric');
 		$this->form_validation->set_rules('nb_place', 'nb_place', 'trim|required|xss_clean|is_natural|numeric');
 		$this->form_validation->set_rules('rating_scale', 'rating_scale', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('nb_corrector', 'nb_corrector', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('types', 'types', 'trim|required|xss_clean');
 
-		if ($this->form_validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE
+			&& $this->input->post("types") != "Types" && $this->input->post("module") != "Module parent")
 		{
-			$this->db->query("INSERT INTO `projects` (`name`, `desc`, `dt_start`, `dt_end`, `dt_end_insc`, `dt_end_corr`, `id_modules`, `pdf_url`, `rating_scale`, `grp_size`, `nb_place`) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+			$this->db->query("INSERT INTO `projects` (`name`, `desc`, `dt_start`, `dt_end`, `dt_end_insc`, `dt_end_corr`, `id_modules`, `pdf_url`, `rating_scale`, `grp_size`, `nb_place`, `nb_corrector`, `type`, `auto_insc`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 				array(
 					$this->input->post("name"),
 					$this->input->post("description"),
@@ -58,7 +61,10 @@ class Admin extends CI_Controller
 					$this->input->post("pdf_url"),
 					$this->input->post("rating_scale"),
 					$this->input->post("grp_size"),
-					$this->input->post("nb_place")
+					$this->input->post("nb_place"),
+					$this->input->post("nb_corrector"),
+					$this->input->post("types"),
+					($this->input->post("auto_insc") ? 'TRUE' : 'FALSE')
 					)
 				);
 			redirect(base_url());

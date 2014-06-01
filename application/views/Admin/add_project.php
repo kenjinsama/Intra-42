@@ -47,7 +47,17 @@ echo	form_input(array('name' => 'dt_end_corr_h', 'id' => 'dt_end_corrc_h', 'type
 	?>
 </select>
 
+<select name="types" class="text">
+	<option>Types</option>
+	<option>PROJET</option>
+	<option>EXAM</option>
+	<option>TD</option>
+</select>
+
 <?PHP
+echo	form_label('Inscription auto', 'auto_insc');
+echo	form_checkbox(array('name' => 'auto_insc', 'id' => 'auto_insc', 'value' => TRUE));
+
 echo	form_error('pdf_url', '<span class="error">', '</span>');
 echo	form_label('URL du pdf', 'pdf_url');
 echo	form_input(array('name' => 'pdf_url', 'id' => 'pdf_url', 'placeholder' => 'URL pdf'));
@@ -55,6 +65,10 @@ echo	form_input(array('name' => 'pdf_url', 'id' => 'pdf_url', 'placeholder' => '
 echo	form_error('grp_size', '<span class="error">', '</span>');
 echo	form_label('Group size', 'grp_size');
 echo	form_input(array('name' => 'grp_size', 'id' => 'grp_size', 'placeholder' => 'xx', 'type' => 'number', 'min' => '0'));
+
+echo	form_error('nb_corrector', '<span class="error">', '</span>');
+echo	form_label('Corrector(s) number', 'nb_corrector');
+echo	form_input(array('name' => 'nb_corrector', 'id' => 'nb_corrector', 'placeholder' => 'xx', 'type' => 'number', 'min' => '0'));
 
 echo	form_error('nb_place', '<span class="error">', '</span>');
 echo	form_label('Place(s) number', 'nb_place');

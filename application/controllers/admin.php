@@ -17,7 +17,7 @@ class Admin extends CI_Controller
 	/*
 	**	PROJETS
 	*/
-	public function		add_projet()
+	public function		add_project()
 	{
 		if ($this->check_log->check_log_admin() == FALSE)
 			redirect(base_url());

@@ -6,7 +6,7 @@ class Home extends CI_Controller
 	{
 		$this->load->model('projects_m');
 		$data["projects"] = $this->projects_m->get_projects();
-		loader($this, array('home'), $data);
+		loader($this, 'home', $data);
 	}
 }
 

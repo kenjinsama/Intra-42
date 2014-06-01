@@ -47,7 +47,9 @@ class connexion extends CI_Controller
 		for ($i = 0; isset($secret[$i]) && $secret[$i] != '0'; $i++)
 			;
 		$login = substr($secret, 0, $i);
-		$pass = substr($secret, $i + 8);
+		for ($j = $i + 8; isset($secret[$j]) && $secret[$j] != "\0"; $j++)
+			;
+		$pass = substr($secret, $i + 8, $j - ($i + 8));
 		$this::save_connection($login, $pass);
 		header("Location: " . base_url());
 	}

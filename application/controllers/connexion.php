@@ -4,7 +4,7 @@
 		exit('No direct script access allowed');
 // ------------ **** ------------ //
 
-class connexion extends CI_Controller
+class Connexion extends CI_Controller
 {
 	public function index()
 	{

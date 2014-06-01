@@ -55,15 +55,14 @@ class check_log extends		CI_Model
 
 	public function		is_admin($uid)
 	{
-		// if ($this::check_login() === TRUE)
-		// {
-		// 	$query = $this->db->query("SELECT COUNT(id) FROM `admin` WHERE `uid` LIKE ?",
-		// 		[$uid]);
-		// 	$query = $query->result_array();
-		// 	if ($query[0]["COUNT(id)"])
-		// 		return TRUE;
-		// }
-		// return FALSE;
-		return (TRUE);
+		if ($this::check_login() === TRUE)
+		{
+			$query = $this->db->query("SELECT COUNT(id) FROM `users` WHERE `login` LIKE ? AND `status` LIKE 'ADMIN'",
+				[$uid]);
+			$query = $query->result_array();
+			if ($query[0]["COUNT(id)"] >= 1)
+				return (TRUE);
+		}
+		return (FALSE);
 	}
 }

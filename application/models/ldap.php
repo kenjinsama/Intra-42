@@ -4,7 +4,7 @@
 		exit('No direct script access allowed');
 // ------------ **** ------------ //
 
-class ldap extends		CI_Model
+class Ldap extends		CI_Model
 {
 
 	private				$_ldapconn;

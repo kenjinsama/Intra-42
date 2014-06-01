@@ -30,9 +30,10 @@ if ( ! function_exists('loader'))
 		// chargement du NAV
 		$elem['nav'] = load_nav($controller);
 
+		$elem['admin'] = $controller->check_log->check_log_admin();
 		$controller->load->view('main/header', $elem);
 
-		// load des views a chargé passé en parametre
+		// load des views a charger passé en parametre
 		if (is_array($view))
 		{
 			foreach ($view as $v)

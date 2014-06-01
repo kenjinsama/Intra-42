@@ -45,7 +45,7 @@
 			if ($admin)
 			{
 				echo anchor(base_url() . "admin/add_module", "+ Modules") . "<br />";
-				echo anchor(base_url() . "admin/add_projet", "+ Projets") . "<br />";
+				echo anchor(base_url() . "admin/add_project", "+ Projets") . "<br />";
 			}
 			/*
 			**	Impression des semestres, modules et projets chargé dans le loader_helper => load_nav

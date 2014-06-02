@@ -42,6 +42,7 @@ $route['default_controller'] = "home";
 $route['404_override'] = '';
 $route['forum/(.*)'] = 'forum/categories/$1';
 $route['user/tickets/([0-9]+)'] = 'user/see_ticket/$1';
+$route['user/response-tickets/([0-9]+)'] = 'user/response_ticket/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

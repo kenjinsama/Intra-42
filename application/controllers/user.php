@@ -19,16 +19,23 @@ class User extends CI_Controller
 	public function tickets()
 	{
 		$this->load->model('ticket');
-		$data["tickets"] = $this->ticket->get_all_tickets();
+		$data['isadmin'] = $this->check_log->check_log_admin();
+		if ($data['isadmin'])
+			$data['tickets'] = $this->ticket->get_all_tickets('priority');
+		else
+			$data['tickets'] = $this->ticket->get_all_tickets();
 		loader($this, 'user/tickets', $data);
 	}
 
 	public function create_tickets()
 	{
-		$data["title"] = array(
+		$this->load->model('ticket');
+		$data['title'] = array(
 			  'name'        => 'title_ticket',
               'id'          => 'title_ticket'
 		);
+		$data['enums'] = $this->ticket->enum_select('tickets', 'type');
+		$data['priorities'] = $this->ticket->enum_select('tickets', 'priority');
 		loader($this, 'user/create_tickets', $data);
 	}
 
@@ -36,16 +43,22 @@ class User extends CI_Controller
 	{
 		$this->form_validation->set_rules('title_ticket', 'Title', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('description', 'Description', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('type', 'Type', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('priority', 'Priority', 'trim|required|xss_clean');
 
 		if ($this->form_validation->run() == TRUE)
 		{
 			$ticket = array(
+				'title' => $this->input->post('title_ticket'),
+				'type' => $this->input->post('type'),
+				'priority' => $this->input->post('priority')
+			);
+			$comment = array(
 				'id_user' => $this->check_log->obtain_id(),
-				'titre' => $this->input->post('title_ticket'),
 				'content' => $this->input->post('description')
 			);
 			$this->load->model("ticket");
-			$this->ticket->create_ticket($ticket);
+			$this->ticket->create_ticket($ticket, $comment);
 			$this->tickets();
 		}
 		else
@@ -55,9 +68,27 @@ class User extends CI_Controller
 	public function see_ticket($id)
 	{
 		$this->load->model('ticket');
+		// $this->load->library('table');
+
 		$data['ticket'] = $this->ticket->get_ticket($id);
-		$data['img_profile'] = $this->ldap->get_img($this->session->userdata('user_login'));
-		loader($this, 'user/see_ticket', $data);
+
+		// echo '<pre>',print_r($data['ticket'], 1),'</pre>';
+		// $data['username'] = $this->session->userdata('user_login');
+		// $cell_img = array(
+		// 	'data' => '<img width="100" height="120" style="-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;" src="data:image/jpeg;base64,'.$this->ldap->get_img($data['username']).'" alt="profile">',
+		// 	'rowpan' => 2
+		// );
+		// $this->table->add_row($cell_img, 'Red', 'Green');
+		// $this->table->add_row('Red', 'Green');
+		// $data['table'] = $this->table->generate();
+		if ($data['ticket'])
+			loader($this, 'user/see_ticket', $data);
+	}
+
+	public function response_ticket($id)
+	{
+		$data['id'] = $id;
+		loader($this, 'user/response_ticket', $data);
 	}
 
 	public function yearbook($search = NULL)

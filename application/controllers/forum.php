@@ -1,4 +1,9 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+// ------------ HEAD ------------ //
+	if (!defined('BASEPATH'))
+		exit('No direct script access allowed');
+// ------------ **** ------------ //
+
 class Forum extends CI_Controller {
 
 	public function __construct()
@@ -22,6 +27,12 @@ class Forum extends CI_Controller {
 
 		if ($name != "thread")
 		{
+			$this->form_validation->set_rules('title', '', 'requiered');
+			$this->form_validation->set_rules('message', '', 'requiered');
+			if ($this->form_validation->run())
+			{
+
+			}
 			$data['categories'] = $this->Forum_m->get_categories_for($name);
 			$data['posts'] = $this->Forum_m->get_posts_for($name);
 		}

@@ -1,5 +1,5 @@
 <?php
-echo form_open(base_url() . 'add_module/validate');
+echo form_open(base_url() . 'admin/validate_module');
 
 echo	form_error('name', '<span class="error">', '</span>');
 echo	form_label('Module Name', 'name');
@@ -12,6 +12,10 @@ echo	form_textarea(array('name' => 'description', 'id' => 'description', 'placeh
 echo	form_error('nb_credit', '<span class="error">', '</span>');
 echo	form_label('Credit(s) number', 'nb_credit');
 echo	form_input(array('name' => 'nb_credit', 'id' => 'nb_credit', 'placeholder' => 'xx', 'type' => 'number', 'min' => '0'));
+
+echo	form_error('nb_place', '<span class="error">', '</span>');
+echo	form_label('Place(s) number', 'nb_place');
+echo	form_input(array('name' => 'nb_place', 'id' => 'nb_place', 'placeholder' => 'xx', 'type' => 'number', 'min' => '0'));
 
 echo	form_error('dt_start', '<span class="error">', '</span>');
 echo	form_error('dt_start_h', '<span class="error">', '</span>');

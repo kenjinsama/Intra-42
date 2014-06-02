@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class install extends CI_Controller
+class Install extends CI_Controller
 {
 	public function index()
 	{

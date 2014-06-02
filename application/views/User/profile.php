@@ -15,7 +15,11 @@
 
 			<?php
 				$result = $this->ldap->get_user_info($user_login);
-				echo "<img src='data:image/png;base64,".base64_encode($result[0]["picture"][0]) . "'>";?>
+				echo "<img src='data:image/png;base64,".base64_encode($result[0]["picture"][0]) . "'>";
+				echo anchor(base_url() . "user/profile/generate", "Generer un lien d'autologin");
+				if (isset($generate))
+					echo "<div>" . $generate . "</div>";
+			?>
 				<p>Bienvenue<b>
 				<?php echo $result[0]["first-name"][0]." ".$result[0]["last-name"][0]; ?></b></p>
 				<p><b><u>Vos Informations</u></b><p>

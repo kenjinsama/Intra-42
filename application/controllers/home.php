@@ -1,10 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+// ------------ HEAD ------------ //
+	if (!defined('BASEPATH'))
+		exit('No direct script access allowed');
+// ------------ **** ------------ //
 
 class Home extends CI_Controller
 {
-	public function index()
+	public function		index()
 	{
-		loader($this, array('home'));
+		$this->load->model('projects_m');
+		$data["projects"] = $this->projects_m->get_projects();
+		loader($this, 'home', $data);
 	}
 }
 

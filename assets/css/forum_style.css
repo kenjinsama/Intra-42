@@ -16,6 +16,166 @@
 	margin-top: -8px;
 }
 
+.required
+{
+	color: #F00;
+	font-weight: bold;
+}
+
+.f_form
+{
+	opacity: 0;
+	display: none;
+}
+
+.f_form input#text
+{
+	width: 600px;
+	height: 21px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+
+	font-size: 14px;
+}
+
+.f_form textarea
+{
+	width: 1200px;
+	height: 400px;
+	max-width: 1200px;
+	max-height: 400px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+
+	font-size: 14px;
+}
+
+.f_form select
+{
+	border: 0 !important;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: #33A3FF url(../images/drop.png) no-repeat center;
+	width: 210px;
+	height: 32px;
+	text-indent: 0.01px;
+	text-overflow: "";
+	font-size: 14px;
+	color: #FFF;
+	border-radius: 10px 0;
+	padding: 5px;
+	margin-left: 44dpx;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.f_form select:hover
+{
+	background: #FFB300 url(../images/drop.png) no-repeat center;
+	color: #000;
+}
+
+.f_form input#button
+{
+	border: 0 !important;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: #33A3FF;
+
+	width: 340px;
+	height: 42px;
+	font-size: 21px;
+	color: #FFF;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.f_form input#button:hover
+{
+	background: #FFB300;
+
+	color: #000;
+}
+
+.f_form input#button:active
+{
+	box-shadow: inset 0 0 10px rgba(000,000,000, 0.8);
+}
+
+.opt
+{
+	background-color: #000;
+
+	float: left;
+	width: 64px;
+	height: 64px;
+
+	cursor: pointer;
+
+	margin-right: 5px;
+	margin-bottom: 42px;
+	text-align: center;
+	line-height: 64px;
+	vertical-align: center;
+	font-size: 21px;
+	color: #FFF;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.opt:hover
+{
+	background-color: #FFF;
+
+	color: #000;
+}
+
+.opt:active
+{
+	box-shadow: inset 0 0 10px rgba(000,000,000, 0.8);
+}
+
+.preview
+{
+	border: 0 !important;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: #33A3FF;
+
+	cursor: pointer;
+	margin-bottom: 21px;
+	width: 340px;
+	height: 42px;
+	text-align: center;
+	line-height: 42px;
+	vertical-align: center;
+	font-size: 21px;
+	color: #FFF;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.preview:hover
+{
+	background: #FFB300;
+
+	color: #000;
+}
+
+.preview:active
+{
+	box-shadow: inset 0 0 10px rgba(000,000,000, 0.8);
+}
+
+#options
+{
+	margin-top: 99px;
+	margin-left: 42px;
+	float: left;
+}
+
+#new_subject
+{
+	cursor: pointer;
+	margin-left: 42px;
+}
+
 #categories a 
 {
 	display: block;

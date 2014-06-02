@@ -62,7 +62,7 @@ class Projects_m extends CI_Model
 			WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
 
 		$query = $query->result_array();
-		if (!$query)
+		if (!isset($query[0]["corrector_id"]))
 		{
 			$query = $this->db->query("SELECT `user_id` FROM `user_projects` WHERE `project_id` = ?", array($id));
 			$query = $query->result_array();
@@ -77,8 +77,6 @@ class Projects_m extends CI_Model
 			foreach ($query as $data)
 			{
 				$rand = rand(0, count($tbl) - 1);
-				var_dump($tbl);
-				var_dump($tbl[$rand]);
 				$this->db->query("INSERT INTO `ratings` (id_user, id_project, rate, nb_stars, corrector_id, done) VALUES(?,?,?,?,?,?)",
 					array(
 						$data["user_id"],

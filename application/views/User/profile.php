@@ -57,7 +57,6 @@
 				echo "Numéro : ".$result[0]["father-home-phone"][0]."<br />";
 			if (isset($result[0]["father-postal-address"][0]))
 				echo "Adresse : "."<br />".$result[0]["father-postal-address"][0]."<br />".$result[0]["father-postal-code"][0]." ".$result[0]["father-city"][0]."<br />".$result[0]["father-country"][0]."<br />";
-
 		?>
 	</body>
 	</div>

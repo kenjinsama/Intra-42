@@ -39,7 +39,7 @@ $(document).ready(function()
         }, 300);
     });
 
-    $("#search-background").click(function()
+    $("#search-input").blur(function()
     {
         $("#search-background").animate({
             opacity: 0

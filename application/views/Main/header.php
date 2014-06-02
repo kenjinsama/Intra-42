@@ -31,6 +31,7 @@
 			*/
 			echo anchor(base_url().'user/profile', 'Profile', array('class' => 'button')) . '<BR />';
 			echo anchor(base_url().'user/tickets', 'Tickets', array('class' => 'button')) . '<BR />';
+			echo anchor(base_url().'user/yearbook', 'Annuaire', array('class' => 'button')) . '<BR />';
 			echo anchor(base_url() . "connexion/logout", "Log out") . '<BR />';
 			if ($admin)
 			{

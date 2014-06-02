@@ -51,7 +51,7 @@ class Ldap extends		CI_Model
 */
 	public function		get_all()
 	{
-		$bind = @ldap_search($this->_ldapconn, "ou=people,dc=42,dc=fr", "uid=*");
+		$bind = @ldap_search($this->_ldapconn, "ou=2013,ou=people,dc=42,dc=fr", "uid=*");
 		$result = ldap_get_entries($this->_ldapconn, $bind);
 		return ($result);
 	}

@@ -47,4 +47,55 @@ class Projects_m extends CI_Model
 		$res = $query->result();
 		return (date_diff(date_create($res[0]->dt_start), date_create($res[0]->dt_end))->format('%d jours et %h heures'));
 	}
+
+	public function		get_projects_correction()
+	{
+		$query = $this->db->query("SELECT projects.id, name FROM `projects` INNER JOIN `user_projects` U ON U.project_id = projects.id
+			WHERE U.user_id = ? AND projects.dt_end < NOW() AND projects.dt_end_corr > NOW()", array($this->session->userdata('user_id')));
+
+		return ($query->result_array());
+	}
+
+	public function		get_correction($id)
+	{
+		$query = $this->db->query("SELECT `corrector_id`, `rate`, `nb_stars`, `done` FROM `ratings`
+			WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
+
+		$query = $query->result_array();
+		if (!$query)
+		{
+			$query = $this->db->query("SELECT `user_id` FROM `user_projects` WHERE `project_id` = ?", array($id));
+			$query = $query->result_array();
+			$i = 0;
+			$tbl = array();
+			foreach ($query as $data)
+			{
+				for ($j = 0; $j < 1; $j++)
+					$tbl[$i * 1 + $j] = $i;
+				$i++;
+			}
+			foreach ($query as $data)
+			{
+				$rand = rand(0, count($tbl) - 1);
+				var_dump($tbl);
+				var_dump($tbl[$rand]);
+				$this->db->query("INSERT INTO `ratings` (id_user, id_project, rate, nb_stars, corrector_id, done) VALUES(?,?,?,?,?,?)",
+					array(
+						$data["user_id"],
+						$id,
+						0,
+						0,
+						$tbl[$rand],
+						0
+					)
+				);
+				unset($tbl[$rand]);
+				$tbl = array_values($tbl);
+			}
+			$query = $this->db->query("SELECT `corrector_id`, `rate`, `nb_stars`, `done` FROM `ratings`
+			WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
+			$query = $query->result_array();
+		}
+		return ($query);
+	}
 }

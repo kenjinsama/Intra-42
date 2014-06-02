@@ -34,6 +34,7 @@ class Connexion extends CI_Controller
 		$this->session->unset_userdata("user_login");
 		$this->session->unset_userdata("user_pass");
 		$this->session->unset_userdata("admin_login");
+		$this->session->unset_userdata("user_id");
 		header("Location: " . base_url() . "connexion");
 	}
 
@@ -81,6 +82,7 @@ class Connexion extends CI_Controller
 
 	private function	save_connection($login, $pass)
 	{
+		$this->load->model("check_log");
 		if ($this->ldap->log($login, $pass))
 		{
 			if ($this::db_check($login) == FALSE)
@@ -88,11 +90,14 @@ class Connexion extends CI_Controller
 				header("Location: " . base_url() . "connexion");
 				return ;
 			}
+			$id = $this->check_log->obtain_id($login);
+			$admin = $this->check_log->is_admin($login);
 			$session =		array(
 								'user_login'	=> $login,
 								'user_pass'		=> $pass,
+								'user_id'		=> $id,
 								'logged_in'		=> TRUE,
-								'admin_login'	=> FALSE
+								'admin_login'	=> $admin
 							);
 
 			$this->session->set_userdata($session);

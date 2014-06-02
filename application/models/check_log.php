@@ -27,11 +27,13 @@ class check_log extends		CI_Model
 	/*
 	**	Retourne l'id de l'utilisateur connecté ou NULL si aucun utilisateur est connecté obtain_id renvoi NULL
 	*/
-	public function		obtain_id()
+	public function		obtain_id($uid = NULL)
 	{
+		if ($uid == NULL)
+			$uid = $this->session->userdata("user_login");
 		if ($this::check_login() == FALSE)
 			return (NULL);
-		$query = $this->db->query("SELECT `id` FROM `users` WHERE `login` LIKE ?", [$this->session->userdata('user_login')]);
+		$query = $this->db->query("SELECT `id` FROM `users` WHERE `login` = ?", array($uid));
 		$query = $query->result_array();
 
 		return ($query[0]['id']);
@@ -55,14 +57,11 @@ class check_log extends		CI_Model
 
 	public function		is_admin($uid)
 	{
-		if ($this::check_login() === TRUE)
-		{
-			$query = $this->db->query("SELECT COUNT(id) FROM `users` WHERE `login` LIKE ? AND `status` LIKE 'ADMIN'",
-				[$uid]);
-			$query = $query->result_array();
-			if ($query[0]["COUNT(id)"] >= 1)
-				return (TRUE);
-		}
+		$query = $this->db->query("SELECT COUNT(id) FROM `users` WHERE `login` LIKE ? AND `status` LIKE 'ADMIN'",
+			[$uid]);
+		$query = $query->result_array();
+		if ($query[0]["COUNT(id)"] >= 1)
+			return (TRUE);
 		return (FALSE);
 	}
 }

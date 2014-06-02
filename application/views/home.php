@@ -42,4 +42,6 @@
 		</div>
 <?php
 	}
+	var_dump($this->projects_m->get_correction("2"));
+	// var_dump($this->projects_m->get_projects_correction());
 ?>

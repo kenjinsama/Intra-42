@@ -40,7 +40,6 @@
 			<div><?php echo $state . "%"; ?></div>
 			<div class='current_p_desc'><?php echo $project->desc; ?></div>
 		</div>
-
 <?php
 	}
 ?>

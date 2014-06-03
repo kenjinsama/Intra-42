@@ -42,6 +42,17 @@
 		</div>
 <?php
 	}
-	var_dump($this->projects_m->get_correction("2"));
-	// var_dump($this->projects_m->get_projects_correction());
+
+	/*
+	**	DEBUG : affichage des id des correcteurs
+	*/
+	$correction = $this->projects_m->get_projects_correction();
+	foreach ($correction as $data)
+	{
+		if ($data["id"] > 0)
+		{
+			$result = $this->projects_m->get_correction("2");
+			echo $result[0]["corrector_id"] . "<br />";
+		}
+	}
 ?>

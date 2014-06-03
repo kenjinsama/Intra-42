@@ -56,27 +56,49 @@ class Projects_m extends CI_Model
 		return ($query->result_array());
 	}
 
+	/*
+	**	Retourne les infos sur les correcteur de l'utilisateur connecté et génere les correcteur si il ce n'est pas fait
+	*/
 	public function		get_correction($id)
 	{
 		$query = $this->db->query("SELECT `corrector_id`, `rate`, `nb_stars`, `done` FROM `ratings`
 			WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
 
 		$query = $query->result_array();
-		if (!isset($query[0]["corrector_id"]))
+
+		/*
+		**	Si aucun resultat alors on genere les correcteurs
+		*/
+		if (count($query) == 0)
 		{
 			$query = $this->db->query("SELECT `user_id` FROM `user_projects` WHERE `project_id` = ?", array($id));
 			$query = $query->result_array();
-			$i = 0;
+			$nb_corrector = $this->db->query("SELECT `nb_corrector` FROM `projects` WHERE `id` = ?", array($id));
+			$nb_corrector = $nb_corrector->result_array();
+			$nb_corrector = $nb_corrector[0]["nb_corrector"];
+
+			// On genere autant de correcteur que demandé dans la limite du possible
+			$i = 1;
 			$tbl = array();
 			foreach ($query as $data)
 			{
-				for ($j = 0; $j < 1; $j++)
-					$tbl[$i * 1 + $j] = $i;
+				for ($j = 0; $j < $nb_corrector; $j++)
+					$tbl[$i * $nb_corrector + $j] = $i;
 				$i++;
 			}
+
+			// On enregistre les correcteurs
 			foreach ($query as $data)
 			{
+				if (count($tbl) < 1)
+				{
+					$query = $this->db->query("SELECT `corrector_id`, `rate`, `nb_stars`, `done` FROM `ratings`
+					WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
+					return($query->result_array());
+				}
 				$rand = rand(0, count($tbl) - 1);
+				while (!isset($tbl[$rand]))
+					$rand = rand(0, count($tbl) - 1);
 				$this->db->query("INSERT INTO `ratings` (id_user, id_project, rate, nb_stars, corrector_id, done) VALUES(?,?,?,?,?,?)",
 					array(
 						$data["user_id"],
@@ -90,6 +112,8 @@ class Projects_m extends CI_Model
 				unset($tbl[$rand]);
 				$tbl = array_values($tbl);
 			}
+
+			// On retourne chercher les infos des correcteurs
 			$query = $this->db->query("SELECT `corrector_id`, `rate`, `nb_stars`, `done` FROM `ratings`
 			WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
 			$query = $query->result_array();

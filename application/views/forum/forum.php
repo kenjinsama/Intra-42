@@ -43,13 +43,13 @@
 <section class="f_form">
 		<?php echo form_open(current_url());?>
 		<div style="float:left;">
-			<label for="title">Titre<span class="requiered">*</span></label><br />
-			<input id="text" type="text" name="logins" value="<?php echo set_value('title'); ?>" >
-			<?php echo form_error('title', '<span class="error">', '</span>');?><br /><br />
+			<label for="title">Titre<span class="requiered">*</span></label>&nbsp;<?php echo form_error('title', '<span class="error">', '</span>');?><br />
+			<input id="text" type="text" name="title" value="<?php echo set_value('title'); ?>" >
+			<br /><br />
 
-			<label for="message">Message<span class="requiered">*</span></label><br />
+			<label for="message">Message<span class="requiered">*</span></label>&nbsp;<?php echo form_error('message', '<span class="error">', '</span>');?><br />
 			<textarea id="content" name="message"><?php echo set_value('message'); ?></textarea>
-			<?php echo form_error('message', '<span class="error">', '</span>');?><br />
+			<br />
 		</div>
 		<div id="options">
 			<div>

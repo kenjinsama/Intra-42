@@ -28,7 +28,7 @@ class Admin extends CI_Controller
 
 	public function validate_project()
 	{
-		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_start', 'Start date', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_end', 'deadline', 'trim|required|xss_clean');
@@ -85,7 +85,7 @@ class Admin extends CI_Controller
 
 	public function validate_module()
 	{
-		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|alpha_dash');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|alpha_dash|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nb_credit', 'nb_credit', 'trim|required|xss_clean|is_natural|numeric');
 		$this->form_validation->set_rules('nb_place', 'nb_place', 'trim|required|xss_clean|is_natural|numeric');
@@ -112,5 +112,18 @@ class Admin extends CI_Controller
 			redirect(base_url());
 		}
 		$this->add_module();
+	}
+
+	function check_name()
+	{
+		if (empty($_POST['name']))
+			return (false);
+		if (preg_match('/^[a-zA-Z -_.]*$/', $_POST['name']))
+			return (true);
+		else
+		{
+			$this->form_validation->set_message('check_name', 'Bad title format.');
+			return (false);
+		}
 	}
 }

@@ -31,8 +31,8 @@ class User extends CI_Controller
 	{
 		$this->load->model('ticket');
 		$data['title'] = array(
-			  'name'        => 'title_ticket',
-              'id'          => 'title_ticket'
+				'name'			=> 'title_ticket',
+				'id'			=> 'title_ticket'
 		);
 		$data['enums'] = $this->ticket->enum_select('tickets', 'type');
 		$data['priorities'] = $this->ticket->enum_select('tickets', 'priority');

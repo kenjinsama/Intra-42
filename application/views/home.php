@@ -51,8 +51,13 @@
 	{
 		if ($data["id"] > 0)
 		{
-			$result = $this->projects_m->get_correction("2");
+			$result = $this->projects_m->get_corrector("6");
 			echo $result[0]["corrector_id"] . "<br />";
+			$result = $this->projects_m->get_corrected($data["id"]);
+			if (isset($result[0]["corrector_id"]))
+				echo $result[0]["corrector_id"] . "<br />";
 		}
 	}
+
+
 ?>

@@ -59,7 +59,7 @@ class Projects_m extends CI_Model
 	/*
 	**	Retourne les infos sur les correcteur de l'utilisateur connecté et génere les correcteur si il ce n'est pas fait
 	*/
-	public function		get_correction($id)
+	public function		get_corrector($id)
 	{
 		$query = $this->db->query("SELECT `corrector_id`, `rate`, `nb_stars`, `done` FROM `ratings`
 			WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
@@ -71,6 +71,15 @@ class Projects_m extends CI_Model
 		*/
 		if (count($query) == 0)
 		{
+			/*
+			**	On verifie qu'il y a plusieurs inscrits sinon on return(NULL)
+			*/
+			$query = $this->db->query("SELECT COUNT('id') FROM `user_projects` WHERE `project_id` = '6'");
+			$query = $query->result_array();
+			if ($query[0]["COUNT('id')"] < 2)
+				return (NULL);
+
+
 			$query = $this->db->query("SELECT `user_id` FROM `user_projects` WHERE `project_id` = ?", array($id));
 			$query = $query->result_array();
 			$nb_corrector = $this->db->query("SELECT `nb_corrector` FROM `projects` WHERE `id` = ?", array($id));
@@ -90,7 +99,7 @@ class Projects_m extends CI_Model
 			// On enregistre les correcteurs
 			foreach ($query as $data)
 			{
-				if (count($tbl) < 1)
+				if (count($tbl) < 2)
 				{
 					$query = $this->db->query("SELECT `corrector_id`, `rate`, `nb_stars`, `done` FROM `ratings`
 					WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
@@ -119,5 +128,13 @@ class Projects_m extends CI_Model
 			$query = $query->result_array();
 		}
 		return ($query);
+	}
+
+	public function		get_corrected($id)
+	{
+		$query = $this->db->query("SELECT `id_user`, `rate`, `nb_stars`, `done` FROM `ratings`
+			WHERE `id_project` = ? AND `corrector_id` = ?", array($id, $this->session->userdata('user_id')));
+
+		return ($query->result_array());
 	}
 }

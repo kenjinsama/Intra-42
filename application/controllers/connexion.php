@@ -101,6 +101,7 @@ class Connexion extends CI_Controller
 							);
 
 			$this->session->set_userdata($session);
+			$this->session->set_userdata(array("user_id" => $this->check_log->obtain_id($this->session->userdata("user_login"))));
 		}
 	}
 }

@@ -41,17 +41,17 @@ class Connexion extends CI_Controller
 	public function		autologin($key)
 	{
 		include(APPPATH . "config/config.php");
-		$secret = base64_decode($key);
+		$secret = base64_decode(strtr($key, '-_,', '+/='));
 		$rand_string = substr($secret, 0, 5);
 		$secret = substr($secret, 5);
 		$secret = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $rand_string . $config['encryption_key'], $secret, MCRYPT_MODE_ECB);
 		for ($i = 0; isset($secret[$i]) && $secret[$i] != '0'; $i++)
 			;
 		$login = substr($secret, 0, $i);
-		for ($j = $i + 8; isset($secret[$j]) && $secret[$j] != "\0"; $j++)
+		for ($j = 15; isset($secret[$j]) && $secret[$j] != "\0"; $j++)
 			;
-		$pass = substr($secret, $i + 8, $j - ($i + 8));
-		$this::save_connection($login, $pass);
+		$pass = substr($secret, 17, $j - 17);
+		$this->save_connection($login, $pass);
 		header("Location: " . base_url());
 	}
 

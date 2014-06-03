@@ -103,9 +103,12 @@ class User extends CI_Controller
 		include(APPPATH . "config/config.php");
 		for ($i = 0; $i < 5; $i++)
 			$random_string = $random_string.chr(rand(33, 124));
-		$secret = $this->session->userdata("user_login") . "00000000" . $this->session->userdata("user_pass");
+		$separator = "0";
+		while (strlen($this->session->userdata("user_login") . $separator) <= 16)
+			$separator = $separator . "0";
+		$secret = $this->session->userdata("user_login") . $separator . $this->session->userdata("user_pass");
 		$key = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $random_string . $config['encryption_key'], $secret, MCRYPT_MODE_ECB);
-		$data["generate"] = base_url() . "connexion/autologin/" . base64_encode($random_string . $key);
+		$data["generate"] = base_url() . "connexion/autologin/" . strtr(base64_encode($random_string . $key), '+/=', '-_,');
 		$data['user'] = $this->ldap->get_user_info($this->session->userdata('user_login'))[0];
 		loader($this, 'user/profile', $data);
 	}

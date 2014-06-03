@@ -41,7 +41,7 @@ class Connexion extends CI_Controller
 	public function		autologin($key)
 	{
 		include(APPPATH . "config/config.php");
-		$secret = base64_decode(strtr($key, '-_,', '+/='));
+		$secret = base64_decode(strtr($key, '-_', '+/'));
 		$rand_string = substr($secret, 0, 5);
 		$secret = substr($secret, 5);
 		$secret = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $rand_string . $config['encryption_key'], $secret, MCRYPT_MODE_ECB);

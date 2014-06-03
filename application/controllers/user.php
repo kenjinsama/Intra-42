@@ -108,7 +108,7 @@ class User extends CI_Controller
 			$separator = $separator . "0";
 		$secret = $this->session->userdata("user_login") . $separator . $this->session->userdata("user_pass");
 		$key = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $random_string . $config['encryption_key'], $secret, MCRYPT_MODE_ECB);
-		$data["generate"] = base_url() . "connexion/autologin/" . strtr(base64_encode($random_string . $key), '+/=', '-_,');
+		$data["generate"] = base_url() . "connexion/autologin/" . strtr(base64_encode($random_string . $key), '+/', '-_');
 		$data['user'] = $this->ldap->get_user_info($this->session->userdata('user_login'))[0];
 		loader($this, 'user/profile', $data);
 	}

@@ -71,7 +71,7 @@ class Projects_m extends CI_Model
 	}
 
 	/*
-	**	Retourne les infos sur les correcteur de l'utilisateur connecté et génere les correcteur si il ce n'est pas fait
+	**	Retourne les infos sur les correcteurs de l'utilisateur connecté et génere les correcteurs si ce n'est pas fait
 	*/
 	public function		get_corrector($id)
 	{

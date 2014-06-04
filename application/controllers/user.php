@@ -93,8 +93,40 @@ class User extends CI_Controller
 
 	public function yearbook($search = NULL)
 	{
-		$data['users'] = $this->ldap->get_all();
-		loader($this, 'user/yearbook', $data);
+		loader($this, 'user/yearbook');
+	}
+
+	public function get_users_order($order = 0)
+	{
+		$users = $this->ldap->get_all();
+		$i = 0;
+		foreach ($users as $user)
+		{
+			if (isset($user['uid'][0]))
+			{
+				$array[$i] = $user['uid'][0];
+				$i++;
+			}
+		}
+		if ($order == 0)
+			asort($array);
+		else
+			arsort($array);
+		foreach ($array as $value)
+		{
+			echo anchor(base_url().'user/profile/'.$value, $value, array('class' => 'button')) . '<BR />';
+		}
+	}
+
+	public function		get_uid($uid = null)
+	{
+		$bind = @ldap_search($this->ldap->_ldapconn, "ou=people,dc=42,dc=fr", "uid=" . $uid . "*");
+		$result = ldap_get_entries($this->ldap->_ldapconn, $bind);
+		foreach ($result as $value)
+		{
+			if (isset($value['uid'][0]))
+				echo anchor(base_url().'user/profile/'.$value['uid'][0], $value['uid'][0], array('class' => 'button')) . '<BR />';
+		}
 	}
 
 	public function generate()

@@ -6,8 +6,7 @@
 
 class Ldap extends		CI_Model
 {
-
-	private				$_ldapconn;
+	public				$_ldapconn;
 
 	public function		__construct()
 	{

@@ -4,7 +4,7 @@
 	<META charset="utf-8">
 	<TITLE>Intra 42</TITLE>
 	<LINK rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css" type="text/css" media="screen"/>
-	<SCRIPT type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="<?PHP echo base_url(); ?>assets/js/main.js"></SCRIPT>
 </HEAD>
 <BODY style="overflow-x: hidden;">

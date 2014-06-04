@@ -17,9 +17,23 @@ class Projects_m extends CI_Model
 		return ($query->result());
 	}
 
-	public function		get_project($name)
+	public function		get_project($name = NULL)
 	{
-		$this->db->where('name', $name);
+		if ($name)
+			$this->db->where('name', $name);
+		$query = $this->db->get('projects');
+		if ($name == NULL)
+			return ($query->result());
+		else
+		{
+			$query = $query->result();
+			return ($query[0]);
+		}
+	}
+
+	public function		get_project_by_id($id)
+	{
+		$this->db->where('id', $id);
 		$query = $this->db->get('projects');
 		$res = $query->result();
 		return ($res[0]);

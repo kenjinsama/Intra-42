@@ -33,10 +33,6 @@
 			echo anchor(base_url().'user/tickets', 'Tickets', array('class' => 'button')) . '<BR />';
 			echo anchor(base_url().'user/yearbook', 'Annuaire', array('class' => 'button')) . '<BR />';
 			echo anchor(base_url() . "connexion/logout", "Log out") . '<BR />';
-			if ($admin)
-			{
-				echo anchor(base_url() . "admin", "Panel Admin") . "<br />";
-			}
 			?>
 		</DIV>
 	</HEADER>
@@ -45,8 +41,9 @@
 		<?php
 			if ($admin)
 			{
-				echo anchor(base_url() . "admin/add_module", "+ Modules") . "<br />";
-				echo anchor(base_url() . "admin/add_project", "+ Projets") . "<br />";
+				echo "Panel admin:<BR />";
+				echo anchor(base_url() . "admin/add_module", "Ajouts de modules") . "<br />";
+				echo anchor(base_url() . "admin/add_project", "Ajouts de projets") . "<br /><br />";
 			}
 			/*
 			**	Impression des semestres, modules et projets chargé dans le loader_helper => load_nav

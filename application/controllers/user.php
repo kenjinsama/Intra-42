@@ -13,6 +13,9 @@ class User extends CI_Controller
 			$data['user'] = $this->ldap->get_user_info($user)[0];
 		else
 			$data['user'] = $this->ldap->get_user_info($this->session->userdata('user_login'))[0];
+		// DUMP THIS AFTER TEST
+		// $this->load->model('modules_m');
+		// var_dump($this->modules_m->get_modules_from_user($this->session->userdata('user_id')));
 		loader($this, 'user/profile', $data);
 	}
 

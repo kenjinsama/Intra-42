@@ -5,14 +5,14 @@ $(document).ready(function()
     {
 	    if ($sort == 0)
 	    {
-		    $.get("/user/get_users_order/0", function (users)
+		    $.get("/ajax/get_users_order/0", function (users)
 		    {
 			    $('.yearbook').html(users);
 		    });
 	    }
 	    else
 	    {
-		    $.get("/user/get_users_order/1", function (users)
+		    $.get("/ajax/get_users_order/1", function (users)
 		    {
 			    $('.yearbook').html(users);
 		    });
@@ -23,7 +23,7 @@ $(document).ready(function()
 	$('#name-search').keyup(function()
 	{
 		var value = $( this ).val();
-		$.get("/user/get_uid/"+value, {uid:value}, function (data)
+		$.get("/ajax/get_uid/"+value, function (data)
 		{
 			$('.yearbook').html(data);
 		});

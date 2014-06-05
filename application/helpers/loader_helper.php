@@ -91,21 +91,24 @@ if ( ! function_exists('loader'))
 
 			// Ajout des projets aux modules
 
-		$id_modules = $project[0]['id_modules'];
-		$y = 0;
-		foreach ($project as $data)
+		if (isset($project[0]['id_modules']))
 		{
-			$i = 0;
-
-			if ($id_modules != $data["id_modules"])
+			$id_modules = $project[0]['id_modules'];
+			$y = 0;
+			foreach ($project as $data)
 			{
-				$y = 0;
-				$id_modules = $data["id_modules"];
+				$i = 0;
+
+				if ($id_modules != $data["id_modules"])
+				{
+					$y = 0;
+					$id_modules = $data["id_modules"];
+				}
+				while (isset($modules[$i]) && $data['id_modules'] != $modules[$i]['id'])
+					$i++;
+				if (isset($modules[$i]))
+					$modules[$i]['project'][$y++] = $data;
 			}
-			while (isset($modules[$i]) && $data['id_modules'] != $modules[$i]['id'])
-				$i++;
-			if (isset($modules[$i]))
-				$modules[$i]['project'][$y++] = $data;
 		}
 		return ($modules);
 	}

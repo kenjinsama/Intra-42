@@ -67,6 +67,15 @@ class Admin extends CI_Controller
 					($this->input->post("auto_insc") ? 'TRUE' : 'FALSE')
 					)
 				);
+			$bdd_users = $this->check_log->get_all_bdduser();
+			$this->load->model('projects_m');
+			foreach ($bdd_users as $user)
+				$this->db->query('INSERT INTO `user_projects` (`user_id`, `project_id`, `id_master`) VALUES(?,?,?)',
+					array(
+						$user->id,
+						$this->projects_m->get_project($this->input->post("name"))->id,
+						$user->id
+					));
 			redirect(base_url());
 		}
 		$this->add_project();

@@ -64,4 +64,10 @@ class check_log extends		CI_Model
 			return (TRUE);
 		return (FALSE);
 	}
+
+	public function 	get_all_bdduser()
+	{
+		$query = $this->db->query('SELECT * FROM `users`');
+		return ($query->result());
+	}
 }

@@ -10,7 +10,7 @@ class Projects_m extends CI_Model
 	{
 		if ($name == NULL)
 		{
-			$query = $this->db->query("SELECT `id`, `name`, `dt_end`, `dt_start`, `pdf_url`, `desc` FROM `projects` WHERE `dt_start` <= NOW() AND `dt_end` > NOW()");
+			$query = $this->db->query("SELECT `id`, `name`, `dt_end`, `dt_start`, `pdf_url`, `desc`, `grp_size` FROM `projects` WHERE `dt_start` <= NOW() AND `dt_end` > NOW()");
 			return ($query->result());
 		}
 		$query = $this->db->query('SELECT projects.id, projects.name, projects.desc, projects.dt_end, projects.dt_start FROM `projects` INNER JOIN `modules` ON projects.id_modules=modules.id WHERE modules.name="'.$name.'" AND projects.dt_start <= NOW() AND projects.dt_end > NOW()');
@@ -19,13 +19,18 @@ class Projects_m extends CI_Model
 
 	public function		get_project($name)
 	{
-		$this->db->where('name', $name);
-		$query = $this->db->get('projects');
+		$query = $this->db->query('SELECT * FROM projects WHERE name="'.$name.'"');
 		$res = $query->result();
 		return ($res[0]);
 	}
 
-	public function		get_project_stats($project_id, $user)
+	public function 	get_project_group($id, $project_id)
+	{
+		$query = $this->db->query('SELECT `id` FROM `user_projects` WHERE project_id = "'.$project_id.'" AND id_master = "'.$id.'"');
+		return $query->result();
+	}
+
+	public function		get_project_state($project_id, $user)
 	{
 		$query = $this->db->query('SELECT state FROM `user_projects` INNER JOIN `users` ON users.id = user_projects.user_id WHERE users.login = "'.$user.'" AND user_projects.project_id = "'.$project_id.'"');
 		$res = $query->result();
@@ -36,9 +41,16 @@ class Projects_m extends CI_Model
 
 	public function 	get_registered($project_id)
 	{
-		$query = $this->db->query('SELECT COUNT(*) AS nb FROM `user_projects` WHERE project_id = "'.$project_id.'"');
+		$query = $this->db->query('SELECT COUNT(*) AS nb FROM `user_projects` WHERE project_id = "'.$project_id.'" AND state = REGISTERED');
 		$res = $query->result();
 		return ($res[0]);
+	}
+
+	public function 	get_unregistered($project_id)
+	{
+		$query = $this->db->query('SELECT users.id, `login` FROM `users` INNER JOIN `user_projects` U ON users.id = U.user_id WHERE U.state = "UNREGISTERED" AND U.project_id = "'.$project_id.'"');
+		$res = $query->result_array();
+		return ($res);
 	}
 
 	public function 	get_totaltime($project_id)
@@ -136,5 +148,15 @@ class Projects_m extends CI_Model
 			WHERE `id_project` = ? AND `corrector_id` = ?", array($id, $this->session->userdata('user_id')));
 
 		return ($query->result_array());
+	}
+
+	public function 	register_user($user_id, $project_id)
+	{
+		$this->db->query("INSERT INTO `user_projects` (`user_id`, `project_id`, `state`) VALUES(?,?,?)",
+			array(
+				'user_id' => $user_id,
+				'project_id' => $project_id,
+				'state' => 'REGISTERED'
+			));
 	}
 }

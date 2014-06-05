@@ -19,11 +19,24 @@ class Admin extends CI_Controller
 	}
 
 	/*
+	**	INSCRIPTION : inscrit tout les utilisateur a projet ou a un module
+	*/
+	public function		insc_module($id = NULL)
+	{
+		if ($id == NULL || $this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
+
+		$this->load->model("update_bdd");
+		$this->update_bdd->insc_all_m($id, "REGISTERED");
+		redirect(base_url() . "admin");
+	}
+
+	/*
 	**	CONVERTION : convertie le resultats des requetes pour generer tableau html
 	*/
 	private function	convert_proj_tbl($proj)
 	{
-		$result = array(array("Nom", "start", "end", "nb_place", "Editer", "Supprimer"));
+		$result = array(array("Nom", "start", "end", "nb_place", "Editer", "Supprimer", "Inscription"));
 		$i = 1;
 		foreach ($proj as $data)
 		{
@@ -33,7 +46,8 @@ class Admin extends CI_Controller
 						$data->dt_end,
 						$data->nb_place,
 						anchor(base_url() . "admin/edit_p/" . $data->id, "Editer"),
-						anchor(base_url() . "admin/del_p/" . $data->id, "Supprimer")
+						anchor(base_url() . "admin/del_p/" . $data->id, "Supprimer"),
+						anchor(base_url() . "admin/insc_proj/" . $data->id, "Inscrire tout les utilisateurs")
 						);
 			$i++;
 		}
@@ -42,7 +56,7 @@ class Admin extends CI_Controller
 
 	private function	convert_mod_tbl($proj)
 	{
-		$result = array(array("Nom", "start", "end", "nb_place", "Editer", "Supprimer"));
+		$result = array(array("Nom", "start", "end", "nb_place", "Editer", "Supprimer", "Inscription"));
 		$i = 1;
 		foreach ($proj as $data)
 		{
@@ -52,7 +66,8 @@ class Admin extends CI_Controller
 						$data->dt_end,
 						$data->nb_place,
 						anchor(base_url() . "admin/edit_m/" . $data->id, "Editer"),
-						anchor(base_url() . "admin/del_m/" . $data->id, "Supprimer")
+						anchor(base_url() . "admin/del_m/" . $data->id, "Supprimer"),
+						anchor(base_url() . "admin/insc_module/" . $data->id, "Inscrire tout les utilisateurs")
 						);
 			$i++;
 		}
@@ -107,6 +122,8 @@ class Admin extends CI_Controller
 	*/
 	public function validate_edit_m($id)
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|alpha_dash|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nb_credit', 'nb_credit', 'trim|required|xss_clean|is_natural|numeric');
@@ -139,6 +156,8 @@ class Admin extends CI_Controller
 
 	public function validate_edit_p($id)
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_start', 'Start date', 'trim|required|xss_clean');
@@ -198,6 +217,8 @@ class Admin extends CI_Controller
 
 	public function validate_project()
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
 		$this->load->model("modules_m");
 		$this->load->model("update_bdd");
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|callback_check_name');
@@ -301,6 +322,8 @@ class Admin extends CI_Controller
 
 	public function validate_module()
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|alpha_dash|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nb_credit', 'nb_credit', 'trim|required|xss_clean|is_natural|numeric');

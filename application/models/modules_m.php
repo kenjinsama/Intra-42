@@ -12,6 +12,13 @@ class Modules_m extends CI_Model
 		return ($query->result());
 	}
 
+	public function		get_module($id)
+	{
+		$this->db->where('id', $id);
+		$query = $this->db->get('modules');
+		$res = $query->result();
+		return ($res[0]);
+	}
 }
 
 ?>

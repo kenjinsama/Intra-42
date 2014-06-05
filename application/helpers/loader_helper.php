@@ -89,7 +89,7 @@ if ( ! function_exists('loader'))
 				$project[$i]['state'] = $data['state'];
 		}
 
-			// Ajout des projets aux modules
+		// Ajout des projets aux modules
 
 		if (isset($project[0]['id_modules']))
 		{

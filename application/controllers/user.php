@@ -103,6 +103,9 @@ class User extends CI_Controller
 		for ($i = 0; $i < 5; $i++)
 			$random_string = $random_string.chr(rand(33, 124));
 		$separator = "0";
+		$this->db->set('key', $random_string);
+		$this->db->where('login', $this->session->userdata("user_login"));
+		$this->db->update('users');
 		while (strlen($this->session->userdata("user_login") . $separator) <= 16)
 			$separator = $separator . "0";
 		$secret = $this->session->userdata("user_login") . $separator . $this->session->userdata("user_pass");

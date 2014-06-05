@@ -198,6 +198,8 @@ class Admin extends CI_Controller
 
 	public function validate_project()
 	{
+		$this->load->model("modules_m");
+		$this->load->model("update_bdd");
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_start', 'Start date', 'trim|required|xss_clean');
@@ -237,16 +239,51 @@ class Admin extends CI_Controller
 					($this->input->post("auto_insc") ? 'TRUE' : 'FALSE')
 					)
 				);
-			$bdd_users = $this->check_log->get_all_bdduser();
-			$this->load->model('projects_m');
-			foreach ($bdd_users as $user)
-				$this->db->query('INSERT INTO `user_projects` (`user_id`, `project_id`, `id_master`) VALUES(?,?,?)',
-					array(
-						$user->id,
-						$this->projects_m->get_project($this->input->post("name"))->id,
-						$user->id
-					));
-			redirect(base_url());
+			/*
+			**	On recupere l'id du projet qui vient d'etre créé et on met le statut en fonction du choix du type d'inscription
+			*/
+			$id_project = $this->db->insert_id();
+			$status = $this->input->post("auto_insc") ? "REGISTERED" : "UNREGISTERED";
+
+			/*
+			**	On créé un tableau qui contient les users inscrit au modules parent
+			*/
+			$query = $this->modules_m->get_users_register($this->input->post("module"));
+			$users = array();
+			$i = 0;
+			foreach ($query as $data)
+				$users[$i++] = $data["user_id"];
+
+			/*
+			**	Si les groupe sont de size 1 ou que l'inscription est manuel on enregistre les users avec le staut qui convient
+			*/
+			if ($this->input->post("grp_size") < 2 || !$this->input->post("auto_insc"))
+				$this->update_bdd->insc_users_p($users, $id_project, $status);
+			else if ($this->input->post("auto_insc"))
+			{
+
+				/*
+				**	Sinon on genere aleatoirement les groupes a l'aide de la liste des utilisateurs et on les inscrit en mode grp
+				*/
+
+				$tbl = array();
+				$i = 0;
+				while (count($users) > 0)
+				{
+					$nb = 0;
+					$tbl[$i] = array();
+					while ($j < $this->input->post("grp_size") && count($users) > 0)
+					{
+						$rand = rand(0, count($users) - 1);
+						$tbl[$i][$nb++] = $users[$rand];
+						unset($users[$rand]);
+						$users = array_values($users);
+					}
+					$i++;
+				}
+				$this->update_bdd->insc_grp_p($tbl, $id_project, $status);
+			}
+			redirect(base_url() . "admin");
 		}
 		$this->add_project();
 	}

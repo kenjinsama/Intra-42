@@ -19,6 +19,16 @@ class Modules_m extends CI_Model
 		$res = $query->result();
 		return ($res[0]);
 	}
+
+	/*
+	**	Retourne un tableau contenant tout les id des users inscrit au module tel que module_id = $id
+	*/
+	public function		get_users_register($id)
+	{
+		$query = $this->db->query("SELECT `user_id` FROM `user_modules` WHERE `module_id` = ?", array($id));
+
+		return ($query->result_array());
+	}
 }
 
 ?>

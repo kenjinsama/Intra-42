@@ -51,7 +51,10 @@ class Connexion extends CI_Controller
 		for ($j = 15; isset($secret[$j]) && $secret[$j] != "\0"; $j++)
 			;
 		$pass = substr($secret, 17, $j - 17);
-		$this->save_connection($login, $pass);
+		$query = $this->db->query("SELECT COUNT(`id`) FROM `users` WHERE `login` = ? AND `key` = ?", array($login, $rand_string));
+		$query = $query->result_array();
+		if ($query[0]["COUNT(`id`)"] > 0)
+			$this->save_connection($login, $pass);
 		header("Location: " . base_url());
 	}
 

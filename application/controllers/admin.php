@@ -31,6 +31,25 @@ class Admin extends CI_Controller
 		redirect(base_url() . "admin");
 	}
 
+	public function		insc_proj($id = NULL)
+	{
+		if ($id == NULL || $this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
+
+		$this->load->model("update_bdd");
+		$this->load->model("modules_m");
+		$query = $this->db->query("SELECT `id_modules` FROM `projects` WHERE `id` = ?", array($id));
+		$query = $query->result_array();
+
+		$tbl = $this->modules_m->get_users_register($query[0]["id_modules"]);
+		$users = array();
+		$i = 0;
+		foreach ($tbl as $data)
+			$users[$i++] = $data["user_id"];
+		$this->update_bdd->insc_users_p($users, $id, "REGISTERED");
+		redirect(base_url() . "admin");
+	}
+
 	/*
 	**	CONVERTION : convertie le resultats des requetes pour generer tableau html
 	*/
@@ -82,6 +101,7 @@ class Admin extends CI_Controller
 		if ($id == NULL || $this->check_log->check_log_admin() == FALSE)
 			redirect(base_url());
 		$this->db->query("DELETE FROM `projects` WHERE `id` LIKE ?", array($id));
+		$this->db->query("DELETE FROM `user_projects` WHERE `project_id` LIKE ?", array($id));
 		redirect(base_url() . "admin");
 	}
 
@@ -90,6 +110,7 @@ class Admin extends CI_Controller
 		if ($id == NULL || $this->check_log->check_log_admin() == FALSE)
 			redirect(base_url());
 		$this->db->query("DELETE FROM `modules` WHERE `id` LIKE ?", array($id));
+		$this->db->query("DELETE FROM `user_modules` WHERE `module_id` LIKE ?", array($id));
 		redirect(base_url() . "admin");
 	}
 
@@ -348,7 +369,7 @@ class Admin extends CI_Controller
 					$this->input->post("nb_place")
 					)
 				);
-			redirect(base_url());
+			redirect(base_url() . "admin");
 		}
 		$this->add_module();
 	}

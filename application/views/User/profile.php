@@ -35,7 +35,7 @@
 				}
 			}
 			else
-				echo "Vous n'avez terminé aucun module";
+				echo "Vous n'avez terminé aucun module.<br/>";
 			echo "<br/>";
 			echo "<b>En cours</b><br/>";
 			if (isset($current_modules))
@@ -45,7 +45,7 @@
 				}
 			}
 			else
-				echo "Vous n'avez pas de module en cours.";
+				echo "Vous n'avez pas de module en cours.<br/>";
 			echo "<br/>";
 			echo $credits." crédits validés/".$total_credits." crédits totaux<br/><br/>";
 		}

@@ -375,7 +375,7 @@ class Admin extends CI_Controller
 	}
 
 	/*
-	**	fonction de check du nom du module
+	**	fonction de check du nom du module identique a celle du forum
 	*/
 	function check_name()
 	{

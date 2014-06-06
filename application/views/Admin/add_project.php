@@ -77,7 +77,16 @@ echo	form_input(array('name' => 'nb_place', 'id' => 'nb_place', 'placeholder' =>
 echo	form_error('rating_scale', '<span class="error">', '</span>');
 echo	form_label('Barème de notation', 'rating_scale');
 echo	form_textarea(array('name' => 'rating_scale', 'id' => 'rating_scale', 'placeholder' => 'something ...'));
-
+?>
+<DIV id="usage">
+	titre=TITRE;<BR />
+	pref=PREFACE;<BR />
+	a repeter pour chaque modules de notation: <BR />
+	mod-titre=TITRE DU MODULE;<BR />
+	desc-pts=DESCRIPTION DES POINTS;<BR />
+	nb-pts=NOMBRES DE POINTS (1-2-5 => 3 radio avec les valeurs indiquer);<BR />
+</DIV>
+<?PHP
 echo	form_submit('submit', 'Confirm');
 
 echo form_close();

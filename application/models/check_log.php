@@ -39,6 +39,18 @@ class check_log extends		CI_Model
 		return ($query[0]['id']);
 	}
 
+	public function		obtain_name($id = NULL)
+	{
+		if ($id == NULL)
+			return $this->session->userdata("user_login");
+		if ($this::check_login() == FALSE)
+			return (NULL);
+		$query = $this->db->query("SELECT `login` FROM `users` WHERE `id` = ?", array($id));
+		$query = $query->result_array();
+
+		return ($query[0]['login']);
+	}
+
 	/*
 	**	check_log_admin() retourne TRUE si l'utilisateur est admin et FALSE sinon ou si aucun utilisateur est connecté
 	*/

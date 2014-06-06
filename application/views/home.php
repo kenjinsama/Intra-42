@@ -51,12 +51,25 @@
 	{
 		if ($data["id"] > 0)
 		{
-			$result = $this->projects_m->get_corrector("6");
-			echo $result[0]["corrector_id"] . "<br />";
+			$result = $this->projects_m->get_corrector($data["id"]);
+			foreach ($result as $res)
+			{
+				echo "Vous devez être noté(e) par ".$this->check_log->obtain_name($res['corrector_id'])."<BR />";
+			}
 			$result = $this->projects_m->get_corrected($data["id"]);
-			if (isset($result[0]["corrector_id"]))
-				echo $result[0]["corrector_id"] . "<br />";
+			foreach ($result as $res)
+			{
+				if($res['rate'] == null)
+					echo anchor(base_url().'module/project_correction/'.$data["id"]."/".$res['id_user'], 'Vous devez corriger '.$this->check_log->obtain_name($res['id_user']))."<BR />";
+				else
+				{
+					echo "Vous avez donné la note ".$res['rate']." à ".$this->check_log->obtain_name($res['id_user']).". ";
+					if ($res['nb_stars'] == null)
+						echo "La note n'a pas été apprécié<BR />";
+					else
+						echo "La note a été appréciée ".$res['nb_stars']." étoiles<BR />";
+				}
+			}
 		}
 	}
-
 ?>

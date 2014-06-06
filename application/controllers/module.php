@@ -59,4 +59,36 @@ class Module extends CI_Controller {
 		$this->db->query('UPDATE `user_projects` SET state = "REGISTERED" WHERE user_id = "'.$this->session->userdata('user_id').'"');
 		redirect("/");
 	}
+
+	public function project_correction($project_id, $corrected_user)
+	{
+		if (!isset($project_id) || !isset($corrected_user))
+			redirect("/");
+		$query = $this->db->query('SELECT `rating_scale` FROM `projects` WHERE id="'.$project_id.'"');
+		$data = array();
+		if (isset($query->result()[0]->rating_scale))
+			$data['rating_scale'] = $query->result()[0]->rating_scale;
+		$data['project_id'] = $project_id;
+		$data['corrected_user'] = $corrected_user;
+		loader($this, 'user/project_correction', $data);
+	}
+
+	public function validate_corr($project_id, $id_user)
+	{
+		$nbmod = $this->input->post('nb-mod');
+		$i = 0;
+		$note = 0;
+		$coms = '';
+		while ($i < $nbmod)
+		{
+			$note += $this->input->post('note-'.$i);
+			$coms .= $this->input->post('com-name-'.$i)."<BR />";
+			$coms .= strtr($this->input->post('com-'.$i), array('\n' => '<BR />') )."<BR />";
+			$i++;
+		}
+		echo $note;
+		echo $coms;
+		$this->db->query('UPDATE `ratings` SET `rate` = "'.$note.'", coms = "'.$coms.'" WHERE `id_project` = "'.$project_id.'" AND `corrector_id` = "'.$this->session->userdata('user_id').'" AND `id_user` = "'.$id_user.'"');
+		redirect(base_url());
+	}
 }

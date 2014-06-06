@@ -1,0 +1,32 @@
+.mod
+{
+	background-color: #666;
+	width: 50em;
+	height: 20em;
+}
+
+.com
+{
+	position: relative;
+	top: 4em;
+	left: 2em;
+	width: 50em;
+	height: 15em;
+}
+
+.div-pts
+{
+	position: relative;
+	top: 1em;
+	left: 1em;
+}
+
+.mod-title
+{
+	font-size: 1.2em;
+}
+
+#resume
+{
+
+}

@@ -101,30 +101,30 @@ class Projects_m extends CI_Model
 			/*
 			**	On verifie qu'il y a plusieurs inscrits sinon on return(NULL)
 			*/
-			$query = $this->db->query("SELECT COUNT('id') FROM `user_projects` WHERE `project_id` = '6'");
+			$query = $this->db->query("SELECT COUNT('id') AS nb FROM `user_projects` WHERE `project_id` = '".$id."'");
 			$query = $query->result_array();
-			if ($query[0]["COUNT('id')"] < 2)
+			if ($query[0]["nb"] < 1)
 				return (NULL);
 
 
 			$query = $this->db->query("SELECT `user_id` FROM `user_projects` WHERE `project_id` = ?", array($id));
-			$query = $query->result_array();
+			$users = $query->result_array();
 			$nb_corrector = $this->db->query("SELECT `nb_corrector` FROM `projects` WHERE `id` = ?", array($id));
 			$nb_corrector = $nb_corrector->result_array();
 			$nb_corrector = $nb_corrector[0]["nb_corrector"];
 
 			// On genere autant de correcteur que demandé dans la limite du possible
-			$i = 1;
+			$i = 0;
 			$tbl = array();
-			foreach ($query as $data)
+			foreach ($users as $data)
 			{
 				for ($j = 0; $j < $nb_corrector; $j++)
-					$tbl[$i * $nb_corrector + $j] = $i;
+					$tbl[] = $i;
 				$i++;
 			}
 
 			// On enregistre les correcteurs
-			foreach ($query as $data)
+			foreach ($users as $data)
 			{
 				if (count($tbl) < 2)
 				{
@@ -132,21 +132,25 @@ class Projects_m extends CI_Model
 					WHERE `id_project` = ? AND `id_user` = ?", array($id, $this->session->userdata('user_id')));
 					return($query->result_array());
 				}
-				$rand = rand(0, count($tbl) - 1);
-				while (!isset($tbl[$rand]))
+				$i = 0;
+				while ($i < $nb_corrector)
+				{
 					$rand = rand(0, count($tbl) - 1);
-				$this->db->query("INSERT INTO `ratings` (id_user, id_project, rate, nb_stars, corrector_id, done) VALUES(?,?,?,?,?,?)",
-					array(
-						$data["user_id"],
-						$id,
-						0,
-						0,
-						$tbl[$rand],
-						0
-					)
-				);
-				unset($tbl[$rand]);
-				$tbl = array_values($tbl);
+					if(isset($tbl[$rand]))
+					{
+						$this->db->query("INSERT INTO `ratings` (id_user, id_project, corrector_id, done) VALUES(?,?,?,?)",
+							array(
+								$data["user_id"],
+								$id,
+								$users[$tbl[$rand]]['user_id'],
+								0
+							)
+						);
+						unset($tbl[$rand]);
+						$tbl = array_values($tbl);
+					}
+					$i++;
+				}
 			}
 
 			// On retourne chercher les infos des correcteurs

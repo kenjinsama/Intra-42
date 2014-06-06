@@ -119,6 +119,17 @@ class User extends CI_Controller
 		$key = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $random_string . $config['encryption_key'], $secret, MCRYPT_MODE_ECB);
 		$data["generate"] = base_url() . "connexion/autologin/" . strtr(base64_encode($random_string . $key), '+/', '-_');
 		$data['user'] = $this->ldap->get_user_info($this->session->userdata('user_login'))[0];
+		/*
+		**	On regénère les informations de la page avant de la recharger
+		*/
+		$this->load->model('modules_m');
+		$data['finished_modules'] = $this->modules_m->get_finished_modules_from_user($this->session->userdata('user_id'));
+		$data['current_modules'] = $this->modules_m->get_current_modules_from_user($this->session->userdata('user_id'));
+		$array_c = $this->modules_m->get_validated_modules_from_user($this->session->userdata('user_id'));
+		$data['credits'] = $this->modules_m->get_total_credits_from_module($array_c);
+		$array = $this->modules_m->get_modules_from_user($this->session->userdata('user_id'));
+		$data['total_credits'] = $this->modules_m->get_total_credits_from_module($array);
+
 		loader($this, 'user/profile', $data);
 	}
 }

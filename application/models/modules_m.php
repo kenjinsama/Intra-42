@@ -40,6 +40,16 @@ class Modules_m extends CI_Model
 	}
 
 	/*
+	**	Retourne un tableau contenant tous les id des modules auquel qu'un user a validé
+	*/
+
+	public function get_validated_modules_from_user($user_id)
+	{
+		$query = $this->db->query("SELECT `module_id` FROM `user_modules` WHERE `user_id` = '$user_id' AND `state` = 'VALIDATED'");
+		return ($query->result_array());
+	}
+
+	/*
 	**	Retourne un nombre de credits totaux correspondant a l'integralité des modules auquel un user est inscrit
 	*/
 
@@ -62,10 +72,6 @@ class Modules_m extends CI_Model
 		return ($total_cred);
 	}
 
-	public function get_total_credits_from_validated_module_from_user($array)
-	{
-
-	}
 }
 
 ?>

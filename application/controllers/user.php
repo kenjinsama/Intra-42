@@ -13,8 +13,9 @@ class User extends CI_Controller
 			$data['user'] = $this->ldap->get_user_info($user)[0];
 		else
 			$data['user'] = $this->ldap->get_user_info($this->session->userdata('user_login'))[0];
-		// DUMP THIS AFTER TEST
 		$this->load->model('modules_m');
+		$array_c = $this->modules_m->get_validated_modules_from_user($this->session->userdata('user_id'));
+		$data['credits'] = $this->modules_m->get_total_credits_from_module($array_c);
 		$array = $this->modules_m->get_modules_from_user($this->session->userdata('user_id'));
 		$data['total_credits'] = $this->modules_m->get_total_credits_from_module($array);
 		loader($this, 'user/profile', $data);

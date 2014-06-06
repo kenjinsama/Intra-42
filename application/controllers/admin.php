@@ -374,6 +374,9 @@ class Admin extends CI_Controller
 		$this->add_module();
 	}
 
+	/*
+	**	fonction de check du nom du module
+	*/
 	function check_name()
 	{
 		if (empty($_POST['name']))

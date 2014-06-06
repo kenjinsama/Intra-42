@@ -19,11 +19,43 @@ class Admin extends CI_Controller
 	}
 
 	/*
+	**	INSCRIPTION : inscrit tout les utilisateur a projet ou a un module
+	*/
+	public function		insc_module($id = NULL)
+	{
+		if ($id == NULL || $this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
+
+		$this->load->model("update_bdd");
+		$this->update_bdd->insc_all_m($id, "REGISTERED");
+		redirect(base_url() . "admin");
+	}
+
+	public function		insc_proj($id = NULL)
+	{
+		if ($id == NULL || $this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
+
+		$this->load->model("update_bdd");
+		$this->load->model("modules_m");
+		$query = $this->db->query("SELECT `id_modules` FROM `projects` WHERE `id` = ?", array($id));
+		$query = $query->result_array();
+
+		$tbl = $this->modules_m->get_users_register($query[0]["id_modules"]);
+		$users = array();
+		$i = 0;
+		foreach ($tbl as $data)
+			$users[$i++] = $data["user_id"];
+		$this->update_bdd->insc_users_p($users, $id, "REGISTERED");
+		redirect(base_url() . "admin");
+	}
+
+	/*
 	**	CONVERTION : convertie le resultats des requetes pour generer tableau html
 	*/
 	private function	convert_proj_tbl($proj)
 	{
-		$result = array(array("Nom", "start", "end", "nb_place", "Editer", "Supprimer"));
+		$result = array(array("Nom", "start", "end", "nb_place", "Editer", "Supprimer", "Inscription"));
 		$i = 1;
 		foreach ($proj as $data)
 		{
@@ -33,7 +65,8 @@ class Admin extends CI_Controller
 						$data->dt_end,
 						$data->nb_place,
 						anchor(base_url() . "admin/edit_p/" . $data->id, "Editer"),
-						anchor(base_url() . "admin/del_p/" . $data->id, "Supprimer")
+						anchor(base_url() . "admin/del_p/" . $data->id, "Supprimer"),
+						anchor(base_url() . "admin/insc_proj/" . $data->id, "Inscrire tout les utilisateurs")
 						);
 			$i++;
 		}
@@ -42,7 +75,7 @@ class Admin extends CI_Controller
 
 	private function	convert_mod_tbl($proj)
 	{
-		$result = array(array("Nom", "start", "end", "nb_place", "Editer", "Supprimer"));
+		$result = array(array("Nom", "start", "end", "nb_place", "Editer", "Supprimer", "Inscription"));
 		$i = 1;
 		foreach ($proj as $data)
 		{
@@ -52,7 +85,8 @@ class Admin extends CI_Controller
 						$data->dt_end,
 						$data->nb_place,
 						anchor(base_url() . "admin/edit_m/" . $data->id, "Editer"),
-						anchor(base_url() . "admin/del_m/" . $data->id, "Supprimer")
+						anchor(base_url() . "admin/del_m/" . $data->id, "Supprimer"),
+						anchor(base_url() . "admin/insc_module/" . $data->id, "Inscrire tout les utilisateurs")
 						);
 			$i++;
 		}
@@ -67,6 +101,7 @@ class Admin extends CI_Controller
 		if ($id == NULL || $this->check_log->check_log_admin() == FALSE)
 			redirect(base_url());
 		$this->db->query("DELETE FROM `projects` WHERE `id` LIKE ?", array($id));
+		$this->db->query("DELETE FROM `user_projects` WHERE `project_id` LIKE ?", array($id));
 		redirect(base_url() . "admin");
 	}
 
@@ -75,6 +110,7 @@ class Admin extends CI_Controller
 		if ($id == NULL || $this->check_log->check_log_admin() == FALSE)
 			redirect(base_url());
 		$this->db->query("DELETE FROM `modules` WHERE `id` LIKE ?", array($id));
+		$this->db->query("DELETE FROM `user_modules` WHERE `module_id` LIKE ?", array($id));
 		redirect(base_url() . "admin");
 	}
 
@@ -107,6 +143,8 @@ class Admin extends CI_Controller
 	*/
 	public function validate_edit_m($id)
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|alpha_dash|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nb_credit', 'nb_credit', 'trim|required|xss_clean|is_natural|numeric');
@@ -139,6 +177,8 @@ class Admin extends CI_Controller
 
 	public function validate_edit_p($id)
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_start', 'Start date', 'trim|required|xss_clean');
@@ -198,6 +238,10 @@ class Admin extends CI_Controller
 
 	public function validate_project()
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
+		$this->load->model("modules_m");
+		$this->load->model("update_bdd");
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_start', 'Start date', 'trim|required|xss_clean');
@@ -209,13 +253,13 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('dt_end_insc_h', 'End inscription', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_end_corr_h', 'End correction', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('module', 'module', 'trim|required|xss_clean|is_natural|numeric');
-		$this->form_validation->set_rules('pdf_url', 'pdf_url', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('grp_size', 'grp_size', 'trim|required|xss_clean|is_natural|numeric');
 		$this->form_validation->set_rules('nb_place', 'nb_place', 'trim|required|xss_clean|is_natural|numeric');
 		$this->form_validation->set_rules('rating_scale', 'rating_scale', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nb_corrector', 'nb_corrector', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('types', 'types', 'trim|required|xss_clean');
 
+		$this->load->library('upload', $this->config);
 		if ($this->form_validation->run() == TRUE
 			&& $this->input->post("types") != "Types" && $this->input->post("module") != "Module parent")
 		{
@@ -228,7 +272,7 @@ class Admin extends CI_Controller
 					$this->input->post("dt_end_insc") . " " . $this->input->post("dt_end_insc_h") . ":00",
 					$this->input->post("dt_end_corr") . " " . $this->input->post("dt_end_corr_h") . ":00",
 					$this->input->post("module"),
-					$this->input->post("pdf_url"),
+					BASEPATH . "assets/upload",
 					$this->input->post("rating_scale"),
 					$this->input->post("grp_size"),
 					$this->input->post("nb_place"),
@@ -237,16 +281,51 @@ class Admin extends CI_Controller
 					($this->input->post("auto_insc") ? 'TRUE' : 'FALSE')
 					)
 				);
-			$bdd_users = $this->check_log->get_all_bdduser();
-			$this->load->model('projects_m');
-			foreach ($bdd_users as $user)
-				$this->db->query('INSERT INTO `user_projects` (`user_id`, `project_id`, `id_master`) VALUES(?,?,?)',
-					array(
-						$user->id,
-						$this->projects_m->get_project($this->input->post("name"))->id,
-						$user->id
-					));
-			redirect(base_url());
+			/*
+			**	On recupere l'id du projet qui vient d'etre créé et on met le statut en fonction du choix du type d'inscription
+			*/
+			$id_project = $this->db->insert_id();
+			$status = $this->input->post("auto_insc") ? "REGISTERED" : "UNREGISTERED";
+
+			/*
+			**	On crée un tableau qui contient les users inscrits au module parent
+			*/
+			$query = $this->modules_m->get_users_register($this->input->post("module"));
+			$users = array();
+			$i = 0;
+			foreach ($query as $data)
+				$users[$i++] = $data["user_id"];
+
+			/*
+			**	Si les groupe sont de size 1 ou que l'inscription est manuelle, on enregistre les users avec le statut qui convient
+			*/
+			if ($this->input->post("grp_size") < 2 || !$this->input->post("auto_insc"))
+				$this->update_bdd->insc_users_p($users, $id_project, $status);
+			else if ($this->input->post("auto_insc"))
+			{
+
+				/*
+				**	Sinon on génére aléatoirement les groupes à l'aide de la liste des utilisateurs et on les inscrit en mode grp
+				*/
+
+				$tbl = array();
+				$i = 0;
+				while (count($users) > 0)
+				{
+					$nb = 0;
+					$tbl[$i] = array();
+					while ($j < $this->input->post("grp_size") && count($users) > 0)
+					{
+						$rand = rand(0, count($users) - 1);
+						$tbl[$i][$nb++] = $users[$rand];
+						unset($users[$rand]);
+						$users = array_values($users);
+					}
+					$i++;
+				}
+				$this->update_bdd->insc_grp_p($tbl, $id_project, $status);
+			}
+			redirect(base_url() . "admin");
 		}
 		$this->add_project();
 	}
@@ -264,6 +343,8 @@ class Admin extends CI_Controller
 
 	public function validate_module()
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean|alpha_dash|callback_check_name');
 		$this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nb_credit', 'nb_credit', 'trim|required|xss_clean|is_natural|numeric');
@@ -288,11 +369,14 @@ class Admin extends CI_Controller
 					$this->input->post("nb_place")
 					)
 				);
-			redirect(base_url());
+			redirect(base_url() . "admin");
 		}
 		$this->add_module();
 	}
 
+	/*
+	**	fonction de check du nom du module identique a celle du forum
+	*/
 	function check_name()
 	{
 		if (empty($_POST['name']))

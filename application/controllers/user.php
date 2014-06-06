@@ -13,6 +13,13 @@ class User extends CI_Controller
 			$data['user'] = $this->ldap->get_user_info($user)[0];
 		else
 			$data['user'] = $this->ldap->get_user_info($this->session->userdata('user_login'))[0];
+		$this->load->model('modules_m');
+		$data['finished_modules'] = $this->modules_m->get_finished_modules_from_user($this->session->userdata('user_id'));
+		$data['current_modules'] = $this->modules_m->get_current_modules_from_user($this->session->userdata('user_id'));
+		$array_c = $this->modules_m->get_validated_modules_from_user($this->session->userdata('user_id'));
+		$data['credits'] = $this->modules_m->get_total_credits_from_module($array_c);
+		$array = $this->modules_m->get_modules_from_user($this->session->userdata('user_id'));
+		$data['total_credits'] = $this->modules_m->get_total_credits_from_module($array);
 		loader($this, 'user/profile', $data);
 	}
 
@@ -76,7 +83,7 @@ class User extends CI_Controller
 		// $data['username'] = $this->session->userdata('user_login');
 		// $cell_img = array(
 		// 	'data' => '<img width="100" height="120" style="-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;" src="data:image/jpeg;base64,'.$this->ldap->get_img($data['username']).'" alt="profile">',
-		// 	'rowpan' => 2
+		// 	'rowspan' => 2
 		// );
 		// $this->table->add_row($cell_img, 'Red', 'Green');
 		// $this->table->add_row('Red', 'Green');

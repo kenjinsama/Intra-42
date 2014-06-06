@@ -15,7 +15,7 @@
 			 */
 			if (!isset($this->projects_m))
 				$this->load->model('projects_m');
-			$state = $this->projects_m->get_project_state($project->id, $this->session->userdata['user_login']);
+			$state = $this->projects_m->get_project_stats($project->id, $this->session->userdata['user_login']);
 			if ($state == 'UNREGISTERED')
 				echo anchor(base_url().'module/project_register?id='.$project->id.'&name='.$project->name, 'Inscription', array('class' => 'button'));
 			else

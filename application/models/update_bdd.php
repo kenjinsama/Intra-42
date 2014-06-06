@@ -148,7 +148,7 @@ class Update_bdd extends CI_Model
 	**	Inscrire tout les utilisateurs rentré en parametre à un projet en mode projet solo
 	**	insc_users_p(Array $users, $id, $status)
 	**
-	**	users est un tableau de users sous la forme array([0]=> X, ...))
+	**	$users est un tableau de users sous la forme array([0]=> X, ...))
 	**	id est l'id du projet et status le status de l'inscription
 	*/
 	public function		insc_users_p($users, $id, $status)

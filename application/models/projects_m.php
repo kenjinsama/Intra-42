@@ -45,7 +45,7 @@ class Projects_m extends CI_Model
 		return $query->result();
 	}
 
-	public function		get_project_state($project_id, $user)
+	public function		get_project_stats($project_id, $user)
 	{
 		$query = $this->db->query('SELECT state FROM `user_projects` INNER JOIN `users` ON users.id = user_projects.user_id WHERE users.login = "'.$user.'" AND user_projects.project_id = "'.$project_id.'"');
 		$res = $query->result();
@@ -56,7 +56,7 @@ class Projects_m extends CI_Model
 
 	public function 	get_registered($project_id)
 	{
-		$query = $this->db->query('SELECT COUNT(*) AS nb FROM `user_projects` WHERE project_id = "'.$project_id.'" AND state = REGISTERED');
+		$query = $this->db->query('SELECT COUNT(*) AS nb FROM `user_projects` WHERE project_id = "'.$project_id.'" AND `state` = "REGISTERED"');
 		$res = $query->result();
 		return ($res[0]);
 	}

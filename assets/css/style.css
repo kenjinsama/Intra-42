@@ -4,6 +4,29 @@ body
 	font: 1.2em normal Helvetica, Arial, sans-serif;
 }
 
+a
+{
+	color: #71D2FF!important;
+}
+
+.form_separator
+{
+	margin-bottom: 3em;
+}
+
+.alert
+{
+	clear: both;
+	margin: 2em 2em 2em 2em;
+}
+
+label
+{
+	display: block;
+	float: left;
+	width: 10em;
+}
+
 /*
 ** SELECTION
 */
@@ -24,6 +47,11 @@ HEADER
 	height: 100px;
 	position: fixed;
 	background-color: #999;
+}
+
+td
+{
+	min-width: 12em;
 }
 
 #home

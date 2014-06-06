@@ -52,7 +52,11 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
+<<<<<<< HEAD
 $autoload['libraries'] = array();
+=======
+$autoload['libraries'] = array('database', 'session', 'form_validation', 'email', 'forum_l');
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2
 
 
 /*
@@ -64,7 +68,11 @@ $autoload['libraries'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 
+<<<<<<< HEAD
 $autoload['helper'] = array();
+=======
+$autoload['helper'] = array('url', 'form', 'html', 'file', 'loader');
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2
 
 
 /*
@@ -109,7 +117,11 @@ $autoload['language'] = array();
 |
 */
 
+<<<<<<< HEAD
 $autoload['model'] = array();
+=======
+$autoload['model'] = array("check_log", "ldap");
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2
 
 
 /* End of file autoload.php */

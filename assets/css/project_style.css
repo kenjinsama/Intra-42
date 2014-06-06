@@ -1,0 +1,43 @@
+.module
+{
+	position: relative;
+	top: 10px;
+	left: 10px;
+	height: 60px;
+	margin-bottom: 10px;
+	background: #33A3FF;
+	color: #FFF;
+}
+
+.module a
+{
+	text-decoration: none;
+	position: relative;
+	top: 10px;
+	left: 30px;
+	font-size: 2em;
+	color: #FFF;
+}
+
+.module a:hover
+{
+	color: #FFB300;
+}
+
+.module-desc
+{
+	text-decoration: none;
+	position: relative;
+	top: 15px;
+	left: 10px;
+	font-size: 0.8em;
+	color: #FFF;
+}
+
+.arrow-module
+{
+	position: absolute;
+	bottom: 0px;
+	-webkit-transition: 0.3s;
+	-webkit-transform: rotate(-90deg);
+}

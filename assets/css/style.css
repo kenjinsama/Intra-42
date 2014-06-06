@@ -1,0 +1,168 @@
+body
+{
+	margin: 0px;
+	font: 1.2em normal Helvetica, Arial, sans-serif;
+}
+
+a
+{
+	color: #71D2FF!important;
+}
+
+.form_separator
+{
+	margin-bottom: 3em;
+}
+
+.alert
+{
+	clear: both;
+	margin: 2em 2em 2em 2em;
+}
+
+label
+{
+	display: block;
+	float: left;
+	width: 10em;
+}
+
+/*
+** SELECTION
+*/
+SELECTION
+{
+	position: absolute;
+	left: 200px;
+	top: 100px;
+	z-index: -1;
+}
+
+/*
+** HEADER
+*/
+HEADER
+{
+	width: 100%;
+	height: 100px;
+	position: fixed;
+	background-color: #999;
+}
+
+td
+{
+	min-width: 12em;
+}
+
+#home
+{
+	background-color: #DDD;
+}
+
+#profile
+{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+#option
+{
+	display: none;
+	opacity: 0;
+	position: absolute;
+	right: 10px;
+	top: 110px;
+	width: 150px;
+	height: 200px;
+	background-color: #AAA;
+}
+
+#search-background
+{
+	opacity: 0;
+	display: none;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+}
+
+#search-input
+{
+	display: none;
+	opacity: 0;
+	width: 300px;
+	height: 20px;
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	margin-left: -150px;
+}
+
+#img-search
+{
+	position: absolute;
+	right: 150px;
+	top: 50px;
+	-webkit-transition: 0.3s;
+	-webkit-transform: rotate(0deg);
+}
+
+#profile
+{
+	height: 80px;
+	width: 80px;
+	border-radius: 80px;
+	border: 2px solid gray;
+	overflow: hidden;
+}
+
+#img-profile
+{
+	width: 80px;
+	margin-top: -8px;
+}
+
+/*
+** NAV
+*/
+NAV
+{
+	position: fixed;
+	top: 100px;
+	left: 0;
+	width: 200px;
+	height: 100%;
+	background-color: #777;
+}
+
+#img-nav
+{
+	position: relative;
+	left: 100%;
+	top: 10px;
+	margin-left: -30px;
+	-webkit-transition: 0.3s;
+	-webkit-transform: rotate(0deg);
+}
+
+/*
+** FOOTER
+*/
+FOOTER
+{
+	position: fixed;
+	bottom: 0;
+	width: 200px;
+	background-color: #555;
+}
+
+/*
+** ALL
+*/
+.button
+{
+
+}

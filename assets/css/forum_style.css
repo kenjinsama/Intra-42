@@ -1,0 +1,309 @@
+.picture
+{
+	display: none;
+	height: 80px;
+	width: 80px;
+	margin-top: 18px;
+	margin-right: 18px;
+	border-radius: 80px;
+	border: 2px solid gray;
+	overflow: hidden;
+}
+
+.resize
+{
+	width: 80px;
+	margin-top: -8px;
+}
+
+.required
+{
+	color: #F00;
+	font-weight: bold;
+}
+
+.f_form
+{
+	opacity: 0;
+	display: none;
+}
+
+.f_form input#text
+{
+	width: 600px;
+	height: 21px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+
+	font-size: 14px;
+}
+
+.f_form textarea
+{
+	width: 1200px;
+	height: 400px;
+	max-width: 1200px;
+	max-height: 400px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+
+	font-size: 14px;
+}
+
+.f_form select
+{
+	border: 0 !important;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: #33A3FF url(../images/drop.png) no-repeat center;
+	width: 210px;
+	height: 32px;
+	text-indent: 0.01px;
+	text-overflow: "";
+	font-size: 14px;
+	color: #FFF;
+	border-radius: 10px 0;
+	padding: 5px;
+	margin-left: 44dpx;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.f_form select:hover
+{
+	background: #FFB300 url(../images/drop.png) no-repeat center;
+	color: #000;
+}
+
+.f_form input#button
+{
+	border: 0 !important;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: #33A3FF;
+
+	width: 340px;
+	height: 42px;
+	font-size: 21px;
+	color: #FFF;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.f_form input#button:hover
+{
+	background: #FFB300;
+
+	color: #000;
+}
+
+.f_form input#button:active
+{
+	box-shadow: inset 0 0 10px rgba(000,000,000, 0.8);
+}
+
+.opt
+{
+	background-color: #000;
+
+	float: left;
+	width: 64px;
+	height: 64px;
+
+	cursor: pointer;
+
+	margin-right: 5px;
+	margin-bottom: 42px;
+	text-align: center;
+	line-height: 64px;
+	vertical-align: center;
+	font-size: 21px;
+	color: #FFF;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.opt:hover
+{
+	background-color: #FFF;
+
+	color: #000;
+}
+
+.opt:active
+{
+	box-shadow: inset 0 0 10px rgba(000,000,000, 0.8);
+}
+
+.preview
+{
+	border: 0 !important;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: #33A3FF;
+
+	cursor: pointer;
+	margin-bottom: 21px;
+	width: 340px;
+	height: 42px;
+	text-align: center;
+	line-height: 42px;
+	vertical-align: center;
+	font-size: 21px;
+	color: #FFF;
+	box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+}
+
+.preview:hover
+{
+	background: #FFB300;
+
+	color: #000;
+}
+
+.preview:active
+{
+	box-shadow: inset 0 0 10px rgba(000,000,000, 0.8);
+}
+
+.error
+{
+	color: red;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#options
+{
+	margin-top: 99px;
+	margin-left: 42px;
+	float: left;
+}
+
+#new_subject
+{
+	cursor: pointer;
+	margin-left: 42px;
+}
+
+#categories a 
+{
+	display: block;
+	text-decoration: none;
+
+	background-color: #33A3FF;
+	color: #FFF;
+
+	margin-bottom: 1px;
+	padding-left: 10px;
+	width: 100%;
+	height: 120px;
+	font-size: 40px;
+	line-height: 120px;
+	vertical-align: middle;
+}
+
+#categories a:hover
+{
+	background-color: #FFB300;
+	color: #33A3FF;
+}
+
+#posts
+{
+	margin-top: 42px;
+}
+
+#posts a
+{
+	display: block;
+	text-decoration: none;
+
+	background-color: #FF4242;
+	color: #FFF;
+
+	margin-bottom: 1px;
+	margin-left: 42px;
+	padding-left: 10px;
+	width: 100%;
+	height: 60px;
+	font-size: 30px;
+	line-height: 60px;
+	vertical-align: middle;
+	border-radius: 100px;
+}
+
+#posts a:hover
+{
+	height: 120px;
+	font-size: 42px;
+	line-height: 120px;
+	margin-left: 0px;
+}
+
+.link:hover .picture
+{
+	display: inline-block;
+}
+
+#posts a:visited
+{
+	background-color: #999;
+}
+
+#posts a:visited:hover
+{
+	background-color: #000;
+}
+
+#thread
+{
+	padding-left: 3px;
+}
+
+#thread p
+{
+	margin-right: 215px;
+	text-align: justify;
+}
+
+#thread span
+{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#thread a
+{
+	text-decoration: none;
+}
+
+#tree
+{
+	padding-left: 3px;
+	padding-bottom: 2px;
+}
+
+#tree a
+{
+	text-decoration: none;
+
+	color: #D00;
+}
+
+#tree span
+{
+	color: #000;
+}
+
+#d_toggle
+{
+	display: inline-block;
+
+	background-color: #F00;
+	width: 102px;
+	
+	cursor: pointer;
+
+	text-align: center;
+	position: absolute;
+	right: 203px;
+	padding: 1px;
+}

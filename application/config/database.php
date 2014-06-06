@@ -48,10 +48,22 @@
 $active_group = 'default';
 $active_record = TRUE;
 
+<<<<<<< HEAD
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = '';
 $db['default']['password'] = '';
 $db['default']['database'] = '';
+=======
+if (file_exists(__DIR__ . "/custom_config.php"))
+{
+	include("custom_config.php");
+	$db['default']['hostname'] = $_G_HOSTNAME;
+	$db['default']['username'] = $_G_USER;
+	$db['default']['password'] = $_G_PWD;
+	$db['default']['database'] = $_G_DB;
+}
+
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
@@ -64,6 +76,11 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+<<<<<<< HEAD
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
+=======
+/* End of file database.php */
+/* Location: ./application/config/database.php */
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2

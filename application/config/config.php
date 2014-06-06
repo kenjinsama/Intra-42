@@ -26,7 +26,11 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
+<<<<<<< HEAD
 $config['index_page'] = 'index.php';
+=======
+$config['index_page'] = '';
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2
 
 /*
 |--------------------------------------------------------------------------
@@ -126,7 +130,11 @@ $config['subclass_prefix'] = 'MY_';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
+<<<<<<< HEAD
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+=======
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\+-=';
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2
 
 
 /*
@@ -224,7 +232,11 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
+<<<<<<< HEAD
 $config['encryption_key'] = '';
+=======
+$config['encryption_key'] = 's3|\|(zsd|21nfcdjg|*h71';
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2
 
 /*
 |--------------------------------------------------------------------------

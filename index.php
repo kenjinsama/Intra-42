@@ -35,7 +35,11 @@ if (defined('ENVIRONMENT'))
 		case 'development':
 			error_reporting(E_ALL);
 		break;
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 1220e2045ab20ab60daba75584e5b79f955691f2
 		case 'testing':
 		case 'production':
 			error_reporting(0);

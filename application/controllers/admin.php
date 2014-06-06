@@ -253,13 +253,13 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('dt_end_insc_h', 'End inscription', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_end_corr_h', 'End correction', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('module', 'module', 'trim|required|xss_clean|is_natural|numeric');
-		$this->form_validation->set_rules('pdf_url', 'pdf_url', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('grp_size', 'grp_size', 'trim|required|xss_clean|is_natural|numeric');
 		$this->form_validation->set_rules('nb_place', 'nb_place', 'trim|required|xss_clean|is_natural|numeric');
 		$this->form_validation->set_rules('rating_scale', 'rating_scale', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('nb_corrector', 'nb_corrector', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('types', 'types', 'trim|required|xss_clean');
 
+		$this->load->library('upload', $this->config);
 		if ($this->form_validation->run() == TRUE
 			&& $this->input->post("types") != "Types" && $this->input->post("module") != "Module parent")
 		{
@@ -272,7 +272,7 @@ class Admin extends CI_Controller
 					$this->input->post("dt_end_insc") . " " . $this->input->post("dt_end_insc_h") . ":00",
 					$this->input->post("dt_end_corr") . " " . $this->input->post("dt_end_corr_h") . ":00",
 					$this->input->post("module"),
-					$this->input->post("pdf_url"),
+					BASEPATH . "assets/upload",
 					$this->input->post("rating_scale"),
 					$this->input->post("grp_size"),
 					$this->input->post("nb_place"),
@@ -288,7 +288,7 @@ class Admin extends CI_Controller
 			$status = $this->input->post("auto_insc") ? "REGISTERED" : "UNREGISTERED";
 
 			/*
-			**	On créé un tableau qui contient les users inscrit au modules parent
+			**	On crée un tableau qui contient les users inscrits au module parent
 			*/
 			$query = $this->modules_m->get_users_register($this->input->post("module"));
 			$users = array();
@@ -297,7 +297,7 @@ class Admin extends CI_Controller
 				$users[$i++] = $data["user_id"];
 
 			/*
-			**	Si les groupe sont de size 1 ou que l'inscription est manuel on enregistre les users avec le staut qui convient
+			**	Si les groupe sont de size 1 ou que l'inscription est manuelle, on enregistre les users avec le statut qui convient
 			*/
 			if ($this->input->post("grp_size") < 2 || !$this->input->post("auto_insc"))
 				$this->update_bdd->insc_users_p($users, $id_project, $status);
@@ -305,7 +305,7 @@ class Admin extends CI_Controller
 			{
 
 				/*
-				**	Sinon on genere aleatoirement les groupes a l'aide de la liste des utilisateurs et on les inscrit en mode grp
+				**	Sinon on génére aléatoirement les groupes à l'aide de la liste des utilisateurs et on les inscrit en mode grp
 				*/
 
 				$tbl = array();

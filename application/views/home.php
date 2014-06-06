@@ -59,4 +59,5 @@
 		}
 	}
 
+	echo  BASEPATH . "assets/upload";
 ?>

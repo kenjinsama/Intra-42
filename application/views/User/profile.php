@@ -1,6 +1,6 @@
 <DIV id="profile-page">
 	<div id="content">
-		<h1>Profile</h1>
+		<h1>Profil</h1>
 
 		<?php
 			if (isset($user["picture"][0]))
@@ -9,12 +9,17 @@
 				echo img(base_url() . 'assets/images/default-profile.png' . '<br/>');
 			if ($user["uid"][0] == $this->session->userdata['user_login'])
 			{
-				echo anchor(base_url() . "user/generate", "Generer un lien d'autologin");
+				echo anchor(base_url() . "user/generate", "Générer un lien d'autologin");
 				if (isset($generate))
 					echo "<div>" . $generate . "</div>";
 			}
-		?>
-			<p>Bienvenue<b>
+			?>
+			<?php
+			if ($user["uid"][0] == $this->session->userdata['user_login'])
+				echo "<p>Bienvenue<b>";
+			else
+				echo "<p>Profil étudiant : </b>"
+			?>
 			<?php echo $user["first-name"][0]." ".$user["last-name"][0]; ?></b></p>
 			<p><b><u>Vos Informations</u></b><p>
 			<?php
@@ -24,10 +29,10 @@
 			?>
 	</div>
 	<div>
-	<p><b>Vos Modules</p></b>
 	<?php
 		if ($user["uid"][0] == $this->session->userdata['user_login'])
 		{
+			echo "<p><b>Vos Modules</p></b>";
 			echo "<b>Terminés</b><br/>";
 			if (isset($finished_modules)) {
 				foreach ($finished_modules as $res) {
@@ -52,10 +57,10 @@
 	?>
 	</div>
 	<div>
-	<p><b>Informations Administratives</b></p>
 	<?php
 		if ($user["uid"][0] == $this->session->userdata['user_login'])
 		{
+			echo "<p><b>Informations Administratives</b></p>";
 			if (isset($user["gender"][0]))
 				echo "Genre : ".$user["gender"][0]."<br />";
 			if (isset($user["nationality"][0]))

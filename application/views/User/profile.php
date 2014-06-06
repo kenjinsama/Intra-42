@@ -38,7 +38,7 @@
 				echo $res."<br/>";
 			}
 			echo "<br/>";
-			echo $credits."/".$total_credits;
+			echo $credits." crédits validés/".$total_credits." crédits totaux<br/><br/>";
 		}
 	?>
 	</div>

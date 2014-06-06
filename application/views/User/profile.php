@@ -29,14 +29,23 @@
 		if ($user["uid"][0] == $this->session->userdata['user_login'])
 		{
 			echo "<b>Terminés</b><br/>";
-			foreach ($finished_modules as $res) {
-				echo $res."<br/>";
+			if (isset($finished_modules)) {
+				foreach ($finished_modules as $res) {
+					echo $res."<br/>";
+				}
 			}
+			else
+				echo "Vous n'avez terminé aucun module";
 			echo "<br/>";
 			echo "<b>En cours</b><br/>";
-			foreach ($current_modules as $res) {
-				echo $res."<br/>";
+			if (isset($current_modules))
+			{
+				foreach ($current_modules as $res) {
+					echo $res."<br/>";
+				}
 			}
+			else
+				echo "Vous n'avez pas de module en cours.";
 			echo "<br/>";
 			echo $credits." crédits validés/".$total_credits." crédits totaux<br/><br/>";
 		}

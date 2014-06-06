@@ -39,6 +39,33 @@ class Modules_m extends CI_Model
 		return ($query->result_array());
 	}
 
+	/*
+	**	Retourne un nombre de credits totaux correspondant a l'integralité des modules auquel un user est inscrit
+	*/
+
+	private function get_credits_from_module($module_id)
+	{
+		$this->db->where('id', $module_id);
+		$query = $this->db->get('modules');
+		$res = $query->result();
+		return ($res[0]->credits);
+	}
+
+	public function get_total_credits_from_module($array)
+	{
+		$total_cred = 0;
+		foreach ($array as $data)
+		{
+			$credits = $this->get_credits_from_module($data['module_id']);
+			$total_cred += $credits;
+		}
+		return ($total_cred);
+	}
+
+	public function get_total_credits_from_validated_module_from_user($array)
+	{
+
+	}
 }
 
 ?>

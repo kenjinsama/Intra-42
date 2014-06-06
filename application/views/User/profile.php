@@ -28,7 +28,7 @@
 	<?php
 		if ($user["uid"][0] == $this->session->userdata['user_login'])
 		{
-
+			echo "/".$total_credits;
 		}
 	?>
 	</div>

@@ -40,6 +40,36 @@ class Modules_m extends CI_Model
 	}
 
 	/*
+	**	Retourne un tableau contenant tous les id des modules en cours auquel un user est inscrit
+	*/
+
+	public function	 get_finished_modules_from_user($user_id)
+	{
+		$tab_res = NULL;
+		$query = $this->db->query("SELECT `module_id` FROM `user_modules` INNER JOIN `modules` U ON `module_id` = U.id WHERE `user_id` = '$user_id' AND U.dt_end < NOW()");
+		$res = $query->result();
+		foreach ($res as $mod_id) {
+			$tab_res[] = $this->get_module($mod_id->module_id)->name;
+		}
+		return ($tab_res);
+	}
+
+	/*
+	**	Retourne un tableau contenant tous les id des modules en cours auquel un user est inscrit
+	*/
+
+	public function	 get_current_modules_from_user($user_id)
+	{
+		$tab_res = NULL;
+		$query = $this->db->query("SELECT `module_id` FROM `user_modules` INNER JOIN `modules` U ON `module_id` = U.id WHERE `user_id` = '$user_id' AND U.dt_end > NOW()");
+		$res = $query->result();
+		foreach ($res as $mod_id) {
+			$tab_res[] = $this->get_module($mod_id->module_id)->name;
+		}
+		return ($tab_res);
+	}
+
+	/*
 	**	Retourne un tableau contenant tous les id des modules auquel qu'un user a validé
 	*/
 

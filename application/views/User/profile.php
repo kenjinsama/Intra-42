@@ -28,6 +28,16 @@
 	<?php
 		if ($user["uid"][0] == $this->session->userdata['user_login'])
 		{
+			echo "<b>Terminés</b><br/>";
+			foreach ($finished_modules as $res) {
+				echo $res."<br/>";
+			}
+			echo "<br/>";
+			echo "<b>En cours</b><br/>";
+			foreach ($current_modules as $res) {
+				echo $res."<br/>";
+			}
+			echo "<br/>";
 			echo $credits."/".$total_credits;
 		}
 	?>

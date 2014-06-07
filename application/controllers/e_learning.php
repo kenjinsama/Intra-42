@@ -8,7 +8,7 @@ class E_learning extends CI_Controller
 {
 	public function		index()
 	{
-		loader($this, 'user/e_learning');
+		$this->project();
 	}
 
 	public function 	project($id = NULL)

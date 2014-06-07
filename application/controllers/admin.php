@@ -238,6 +238,10 @@ class Admin extends CI_Controller
 
 	public function validate_project()
 	{
+		$pdf = $_FILES['pdf_url']['name'];
+		if (!($pdf != null && substr(strrchr($pdf, '.'), 0) == '.pdf'))
+			$this->add_project();
+
 		if ($this->check_log->check_log_admin() == FALSE)
 			redirect(base_url());
 		$this->load->model("modules_m");
@@ -272,7 +276,7 @@ class Admin extends CI_Controller
 					$this->input->post("dt_end_insc") . " " . $this->input->post("dt_end_insc_h") . ":00",
 					$this->input->post("dt_end_corr") . " " . $this->input->post("dt_end_corr_h") . ":00",
 					$this->input->post("module"),
-					BASEPATH . "assets/upload",
+					"uploads/pdf/" . $pdf,
 					$this->input->post("rating_scale"),
 					$this->input->post("grp_size"),
 					$this->input->post("nb_place"),
@@ -325,7 +329,30 @@ class Admin extends CI_Controller
 				}
 				$this->update_bdd->insc_grp_p($tbl, $id_project, $status);
 			}
-			redirect(base_url() . "admin");
+
+			/*
+			 * Upload PDF
+			 */
+			unset($config);
+			$config['upload_path'] = './uploads/pdf/';
+			$config['allowed_types'] = 'pdf';
+			$config['max_size']    = '10M';
+			$config['max_width']  = '10240';
+			$config['max_height']  = '7680';
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+			if($this->upload->do_upload('file'))
+			{
+				$this->db->query('INSERT INTO `uploads` (`path`, `type`, `id_project`) VALUE(?,?,?)', array(
+					$config['upload_path']."/".$pdf,
+					'PDF',
+					$id_project
+				));
+				echo "file upload success";
+			}
+			else
+				echo $this->upload->display_errors();
+//			redirect(base_url() . "admin");
 		}
 		$this->add_project();
 	}

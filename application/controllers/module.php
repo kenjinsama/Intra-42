@@ -66,7 +66,7 @@ class Module extends CI_Controller {
 			redirect(base_url().'module/group_register?project_id='.$this->input->get('id'));
 			return ;
 		}
-		$this->project_m->register_user($this->check_log->obtain_id(), $this->input->get('id'));
+		$this->projects_m->register_user($this->check_log->obtain_id(), $this->input->get('id'));
 		redirect(base_url().'module/project/'.$this->input->get('id'));
 	}
 

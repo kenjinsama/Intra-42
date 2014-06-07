@@ -32,11 +32,12 @@ class User extends CI_Controller
 	public function tickets()
 	{
 		$this->load->model('ticket');
-		$data['isadmin'] = $this->check_log->check_log_admin();
-		if ($data['isadmin'])
-			$data['tickets'] = $this->ticket->get_all_tickets('priority');
-		else
-			$data['tickets'] = $this->ticket->get_all_tickets();
+		if (($data['isadmin'] = $this->check_log->check_log_admin()))
+		{
+			$data['assign'] = $this->ticket->get_assign_ticket();
+			$data['no_assign'] = $this->ticket->get_non_assign_ticket();
+		}
+		$data['tickets'] = $this->ticket->get_my_tickets();
 		loader($this, 'user/tickets', $data);
 	}
 
@@ -82,14 +83,15 @@ class User extends CI_Controller
 				'title' => $this->input->post('title_ticket'),
 				'type' => $this->input->post('type'),
 				'priority' => $this->input->post('priority'),
-				'content' => $this->input->post('description')
+				'content' => $this->input->post('description'),
+				'id_user' => $this->session->userdata("user_id")
 			);
 			$this->load->model("ticket");
 			$this->ticket->create_ticket($ticket);
 			$this->tickets();
 		}
 		else
-			$this->create_tickets();
+			redirect(base_url() . "user/tickets");
 	}
 
 	public function see_ticket($id)
@@ -145,5 +147,34 @@ class User extends CI_Controller
 		$data['total_credits'] = $this->modules_m->get_total_credits_from_module($array);
 
 		loader($this, 'user/profile', $data);
+	}
+
+	function	assign_ticket($id)
+	{
+		if (!$this->check_log->check_log_admin())
+			redirect(base_url());
+
+		$this->form_validation->set_rules('uid', 'uid', 'trim|required|xss_clean');
+		if ($this->form_validation->run() == TRUE)
+		{
+			if ($this->check_log->is_admin($this->input->post("uid")))
+			{
+				$this->db->query("UPDATE `tickets` SET `id_admin` = ? WHERE `id` = ?",
+					array(
+						$this->check_log->obtain_id($this->input->post("uid")),
+						$id
+						)
+				);
+			}
+		}
+		redirect(base_url() . "user/response-tickets/" . $id);
+	}
+
+	function	close_ticket($id)
+	{
+		if (!$this->check_log->check_log_admin())
+			redirect(base_url());
+		$this->db->query("UPDATE `tickets` SET `state` = 'CLOSE' WHERE `id` = ?", array($id));
+		redirect(base_url(). "user/tickets");
 	}
 }

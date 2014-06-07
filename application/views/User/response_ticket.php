@@ -1,6 +1,21 @@
 <?php
+echo anchor(base_url() . "/user/tickets", "Retour");
 
-// var_dump($tickets);
+if ($this->check_log->check_log_admin())
+{
+	echo form_open(base_url(). "user/assign_ticket/" . $id);
+
+	echo	"<div class='form_separator'>";
+	echo	form_input(array("name" => "uid", "placeholder" => "login admin"));
+	echo	"</div>";
+
+	echo	form_submit(array("class" => "btn btn-lg btn-success", "value" => "Assign", "type" => "submit"));
+	echo	anchor(base_url() . "user/close_ticket/" . $id, "close", array("class" => "btn btn-lg btn-success"));
+	echo form_close();
+
+}
+
+
 echo heading($tickets[0]["title"] . " - " . $tickets[0]["state"], 3);
 echo heading($tickets[0]["type"], 5);
 echo br();
@@ -29,16 +44,18 @@ if (isset($comment))
 </div>
 
 <?php
+if ($tickets[0]['state'] != "CLOSE")
+{
+	echo form_open("user/add_comment");
 
-echo form_open("user/add_comment");
+	echo	"<div class='form_separator'>";
+	echo	form_textarea(array("name" => "content", "placeholder" => "comment ..."));
+	echo	form_input(array("type" => "hidden", "name" => "id", "value" => $id));
+	echo	"</div>";
 
-echo	"<div class='form_separator'>";
-echo	form_textarea(array("name" => "content", "placeholder" => "comment ..."));
-echo	form_input(array("type" => "hidden", "name" => "id", "value" => $id));
-echo	"</div>";
+	echo	form_submit(array("class" => "btn btn-lg btn-success", "value" => "Confirm", "type" => "submit"));
 
-echo	form_submit(array("class" => "btn btn-lg btn-success", "value" => "Confirm", "type" => "submit"));
-
-echo form_close();
+	echo form_close();
+}
 
 ?>

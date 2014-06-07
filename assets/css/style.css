@@ -27,6 +27,11 @@ label
 	width: 10em;
 }
 
+.btn
+{
+	color: white!important;
+}
+
 form
 {
 	margin-top: 3em;

@@ -39,6 +39,39 @@ class Ticket extends		CI_Model
 		return ($query->result_array());
 	}
 
+	public function get_my_tickets()
+	{
+		$this->db->select('*');
+		$this->db->from('tickets');
+		$this->db->where('id_user', $this->session->userdata("user_id"));
+		$query = $this->db->get();
+		if ($query->num_rows == 0)
+			return (NULL);
+		return ($query->result_array());
+	}
+
+	public function get_assign_ticket()
+	{
+		$this->db->select('*');
+		$this->db->from('tickets');
+		$this->db->where('id_admin', $this->session->userdata("user_id"));
+		$query = $this->db->get();
+		if ($query->num_rows == 0)
+			return (NULL);
+		return ($query->result_array());
+	}
+
+	public function get_non_assign_ticket()
+	{
+		$this->db->select('*');
+		$this->db->from('tickets');
+		$this->db->where('id_admin', 0);
+		$query = $this->db->get();
+		if ($query->num_rows == 0)
+			return (NULL);
+		return ($query->result_array());
+	}
+
 	public function enum_select($table, $field)
 	{
 		$row = $this->db->query('SHOW COLUMNS FROM '.$table.' LIKE "'.$field.'"')->row()->Type;

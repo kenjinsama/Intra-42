@@ -33,13 +33,32 @@ form
 	margin-left: 3em;
 }
 
+.box_comment
+{
+	background-color: rgb(207, 207, 207);
+	margin-top: 3em;
+	width: 60%;
+	position: relative;
+	left: 20%;
+}
+
+#content_tickets
+{
+	background-color: gray;
+	width: 70%;
+	position: relative;
+	left: 15%;
+}
+
 /*
 ** SELECTION
 */
 SELECTION
 {
 	position: absolute;
+	width: 70%;
 	left: 200px;
+	margin-left: 50px;
 	top: 100px;
 	z-index: -1;
 }

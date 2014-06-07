@@ -40,6 +40,23 @@ class User extends CI_Controller
 		loader($this, 'user/tickets', $data);
 	}
 
+	public function	add_comment()
+	{
+		$this->form_validation->set_rules('content', 'content', 'trim|required|xss_clean');
+
+		if ($this->form_validation->run() == TRUE)
+		{
+			$comment = array(
+				"content" => $this->input->post("content"),
+				"id_ticket" => $this->input->post("id"),
+				"id_user" => $this->session->userdata("user_id")
+			);
+			$this->load->model('ticket');
+			$this->ticket->create_comment($comment);
+		}
+		redirect(base_url() . "user/response_ticket/" . $this->input->post("id"));
+	}
+
 	public function create_tickets()
 	{
 		$this->load->model('ticket');
@@ -64,14 +81,11 @@ class User extends CI_Controller
 			$ticket = array(
 				'title' => $this->input->post('title_ticket'),
 				'type' => $this->input->post('type'),
-				'priority' => $this->input->post('priority')
-			);
-			$comment = array(
-				'id_user' => $this->check_log->obtain_id(),
+				'priority' => $this->input->post('priority'),
 				'content' => $this->input->post('description')
 			);
 			$this->load->model("ticket");
-			$this->ticket->create_ticket($ticket, $comment);
+			$this->ticket->create_ticket($ticket);
 			$this->tickets();
 		}
 		else
@@ -81,26 +95,20 @@ class User extends CI_Controller
 	public function see_ticket($id)
 	{
 		$this->load->model('ticket');
-		// $this->load->library('table');
 
 		$data['ticket'] = $this->ticket->get_ticket($id);
-
-		// echo '<pre>',print_r($data['ticket'], 1),'</pre>';
-		// $data['username'] = $this->session->userdata('user_login');
-		// $cell_img = array(
-		// 	'data' => '<img width="100" height="120" style="-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;" src="data:image/jpeg;base64,'.$this->ldap->get_img($data['username']).'" alt="profile">',
-		// 	'rowspan' => 2
-		// );
-		// $this->table->add_row($cell_img, 'Red', 'Green');
-		// $this->table->add_row('Red', 'Green');
-		// $data['table'] = $this->table->generate();
+		$data["id"] = $id;
 		if ($data['ticket'])
 			loader($this, 'user/see_ticket', $data);
 	}
 
 	public function response_ticket($id)
 	{
-		$data['id'] = $id;
+		$query = $this->db->query("SELECT `title`, `state`, `type`, `content` FROM `tickets` WHERE `id` = ?", array($id));
+		$data["tickets"] = $query->result_array();
+		$query = $this->db->query("SELECT * FROM `comment_tickets` WHERE `id_ticket` = ?", array($id));
+		$data["comment"] = $query->result_array();
+		$data["id"] = $id;
 		loader($this, 'user/response_ticket', $data);
 	}
 

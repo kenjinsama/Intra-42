@@ -7,11 +7,9 @@
 
 class Ticket extends		CI_Model
 {
-	public function create_ticket(array $ticket, array $comment)
+	public function create_ticket(array $ticket)
 	{
 		$this->db->insert('tickets', $ticket);
-		$comment['id_ticket'] = $this->db->insert_id();
-		$this->create_comment($comment);
 	}
 
 	public	function create_comment(array $comment)
@@ -49,7 +47,7 @@ class Ticket extends		CI_Model
 		$enum_fields = $enum_array[1];
 		foreach ($enum_fields as $key=>$value)
 		{
-		    $enums[$value] = $value;
+			$enums[$value] = $value;
 		}
 		return $enums;
 	}

@@ -17,6 +17,12 @@ class Projects_m extends CI_Model
 		return ($query->result());
 	}
 
+	public function 	get_all_projects()
+	{
+		$query = $this->db->query('SELECT * FROM `projects`');
+		return $query->result();
+	}
+
 	public function		get_project($name = NULL)
 	{
 		if ($name)

@@ -431,6 +431,34 @@ if ( ! function_exists('nbs'))
 	}
 }
 
+/**
+ * Generate span
+ *
+ * @access	public
+ * @param	integer
+ * @return	string
+ */
+if ( ! function_exists('span'))
+{
+	function span($txt = "")
+	{
+		return ("<span>" . $txt . "</span>");
+	}
+}
 
+/**
+ * Generate div
+ *
+ * @access	public
+ * @param	integer
+ * @return	string
+ */
+if ( ! function_exists('div'))
+{
+	function div($txt = "")
+	{
+		return ("<div>" . $txt . "</div>");
+	}
+}
 /* End of file html_helper.php */
 /* Location: ./system/helpers/html_helper.php */

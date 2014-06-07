@@ -65,11 +65,11 @@
 					$semestre = $data["semestre"];
 					echo anchor(base_url() . "module", "Semestre " . $semestre, ["class" => "semestre_link"]) . "<br />";
 				}
-				echo anchor(base_url() . "module/projects/" . $data['name'], $data['name'], ["class" => "module_link"]) . "<br />";
+				echo anchor(base_url() . "module/projects/" . $data['id'], $data['name'], ["class" => "module_link"]) . "<br />";
 				if (isset($data['project']))
 				{
 					foreach ($data['project'] as $project)
-						echo anchor(base_url() . "module/project/" . $project['name'], $project['name'], ["class" => "project_link"]) . "<br />";
+						echo anchor(base_url() . "module/project/" . $project['id'], $project['name'], ["class" => "project_link"]) . "<br />";
 				}
 			}
 		?>

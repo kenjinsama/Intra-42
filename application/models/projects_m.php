@@ -6,14 +6,14 @@ if (!defined('BASEPATH'))
 
 class Projects_m extends CI_Model
 {
-	public function		get_projects($name = NULL)
+	public function		get_projects($id = NULL)
 	{
-		if ($name == NULL)
+		if ($id == NULL)
 		{
 			$query = $this->db->query("SELECT `id`, `name`, `dt_end`, `dt_start`, `pdf_url`, `desc`, `grp_size` FROM `projects` WHERE `dt_start` <= NOW() AND `dt_end` > NOW()");
 			return ($query->result());
 		}
-		$query = $this->db->query('SELECT projects.id, projects.name, projects.desc, projects.dt_end, projects.dt_start FROM `projects` INNER JOIN `modules` ON projects.id_modules=modules.id WHERE modules.name="'.$name.'" AND projects.dt_start <= NOW() AND projects.dt_end > NOW()');
+		$query = $this->db->query('SELECT projects.id, projects.name, projects.desc, projects.dt_end, projects.dt_start FROM `projects` INNER JOIN `modules` ON projects.id_modules=modules.id WHERE modules.id="'.$id.'" AND projects.dt_start <= NOW() AND projects.dt_end > NOW()');
 		return ($query->result());
 	}
 

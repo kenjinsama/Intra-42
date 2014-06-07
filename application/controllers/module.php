@@ -14,17 +14,37 @@ class Module extends CI_Controller {
 		loader($this, 'user/modules_list', $data);
 	}
 
-	public function projects($name)
+	public function projects($id)
 	{
 		$this->load->model('projects_m');
-		$data['projects'] = $this->projects_m->get_projects($name);
+		$data['projects'] = $this->projects_m->get_projects($id);
 		loader($this, 'user/projects_list', $data);
 	}
 
-	public function project($name)
+	public function project($id)
 	{
 		$this->load->model('projects_m');
-		$data['project'] = $this->projects_m->get_project($name);
+		$data['project'] = $this->projects_m->get_project_by_id($id);
+		$query = $this->db->query("SELECT `user_id`, `id_master`, `state` FROM `user_projects` WHERE `user_id` = ? AND `project_id` = ?",
+			array(
+				$this->session->userdata("user_id"),
+				$id
+			)
+		);
+		$query = $query->result_array();
+		if (isset($query[0]) && $query[0]["id_master"] != $query[0]["user_id"])
+		{
+			$grp = $this->db->query("SELECT `user_id`, `id_master`, `state` FROM `user_projects` WHERE `id_master` = ? AND `project_id` = ?",
+				array(
+					$query[0]["id_master"],
+					$id
+				)
+			);
+			$grp = $grp->result_array();
+			$data["grp"] = $grp;
+		}
+		if (isset($query[0]))
+			$data["inscription"] = $query[0];
 		loader($this, 'user/project', $data);
 	}
 
@@ -47,7 +67,7 @@ class Module extends CI_Controller {
 			return ;
 		}
 		$this->project_m->register_user($this->check_log->obtain_id(), $this->input->get('id'));
-		redirect(base_url().'module/project/'.$this->input->get('name'));
+		redirect(base_url().'module/project/'.$this->input->get('id'));
 	}
 
 	public function validate($id_project, $users)

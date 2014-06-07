@@ -30,30 +30,27 @@
 	</div>
 	<div>
 	<?php
-		if ($user["uid"][0] == $this->session->userdata['user_login'])
-		{
-			echo "<p><b>Vos Modules</p></b>";
-			echo "<b>Terminés</b><br/>";
-			if (isset($finished_modules)) {
-				foreach ($finished_modules as $res) {
-					echo $res."<br/>";
-				}
+		echo "<p><b>Vos Modules</p></b>";
+		echo "<b>Terminés</b><br/>";
+		if (isset($finished_modules)) {
+			foreach ($finished_modules as $res) {
+				echo $res."<br/>";
 			}
-			else
-				echo "Vous n'avez terminé aucun module.<br/>";
-			echo "<br/>";
-			echo "<b>En cours</b><br/>";
-			if (isset($current_modules))
-			{
-				foreach ($current_modules as $res) {
-					echo $res."<br/>";
-				}
-			}
-			else
-				echo "Vous n'avez pas de module en cours.<br/>";
-			echo "<br/>";
-			echo $credits." crédits validés/".$total_credits." crédits totaux<br/><br/>";
 		}
+		else
+			echo "Vous n'avez terminé aucun module.<br/>";
+		echo "<br/>";
+		echo "<b>En cours</b><br/>";
+		if (isset($current_modules))
+		{
+			foreach ($current_modules as $res) {
+				echo $res."<br/>";
+			}
+		}
+		else
+			echo "Vous n'avez pas de module en cours.<br/>";
+		echo "<br/>";
+		echo $credits." crédits validés/".$total_credits." crédits totaux<br/><br/>";
 	?>
 	</div>
 	<div>

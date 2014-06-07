@@ -27,6 +27,12 @@ label
 	width: 10em;
 }
 
+form
+{
+	margin-top: 3em;
+	margin-left: 3em;
+}
+
 /*
 ** SELECTION
 */
@@ -146,6 +152,16 @@ NAV
 	margin-left: -30px;
 	-webkit-transition: 0.3s;
 	-webkit-transform: rotate(0deg);
+}
+
+.module_link
+{
+	padding-left: 1em;
+}
+
+.project_link
+{
+	padding-left: 2em;
 }
 
 /*

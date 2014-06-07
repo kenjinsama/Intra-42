@@ -10,15 +10,21 @@ class User extends CI_Controller
 	public function profile($user = NULL)
 	{
 		if ($user != NULL)
+		{
+			$user_id = $this->check_log->obtain_id($user);
 			$data['user'] = $this->ldap->get_user_info($user)[0];
+		}
 		else
+		{
+			$user_id = $this->session->userdata('user_id');
 			$data['user'] = $this->ldap->get_user_info($this->session->userdata('user_login'))[0];
+		}
 		$this->load->model('modules_m');
-		$data['finished_modules'] = $this->modules_m->get_finished_modules_from_user($this->session->userdata('user_id'));
-		$data['current_modules'] = $this->modules_m->get_current_modules_from_user($this->session->userdata('user_id'));
-		$array_c = $this->modules_m->get_validated_modules_from_user($this->session->userdata('user_id'));
+		$data['finished_modules'] = $this->modules_m->get_finished_modules_from_user($user_id);
+		$data['current_modules'] = $this->modules_m->get_current_modules_from_user($user_id);
+		$array_c = $this->modules_m->get_validated_modules_from_user($user_id);
 		$data['credits'] = $this->modules_m->get_total_credits_from_module($array_c);
-		$array = $this->modules_m->get_modules_from_user($this->session->userdata('user_id'));
+		$array = $this->modules_m->get_modules_from_user($user_id);
 		$data['total_credits'] = $this->modules_m->get_total_credits_from_module($array);
 		loader($this, 'user/profile', $data);
 	}

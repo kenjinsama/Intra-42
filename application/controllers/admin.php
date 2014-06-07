@@ -341,7 +341,7 @@ class Admin extends CI_Controller
 		loader($this, "admin/add_module");
 	}
 
-	public function validate_module()
+	public function		validate_module()
 	{
 		if ($this->check_log->check_log_admin() == FALSE)
 			redirect(base_url());
@@ -377,7 +377,7 @@ class Admin extends CI_Controller
 	/*
 	**	fonction de check du nom du module identique a celle du forum
 	*/
-	function check_name()
+	function		check_name()
 	{
 		if (empty($_POST['name']))
 			return (false);

@@ -10,7 +10,11 @@ if ($this->check_log->check_log_admin())
 	echo	"</div>";
 
 	echo	form_submit(array("class" => "btn btn-lg btn-success", "value" => "Assign", "type" => "submit"));
-	echo	anchor(base_url() . "user/close_ticket/" . $id, "close", array("class" => "btn btn-lg btn-success"));
+	if ($tickets[0]["state"] == "OPEN")
+		echo	anchor(base_url() . "user/close_ticket/" . $id, "close", array("class" => "btn btn-lg btn-danger"));
+	else
+		echo	anchor(base_url() . "user/open_ticket/" . $id, "open", array("class" => "btn btn-lg btn-success"));
+
 	echo form_close();
 
 }

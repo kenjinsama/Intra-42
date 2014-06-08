@@ -177,4 +177,12 @@ class User extends CI_Controller
 		$this->db->query("UPDATE `tickets` SET `state` = 'CLOSE' WHERE `id` = ?", array($id));
 		redirect(base_url(). "user/tickets");
 	}
+
+	function	open_ticket($id)
+	{
+		if (!$this->check_log->check_log_admin())
+			redirect(base_url());
+		$this->db->query("UPDATE `tickets` SET `state` = 'OPEN' WHERE `id` = ?", array($id));
+		redirect(base_url(). "user/tickets");
+	}
 }

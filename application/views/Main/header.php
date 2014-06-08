@@ -72,6 +72,26 @@
 						echo anchor(base_url() . "module/project/" . $project['id'], $project['name'], ["class" => "project_link"]) . "<br />";
 				}
 			}
+
+			/*
+			**	e-learning
+			*/
+
+			echo br() . "E-learning" . br();
+			foreach ($nav as $data)
+			{
+				if (isset($data["semestre"]) && $data["semestre"] != $semestre)
+				{
+					$semestre = $data["semestre"];
+					echo "<span class='semestre_link'>Semestre " . $semestre . "</span><br />";
+				}
+				echo "<span class='module_link'>" . $data['name'] . "</span><br />";
+				if (isset($data['project']))
+				{
+					foreach ($data['project'] as $project)
+						echo anchor(base_url() . "e_learning/project/" . $project['id'], $project['name'], ["class" => "project_link"]) . "<br />";
+				}
+			}
 		?>
 	</NAV>
 	<SELECTION>

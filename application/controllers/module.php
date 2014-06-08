@@ -17,6 +17,31 @@ class Module extends CI_Controller {
 	public function projects($id)
 	{
 		$this->load->model('projects_m');
+		$data['id'] = $id;
+		$query = $this->db->query("SELECT COUNT(`id`) FROM `user_modules` WHERE `user_id` = ? AND `module_id` = ?",
+			array(
+				$this->session->userdata("user_id"),
+				$id
+			)
+		);
+		$query = $query->result_array();
+		if ($query[0]["COUNT(`id`)"] == 0)
+		{
+			$data["button"] = array(
+						"name" => "Inscription",
+						"url" => base_url() . "module/module_register/" . $id,
+						"class" => array("class" => "btn btn-lg btn-success")
+					);
+		}
+		else
+		{
+			$data["button"] = array(
+						"name" => "Desinscription",
+						"url" => base_url() . "module/module_unregister/" . $id,
+						"class" => array("class" => "btn btn-lg btn-danger")
+					);
+		}
+
 		$data['projects'] = $this->projects_m->get_projects($id);
 		loader($this, 'user/projects_list', $data);
 	}
@@ -25,6 +50,13 @@ class Module extends CI_Controller {
 	{
 		$this->load->model('projects_m');
 		$data['project'] = $this->projects_m->get_project_by_id($id);
+		$query = $this->db->query("SELECT COUNT(`id`) FROM `user_modules` WHERE `user_id` = ? AND `module_id` = ?", array($this->session->userdata("user_id"), $data["project"]->id_modules));
+		$query = $query->result_array();
+		if ($query[0]["COUNT(`id`)"] == 0)
+			$data["available"] = FALSE;
+		else
+			$data["available"] = TRUE;
+
 		$query = $this->db->query("SELECT `user_id`, `id_master`, `state` FROM `user_projects` WHERE `user_id` = ? AND `project_id` = ?",
 			array(
 				$this->session->userdata("user_id"),
@@ -55,10 +87,38 @@ class Module extends CI_Controller {
 		loader($this, 'user/group_register', $data);
 	}
 
+	public function module_register($id)
+	{
+		$this->db->query("INSERT INTO `user_modules` (`user_id`, `module_id`, `state`) VALUES(?,?,?)",
+			array(
+				$this->session->userdata("user_id"),
+				$id,
+				"REGISTERED"
+			)
+		);
+
+		$query = $this->db->query("SELECT P.id FROM `projects` AS P INNER JOIN `modules` M ON P.id_modules = M.id");
+		$query = $query->result_array();
+		$this->load->model("update_bdd");
+		foreach ($query as $data)
+			$this->update_bdd->insc_all_p($data['id'], "UNREGISTERED");
+		redirect(base_url() . "module/projects/" . $id);
+	}
+
+	public function module_unregister($id)
+	{
+		$this->db->query("DELETE FROM `user_modules` WHERE `user_id` = ? AND `module_id` = ?",
+			array(
+				$this->session->userdata("user_id"),
+				$id
+			)
+		);
+		redirect(base_url() . "module/projects/" . $id);
+	}
+
 	public function project_register()
 	{
 		$this->load->model('projects_m');
-		$this->load->model('check_log');
 		$query = $this->db->query('SELECT `grp_size` FROM `projects` WHERE id="'.$this->input->get('id').'"');
 		$res = $query->result();
 		if ($res[0]->grp_size > 1)
@@ -66,8 +126,22 @@ class Module extends CI_Controller {
 			redirect(base_url().'module/group_register?project_id='.$this->input->get('id'));
 			return ;
 		}
-		$this->projects_m->register_user($this->check_log->obtain_id(), $this->input->get('id'));
+		$this->load->model("update_bdd");
+		$this->update_bdd->insc_users_p(array($this->session->userdata("user_id")), $this->input->get('id'), "REGISTERED");
 		redirect(base_url().'module/project/'.$this->input->get('id'));
+	}
+
+	public function project_unregister($id)
+	{
+		$this->load->model('projects_m');
+		$this->db->query("UPDATE `user_projects` SET `state` = 'UNREGISTERED' WHERE `project_id` = ? AND `user_id` = ? OR `id_master` = ?",
+			array(
+				$id,
+				$this->session->userdata("user_id"),
+				$this->session->userdata("user_id")
+			)
+		);
+		redirect(base_url() . 'module/project/' . $id);
 	}
 
 	public function validate($id_project, $users)

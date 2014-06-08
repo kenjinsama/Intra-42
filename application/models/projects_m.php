@@ -177,11 +177,10 @@ class Projects_m extends CI_Model
 
 	public function 	register_user($user_id, $project_id)
 	{
-		$this->db->query("INSERT INTO `user_projects` (`user_id`, `project_id`, `state`) VALUES(?,?,?)",
+		$this->db->query("UPDATE `user_projects` SET state = 'REGISTERED' WHERE `user_id` = ?, `project_id` = ?)",
 			array(
-				'user_id' => $user_id,
-				'project_id' => $project_id,
-				'state' => 'REGISTERED'
+				$user_id,
+				$project_id,
 			));
 	}
 }

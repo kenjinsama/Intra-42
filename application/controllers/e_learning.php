@@ -22,6 +22,8 @@ class E_learning extends CI_Controller
 
 	public function 	add_video($data = NULL)
 	{
+		if ($this->check_log->check_log_admin() == FALSE)
+			redirect(base_url());
 		$this->load->model('projects_m');
 		$data['projects'] = $this->projects_m->get_all_projects();
 		loader($this, 'admin/add_video', $data);

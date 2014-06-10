@@ -28,17 +28,38 @@ class Forum extends CI_Controller {
 		if ($name != "thread")
 		{
 			$this->form_validation->set_rules('title', '', 'required|callback_check_title');
-			$this->form_validation->set_rules('message', '', 'required');
+			$this->form_validation->set_rules('message', '', 'required|callback_check_message');
 			if ($this->form_validation->run())
-			{
-				
+			{		
+				$data = array(
+					'title' => $_POST['title'],
+					'content' => $this->forum_l->formatPost($_POST['message']),
+					'id_category' => $this->Forum_m->get_categorie_id($name),
+					'id_user' => $this->session->userdata('user_id')
+				);
+				if (isset($_POST['visibility']))
+					$data['visibility'] = $_POST['visibility'];
+				$this->db->insert('posts', $data);
 			}
 			$data['categories'] = $this->Forum_m->get_categories_for($name);
 			$data['posts'] = $this->Forum_m->get_posts_for($name);
 		}
 		else if (isset($_GET['id']))
 		{
+			$this->form_validation->set_rules('message', '', 'required|callback_check_message');
+			if ($this->form_validation->run())
+			{		
+				$data = array(
+					'content' => $this->forum_l->formatPost($_POST['message']),
+					'id_post' => $_GET['id'],
+					'id_user' => $this->session->userdata('user_id')
+				);
+				if (isset($_POST['visibility']))
+					$data['visibility'] = $_POST['visibility'];
+				$this->db->insert('answer', $data);
+			}
 			$data['thread'] = $this->Forum_m->get_thread($_GET['id']);
+			$data['answers'] = $this->Forum_m->get_answers($_GET['id']);
 		}
 
 		$data['urls'] = $this->Forum_m->format_urls(current_url());
@@ -56,6 +77,14 @@ class Forum extends CI_Controller {
 			$this->form_validation->set_message('check_title', 'Bad title format.');
 			return (false);
 		}
+	}
+
+	function check_message()
+	{
+		if (isset($_POST['message']) && $this->forum_l->formatPost($_POST['message']) != false)
+			return (true);
+		$this->form_validation->set_message('check_message', 'Message is too long.');
+		return (false);
 	}
 }
 ?>

@@ -13,7 +13,7 @@
 .resize
 {
 	width: 80px;
-	margin-top: -8px;
+	margin-top: -48px;
 }
 
 .required
@@ -35,15 +35,17 @@
 	margin-top: 2px;
 	margin-bottom: 2px;
 
+	margin-left: -140px !important;
+
 	font-size: 14px;
 }
 
 .f_form textarea
 {
-	width: 1200px;
-	height: 400px;
-	max-width: 1200px;
-	max-height: 400px;
+	width: 1200px !important;
+	height: 400px !important;
+	max-width: 1200px !important;
+	max-height: 400px !important;
 	margin-top: 2px;
 	margin-bottom: 2px;
 
@@ -170,6 +172,21 @@
 	font-weight: bold;
 }
 
+.pair, .impair
+{
+	width: 100%;
+}
+
+.pair
+{
+	background-color: #DDD;
+}
+
+.impair
+{
+	background-color: #FFB300;
+}
+
 #options
 {
 	margin-top: 99px;
@@ -189,7 +206,7 @@
 	text-decoration: none;
 
 	background-color: #33A3FF;
-	color: #FFF;
+	color: #FFF !important;
 
 	margin-bottom: 1px;
 	padding-left: 10px;
@@ -217,7 +234,7 @@
 	text-decoration: none;
 
 	background-color: #FF4242;
-	color: #FFF;
+	color: #FFF !important;
 
 	margin-bottom: 1px;
 	margin-left: 42px;
@@ -285,7 +302,7 @@
 {
 	text-decoration: none;
 
-	color: #D00;
+	color: #D00 !important;
 }
 
 #tree span

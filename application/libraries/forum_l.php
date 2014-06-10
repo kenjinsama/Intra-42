@@ -5,7 +5,7 @@ class forum_l
 	private $_img_max_w = 720;
 	private $_img_max_h = 1280;
 	private $_bad_words = array(
-		'french' => "connard|conar|connar|pute|tête de bite|salope|enculé|encule|porn|pr0n|con|conne",
+		'french' => "connard|conar|connar|pute|tête de bite|salope|enculé|encule|porn|pr0n|con|conne|cul",
 		'english' => "fuck you|fuck|fucking|asshole|shit|ass|twat"
 	);
 	private $_censored = array(
@@ -27,6 +27,9 @@ class forum_l
 		$str = $this->_parseBbcode($str);
 		$str = $this->_trimBadWords($str);
 		$str = $this->_easterEggs($str);
+		$str = $this->_new_lines($str);
+		if (strlen($str) > 8192)
+			return (false);
 		return ($str);
 	}
 
@@ -62,18 +65,26 @@ class forum_l
 		return (preg_replace($find, $replace, $str));
 	}
 
-	private function _trimBadWords($str, $language)
+	private function _trimBadWords($str, $language = 'french')
 	{
 		$dictionary = $this->_bad_words[$language];
 		$censor = $this->_censored[$language];
-		$str = preg_replace('`\b(' . $dictionary . ')[sx]?\b`si', $censor, $str);
+		return (preg_replace('/\b(' . $dictionary . ')[sx]?\b/is', $censor, $str));
 	}
 
 	private function _easterEggs($str)
 	{
-		$str = preg_replace('`\b(' . 'Chuck Norris' . ')[sx]?\b`si', '<img style="width:64px;height:64px;" src="http://fc00.deviantart.net/fs10/f/2006/097/a/5/chucknorrist.gif" alt="Chuck Norris" />', $str);
-		$str = preg_replace('`\b(' . 'Windows' . ')[sx]?\b`si', 'Windaube', $str);
-		$str = preg_replace('`\b(' . 'Epitech' . ')[sx]?\b`si', 'une grosse erreur dans ma vie', $str);		
+		$str = preg_replace('/\b(Chuck Norris)[sx]?\b/is', '<img style="width:64px;height:64px;" src="http://fc00.deviantart.net/fs10/f/2006/097/a/5/chucknorrist.gif" alt="Chuck Norris" />', $str);
+		$str = preg_replace('/\b(Windows)[sx]?\b/is', 'Windaube', $str);
+		$str = preg_replace('/\b(Mac)[sx]?\b/is', 'Machintok', $str);
+		$str = preg_replace('/\b(Linux)[sx]?\b/is', 'Ubuntu', $str);
+		$str = preg_replace('/\b(Epitech)[sx]?\b/is', 'une grosse erreur dans ma vie', $str);		
+		return ($str);
+	}
+
+	private function _new_lines($str)
+	{
+		return (preg_replace('/(\r|\n)/', '</br>', $str));
 	}
 }
 ?>

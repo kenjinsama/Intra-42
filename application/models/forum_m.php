@@ -44,6 +44,20 @@ class Forum_m extends CI_Model {
 		return ($query->result());
 	}
 
+	function get_categorie_id($name)
+	{
+		$this->db->select('id');
+		$this->db->where('name', $name);
+		$query = $this->db->get('categories');
+		$results = $query->result();
+		$id = -1;
+		foreach ($results as $result)
+		{
+			$id = $result->id;
+		}
+		return ($id);
+	}
+
 	function get_thread($id)
 	{
 		$this->db->where('id', $id);
@@ -55,6 +69,19 @@ class Forum_m extends CI_Model {
 			$thread = $result;
 		}
 		return ($thread);
+	}
+
+	function get_answers($id)
+	{
+		$this->db->where('id_post', $id);
+		$query = $this->db->get('answer');
+		$results = $query->result();
+		$answers = array();
+		foreach ($results as $result)
+		{
+			$answers[] = $result;
+		}
+		return ($answers);
 	}
 
 	function get_user($id)

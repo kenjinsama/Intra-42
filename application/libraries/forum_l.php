@@ -33,6 +33,11 @@ class forum_l
 		return ($str);
 	}
 
+	public function check_visibility($post, $me, array $levels = array('ADMIN' => 3, 'MOD' => 2, 'STUDENT' => 1))
+	{
+		return ($levels[$post] <= $levels[$me]);
+	}
+
 	private function _parseBbcode($str = '', $max_images = 0)
 	{
 		if($max_images > 0)

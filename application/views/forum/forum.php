@@ -10,7 +10,7 @@
 	<?php endif; ?>
 </div>
 
-<?php if (isset($categories)): ?>
+<?php if (!empty($categories)): ?>
 <div id="categories">
 	<?php foreach ($categories as $category): ?>
 	<a href="<?php echo current_url() . '/' . strtolower($category->name) ?>"><?php echo $category->name; ?></a>
@@ -18,12 +18,13 @@
 </div>
 <?php endif; ?>
 
-<?php if (isset($posts)): ?>
+<?php if (!empty($posts)): ?>
 <div id="posts">
 	<?php foreach ($posts as $post): ?>
 	<?php $author = $this->Forum_m->get_user($post->id_user); ?>
+	<?php if ($this->forum_l->check_visibility($post->visibility, $this->Forum_m->get_user($this->session->userdata('user_id'))->status)): ?>
 	<a class="link" href="<?php echo current_url() . '/thread?id=' . strtolower($post->id) ?>"><div class="picture"><img class="resize" src="data:image/jpeg;base64,<?php echo $author->picture; ?>" /></div><?php echo $post->title; ?></a>
-	<?php endforeach; ?>
+	<?php endif; endforeach; ?>
 </div>
 <?php endif; ?>
 
@@ -78,7 +79,7 @@
 <?php endif; ?>
 
 
-<?php if (isset($posts)): ?>
+<?php $is_admin = $this->check_log->check_log_admin(); if (isset($posts) && ($is_admin || empty($categories))): ?>
 <h2 id="new_subject">Nouveau Sujet</h2>
 <section class="f_form">
 		<?php echo form_open(current_url());?>

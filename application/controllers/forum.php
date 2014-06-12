@@ -66,6 +66,23 @@ class Forum extends CI_Controller {
 		loader($this, 'forum/forum', $data);
 	}
 
+	function delete()
+	{
+		if ($this->check_log->check_log_admin())
+		{
+			$args = func_get_args();
+			$table = $args[0];
+			
+			$this->db->delete($table, array('id' => $_GET['id']));
+			$data = array('success' => 'SUCCESS');
+		}
+		else
+		{
+			$data = array('success' => 'FORBIDDEN');
+		}
+		loader($this, 'forum/ondelete', $data);
+	}
+
 	function check_title()
 	{
 		if (empty($_POST['title']))

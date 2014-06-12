@@ -23,7 +23,7 @@
 	<?php foreach ($posts as $post): ?>
 	<?php $author = $this->Forum_m->get_user($post->id_user); ?>
 	<?php if ($this->forum_l->check_visibility($post->visibility, $this->Forum_m->get_user($this->session->userdata('user_id'))->status)): ?>
-	<a class="link" href="<?php echo current_url() . '/thread?id=' . strtolower($post->id) ?>"><div class="picture"><img class="resize" src="data:image/jpeg;base64,<?php echo $author->picture; ?>" /></div><?php echo $post->title; ?></a>
+	<a id="post" class="link" href="<?php echo current_url() . '/thread?id=' . strtolower($post->id) ?>"><div class="picture"><img class="resize" src="data:image/jpeg;base64,<?php echo $author->picture; ?>" /></div><?php echo $post->title; ?><?php if ($this->check_log->check_log_admin()): ?><a class="remove" href=<?php echo base_url() . 'forum/delete/posts?id=' . $post->id; ?>>Supprimer</a><?php endif; ?></a>
 	<?php endif; endforeach; ?>
 </div>
 <?php endif; ?>
@@ -33,11 +33,11 @@
 	<?php $author = $this->Forum_m->get_user($thread->id_user); $bool = true; ?>
 	<h1><?php echo $thread->title; ?></h1>
 	<p><?php echo $thread->content; ?></p>
-	<span><?php echo '<a href="'. base_url() . 'profile?login=' . $author->login . '">' . $author->login . '</a> (' . $author->cn . ') '; echo $thread->date; ?></span><br /><br /><br /><br />
+	<span><?php echo '<a href="'. base_url() . 'user/profile/' . $author->login . '">' . $author->login . '</a> (' . $author->cn . ') '; echo $thread->date; ?></span><br /><br /><br /><br />
 	<?php if (is_array($answers)): foreach($answers as $answer): $auth = $this->Forum_m->get_user($answer->id_user);?>
 	<?php if ($bool): $bool = false; ?><p class="impair"><?php else: $bool = true; ?> <p class="pair"> <?php endif; ?>
 	<?php echo $answer->content; ?><br /><br />
-	<span><?php echo '<a href="'. base_url() . 'profile?login=' . $auth->login . '">' . $auth->login . '</a> (' . $auth->cn . ') '; echo $answer->date; ?></span>
+	<span><?php echo '<a href="'. base_url() . 'user/profile/' . $auth->login . '">' . $auth->login . '</a> (' . $auth->cn . ') '; echo $answer->date; ?><?php if ($this->check_log->check_log_admin()): ?><a class="remove" href=<?php echo base_url() . 'forum/delete/answer?id=' . $answer->id; ?>>Supprimer</a><?php endif; ?></span>
 	</p>
 	<?php endforeach; endif; ?>
 	<h2 id="new_subject">Répondre</h2>
@@ -79,7 +79,7 @@
 <?php endif; ?>
 
 
-<?php $is_admin = $this->check_log->check_log_admin(); if (isset($posts) && ($is_admin || empty($categories))): ?>
+<?php if (isset($posts) && ($this->check_log->check_log_admin() || empty($categories))): ?>
 <h2 id="new_subject">Nouveau Sujet</h2>
 <section class="f_form">
 		<?php echo form_open(current_url());?>

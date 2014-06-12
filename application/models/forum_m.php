@@ -79,7 +79,6 @@ class Forum_m extends CI_Model {
 		$answers = array();
 		foreach ($results as $result)
 		{
-			echo $this->get_user($this->session->userdata('user_id'))->status . ' ' . $this->forum_l->check_visibility($result->visibility, $this->get_user($this->session->userdata('user_id'))->status);
 			if ($this->forum_l->check_visibility($result->visibility, $this->get_user($this->session->userdata('user_id'))->status))
 			{
 				$answers[] = $result;

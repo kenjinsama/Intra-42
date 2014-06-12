@@ -188,6 +188,14 @@
 	background-color: #FFB300;
 }
 
+.remove
+{
+
+	margin-left: 50px;
+	color: #F00 !important;
+	font-weight: bold;
+}
+
 #options
 {
 	margin-top: 99px;
@@ -229,7 +237,7 @@
 	margin-top: 42px;
 }
 
-#posts a
+#posts a#post
 {
 	display: block;
 	text-decoration: none;
@@ -248,7 +256,7 @@
 	border-radius: 100px;
 }
 
-#posts a:hover
+#posts a#post:hover
 {
 	height: 120px;
 	font-size: 42px;
@@ -261,12 +269,12 @@
 	display: inline-block;
 }
 
-#posts a:visited
+#posts a#post:visited
 {
 	background-color: #999;
 }
 
-#posts a:visited:hover
+#posts a#post:visited:hover
 {
 	background-color: #000;
 }

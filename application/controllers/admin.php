@@ -318,7 +318,7 @@ class Admin extends CI_Controller
 				{
 					$nb = 0;
 					$tbl[$i] = array();
-					while ($j < $this->input->post("grp_size") && count($users) > 0)
+					while ($nb < $this->input->post("grp_size") && count($users) > 0)
 					{
 						$rand = rand(0, count($users) - 1);
 						$tbl[$i][$nb++] = $users[$rand];

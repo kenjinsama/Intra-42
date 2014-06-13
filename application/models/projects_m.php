@@ -84,7 +84,7 @@ class Projects_m extends CI_Model
 	public function		get_projects_correction()
 	{
 		$query = $this->db->query("SELECT projects.id, name FROM `projects` INNER JOIN `user_projects` U ON U.project_id = projects.id
-			WHERE U.user_id = ? AND projects.dt_end < NOW() AND projects.dt_end_corr > NOW()", array($this->session->userdata('user_id')));
+			WHERE U.user_id = ? AND projects.dt_end < NOW() AND projects.dt_end_corr > NOW() AND `type` = 'PROJET'", array($this->session->userdata('user_id')));
 
 		return ($query->result_array());
 	}

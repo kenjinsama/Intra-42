@@ -74,13 +74,13 @@ class Modules_m extends CI_Model
 	**	Retourne un tableau contenant tous les id des prochains modules
 	*/
 
-	public function	 get_futures_modules_from_user($user_id)
+	public function	 get_futures_modules()
 	{
 		$tab_res = NULL;
 		$query = $this->db->query("SELECT `id` FROM `modules` WHERE `dt_start` > NOW()");
 		$res = $query->result();
 		foreach ($res as $mod_id) {
-			$tab_res[] = $this->get_module($mod_id->module_id)->name;
+			$tab_res[] = $this->get_module($mod_id->id)->name;
 		}
 		return ($tab_res);
 	}

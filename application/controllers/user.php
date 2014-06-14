@@ -22,7 +22,7 @@ class User extends CI_Controller
 		$this->load->model('modules_m');
 		$data['finished_modules'] = $this->modules_m->get_finished_modules_from_user($user_id);
 		$data['current_modules'] = $this->modules_m->get_current_modules_from_user($user_id);
-		$data['coming_modules'] = $this->modules_m->get_futures_modules_from_user($user_id);
+		$data['coming_modules'] = $this->modules_m->get_futures_modules();
 		$array_c = $this->modules_m->get_validated_modules_from_user($user_id);
 		$data['credits'] = $this->modules_m->get_total_credits_from_module($array_c);
 		$array = $this->modules_m->get_modules_from_user($user_id);

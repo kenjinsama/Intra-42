@@ -3,6 +3,16 @@
 		<h1>Profil</h1>
 
 		<?php
+			if ($this->session->userdata('user_login') != $user["uid"][0])
+			{
+				if ($this->check_log->check_log_admin() && !$this->check_log->is_admin($user["uid"][0]))
+					echo anchor(base_url() . "user/add_admin/" . $user["uid"][0], "Rendre admin") . br();
+				else
+				{
+					echo anchor(base_url() . "user/add_modo/" . $user["uid"][0], "Rendre modo") . br();
+					echo anchor(base_url() . "user/suppr_admin/" . $user["uid"][0], "Supprimer droit admin") . br();
+				}
+			}
 			if (isset($user["picture"][0]))
 				echo "<img src='data:image/png;base64,".base64_encode($user["picture"][0]) . "'><br/>";
 			else

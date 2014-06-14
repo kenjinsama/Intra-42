@@ -29,6 +29,30 @@ class User extends CI_Controller
 		loader($this, 'user/profile', $data);
 	}
 
+	public function add_admin($login)
+	{
+		if (!$this->check_log->check_log_admin())
+			redirect(base_url());
+		$this->db->query("UPDATE `users` SET `status` = 'ADMIN' WHERE `login` = ?", array($login));
+		redirect(base_url() . "user/profile/" . $login);
+	}
+
+	public function add_modo($login)
+	{
+		if (!$this->check_log->check_log_admin())
+			redirect(base_url());
+		$this->db->query("UPDATE `users` SET `status` = 'MOD' WHERE `login` = ?", array($login));
+		redirect(base_url() . "user/profile/" . $login);
+	}
+
+	public function suppr_admin($login)
+	{
+		if (!$this->check_log->check_log_admin())
+			redirect(base_url());
+		$this->db->query("UPDATE `users` SET `status` = 'STUDENT' WHERE `login` = ?", array($login));
+		redirect(base_url() . "user/profile/" . $login);
+	}
+
 	public function tickets()
 	{
 		$this->load->model('ticket');

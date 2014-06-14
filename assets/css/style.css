@@ -85,7 +85,10 @@ td
 
 #home
 {
-	background-color: #DDD;
+	position: absolute;
+	top: -5px;
+	left: 40px;
+	/*background-color: #DDD;*/
 }
 
 #profile

@@ -13,7 +13,9 @@
 <BODY style="overflow-x: hidden;">
 	<HEADER>
 		<DIV id="logo">
-			<A id="home" href="/">LOGO</A>
+			<?PHP
+			echo anchor(base_url() . "/", img( array( 'src' => base_url() . 'assets/images/42.png', 'id' => 'home') ) );
+			?>
 		</DIV>
 		<DIV id="search-background"></DIV>
 		<DIV id="search">

@@ -77,7 +77,7 @@
 			**	e-learning
 			*/
 
-			echo br() . "E-learning" . br();
+			echo br() . "E-learning :" . br();
 			foreach ($nav as $data)
 			{
 				if (isset($data["semestre"]) && $data["semestre"] != $semestre)
@@ -92,7 +92,7 @@
 						echo anchor(base_url() . "e_learning/project/" . $project['id'], $project['name'], ["class" => "project_link"]) . "<br />";
 				}
 			}
-			echo br() . anchor(base_url() . "forum/", "Forum", ["class" => "project_link"]) . br();
+			echo br() . anchor(base_url() . "forum/", "Forum", ["class" => "semestre_link"]) . br();
 		?>
 	</NAV>
 	<SELECTION>

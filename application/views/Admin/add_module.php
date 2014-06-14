@@ -20,6 +20,12 @@ echo	form_input(array('name' => 'nb_credit', 'id' => 'nb_credit', 'placeholder' 
 echo	"</div>";
 
 echo	"<div class='form_separator'>";
+echo	form_error('semestre', '<span class="error">', '</span>');
+echo	form_label('Semestre', 'semestre');
+echo	form_input(array('name' => 'semestre', 'id' => 'semestre', 'placeholder' => 'xx', 'type' => 'number', 'min' => '0'));
+echo	"</div>";
+
+echo	"<div class='form_separator'>";
 echo	form_error('nb_place', '<span class="error">', '</span>');
 echo	form_label('Place(s) number', 'nb_place');
 echo	form_input(array('name' => 'nb_place', 'id' => 'nb_place', 'placeholder' => 'xx', 'type' => 'number', 'min' => '0'));

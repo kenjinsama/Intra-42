@@ -155,10 +155,11 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('dt_end_h', 'deadline', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_end_insc', 'End inscription', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_end_insc_h', 'End inscription', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('semestre', 'semestre', 'trim|required|xss_clean|is_natural|numeric');
 
 		if ($this->form_validation->run() == TRUE)
 		{
-			$this->db->query("UPDATE `modules` SET `name` = ?, `desc` = ?, `credits` = ?, `dt_start` = ?, `dt_end` = ?, `dt_end_insc` = ?, `nb_place` = ? WHERE `id` LIKE ?",
+			$this->db->query("UPDATE `modules` SET `name` = ?, `desc` = ?, `credits` = ?, `dt_start` = ?, `dt_end` = ?, `dt_end_insc` = ?, `nb_place` = ?, `semestre` = ? WHERE `id` LIKE ?",
 				array(
 					$this->input->post("name"),
 					$this->input->post("description"),
@@ -167,6 +168,7 @@ class Admin extends CI_Controller
 					$this->input->post("dt_end") . " " . $this->input->post("dt_end_h") . ":00",
 					$this->input->post("dt_end_insc") . " " . $this->input->post("dt_end_insc_h") . ":00",
 					$this->input->post("nb_place"),
+					$this->input->post("semestre"),
 					$id
 					)
 				);
@@ -382,10 +384,11 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('dt_start_h', 'Start date', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_end_h', 'deadline', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dt_end_insc_h', 'End inscription', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('semestre', 'semestre', 'trim|required|xss_clean|is_natural|numeric');
 
 		if ($this->form_validation->run() == TRUE)
 		{
-			$this->db->query("INSERT INTO `modules` (`name`, `desc`, `credits`, `dt_start`, `dt_end`, `dt_end_insc`, `nb_place`) VALUES(?,?,?,?,?,?,?)",
+			$this->db->query("INSERT INTO `modules` (`name`, `desc`, `credits`, `dt_start`, `dt_end`, `dt_end_insc`, `nb_place`, `semestre`) VALUES(?,?,?,?,?,?,?,?)",
 				array(
 					$this->input->post("name"),
 					$this->input->post("description"),
@@ -393,7 +396,8 @@ class Admin extends CI_Controller
 					$this->input->post("dt_start") . " " . $this->input->post("dt_start_h") . ":00",
 					$this->input->post("dt_end") . " " . $this->input->post("dt_end_h") . ":00",
 					$this->input->post("dt_end_insc") . " " . $this->input->post("dt_end_insc_h") . ":00",
-					$this->input->post("nb_place")
+					$this->input->post("nb_place"),
+					$this->input->post("semestre")
 					)
 				);
 			redirect(base_url() . "admin");

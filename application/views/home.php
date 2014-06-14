@@ -54,7 +54,16 @@
 				$result = $this->projects_m->get_corrector($data["id"]);
 				foreach ($result as $res)
 				{
-					echo "Vous devez être noté(e) par ".$this->check_log->obtain_name($res['corrector_id'])."<BR />";
+					if ($res['rate'] == NULL)
+						echo "Vous devez être noté(e) par ".$this->check_log->obtain_name($res['corrector_id'])."<BR />";
+					else
+					{
+						echo $this->check_log->obtain_name($res['corrector_id'])." vous a noter ".$res['rate'];
+						if ($res['nb_stars'] == null)
+							echo ", penser a ".anchor(base_url()."module/appreciate/".$data["id"]."/".$res['corrector_id']."/".$this->session->userdata('user_id'), "l'apprécier")."<BR />";
+						else
+							echo ", vous l'avez apprecier: ".$res['nb_stars']."<BR />";
+					}
 				}
 				$result = $this->projects_m->get_corrected($data["id"]);
 				foreach ($result as $res)
@@ -63,7 +72,7 @@
 						echo anchor(base_url().'module/project_correction/'.$data["id"]."/".$res['id_user'], 'Vous devez corriger '.$this->check_log->obtain_name($res['id_user']))."<BR />";
 					else
 					{
-						echo "Vous avez donné la note ".$res['rate']." à ".$this->check_log->obtain_name($res['id_user']).". ";
+						echo "Vous avez donné la note de ".$res['rate']." à ".$this->check_log->obtain_name($res['id_user']).". ";
 						if ($res['nb_stars'] == null)
 							echo "La note n'a pas été apprécié<BR />";
 						else

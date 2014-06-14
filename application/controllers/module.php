@@ -195,4 +195,21 @@ class Module extends CI_Controller {
 		$this->db->query('UPDATE `ratings` SET `rate` = "'.$note.'", coms = "'.$coms.'" WHERE `id_project` = "'.$project_id.'" AND `corrector_id` = "'.$this->session->userdata('user_id').'" AND `id_user` = "'.$id_user.'"');
 		redirect(base_url());
 	}
+
+	public function appreciate($id_project, $id_corrector, $id_user)
+	{
+		$query = $this->db->query('SELECT `coms` FROM `ratings` WHERE `id_project`="'.$id_project.'" AND `corrector_id` = "'.$id_corrector.'" AND `id_user` = "'.$id_user.'"');
+		$res = $query->result();
+		$data['coms'] = $res[0]->coms;
+		$data['id_project'] = $id_project;
+		$data['id_corrector'] = $id_corrector;
+		$data['id_user'] = $id_user;
+		loader($this, 'user/appreciate', $data);
+	}
+
+	public function validate_project($id_project, $id_corrector, $id_user)
+	{
+		$query = $this->db->query('UPDATE `ratings` SET `done` = 1, `nb_stars` = "'.$this->input->post('note').'" WHERE `id_project`="'.$id_project.'" AND `corrector_id` = "'.$id_corrector.'" AND `id_user` = "'.$id_user.'"');
+		redirect("/");
+	}
 }

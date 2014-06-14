@@ -22,10 +22,7 @@
 				if ($state == 'UNREGISTERED' && strtotime($project->dt_end_insc) > time() && $nb_insc[0]["COUNT(`id`)"] < $project->nb_place)
 					echo anchor(base_url().'module/project_register?id='.$project->id.'&name='.$project->name, 'Inscription', array('class' => 'button'));
 				else
-				{
 					echo anchor(base_url() . $project->pdf_url, "Sujet", ["class" => "sujet_button"]) . "</br>";
-					echo $state;
-				}
 
 				/*
 				**	Calcule temps restant & progression (%)

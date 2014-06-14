@@ -17,7 +17,10 @@ class Modules_m extends CI_Model
 		$this->db->where('id', $id);
 		$query = $this->db->get('modules');
 		$res = $query->result();
-		return ($res[0]);
+		if (isset($res[0]))
+			return ($res[0]);
+		else
+			return (0);
 	}
 
 	/*

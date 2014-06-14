@@ -92,6 +92,7 @@
 						echo anchor(base_url() . "e_learning/project/" . $project['id'], $project['name'], ["class" => "project_link"]) . "<br />";
 				}
 			}
+			echo br() . anchor(base_url() . "forum/", "Forum", ["class" => "project_link"]) . br();
 		?>
 	</NAV>
 	<SELECTION>

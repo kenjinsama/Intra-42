@@ -1,10 +1,10 @@
 <div class="content_page">
 	<?php
 
-	echo heading("Planning", 2);
-
 	if (isset($planning[0]))
 	{
+		echo heading("Planning", 2);
+
 		$start = strtotime($planning[0]["dt_start"]);
 		foreach ($planning as $data)
 		{

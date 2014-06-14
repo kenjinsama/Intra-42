@@ -1,4 +1,4 @@
-<div id="content_page">
+<div class="content_page">
 
 	<?PHP
 	echo heading($project->name, 2);

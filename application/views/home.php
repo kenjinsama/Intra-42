@@ -1,4 +1,4 @@
-<div id="content_page">
+<div class="content_page">
 	<?php
 		/*
 		**	Affichage des projets en cours

@@ -1,4 +1,4 @@
-<div id="content_page">
+<div class="content_page">
 	<LINK rel="stylesheet" type="text/css" href="<?php echo base_url() . 'assets/css/project_style.css' ?>" media="all"/>
 
 	<H1>Projects list</H1>

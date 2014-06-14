@@ -218,7 +218,7 @@ FOOTER
 /*
 ** ALL
 */
-#content_page
+.content_page
 {
 	width: 80%;
 	position: relative;
@@ -229,4 +229,24 @@ FOOTER
 .e-learning-title
 {
 	font-size: 1.5em;
+}
+
+.block_planning
+{
+	background-color: rgba(11, 187, 255, 0.29);
+	padding: 1em;
+	margin-bottom: 2px;
+}
+
+.info_planning
+{
+	margin-left: 2.5em;
+	color: rgba(102, 102, 102, 0.44);
+	font-weight: 200;
+}
+
+a.name_p_planning, .name_p_planning
+{
+	color: rgb(21, 147, 158)!important;
+	font-weight: 600!important;
 }

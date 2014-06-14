@@ -1,4 +1,4 @@
-<div id="content_page">
+<div class="content_page">
 	<DIV id="profile-page">
 		<div id="content">
 			<h1>Profil</h1>

@@ -1,4 +1,4 @@
-<div id="content_page">
+<div class="content_page">
 	E-Learning<BR />
 	<?PHP
 	$i = 0;

@@ -61,6 +61,13 @@
 			echo "Vous n'avez pas de module en cours.<br/>";
 		echo "<br/>";
 		echo $credits." crédits validés/".$total_credits." crédits totaux<br/><br/>";
+		echo "<p><b>Prochains Modules...</p></b>";
+		echo "<br/>";
+		if (isset($coming_modules)) {
+			foreach ($coming_modules as $res) {
+				echo $res."<br/>";
+			}
+		}
 	?>
 	</div>
 	<div>

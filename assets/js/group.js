@@ -49,7 +49,7 @@ function validate()
 {
 	group = '';
 	for (user in users)
-		group += users[user] + '#->';
+		group += users[user] + '---';
 	window.location="/module/validate/"+$.urlParam('project_id')+"/"+group;
 }
 

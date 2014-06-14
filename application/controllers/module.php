@@ -156,7 +156,7 @@ class Module extends CI_Controller {
 
 	public function validate($id_project, $users)
 	{
-		$users = explode("#->", $users);
+		$users = explode("---", $users);
 
 		foreach ($users as $user)
 			$this->db->query('UPDATE `user_projects` SET state = "REGISTERED" , id_master = "'.$this->session->userdata('user_id').'" WHERE user_id = "'.$this->check_log->obtain_id($user).'"');

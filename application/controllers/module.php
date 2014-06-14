@@ -17,6 +17,8 @@ class Module extends CI_Controller {
 	public function projects($id)
 	{
 		$this->load->model('projects_m');
+		$this->load->model('modules_m');
+		$module = $this->modules_m->get_module($id);
 		$data['id'] = $id;
 		$query = $this->db->query("SELECT COUNT(`id`) FROM `user_modules` WHERE `user_id` = ? AND `module_id` = ?",
 			array(
@@ -25,11 +27,17 @@ class Module extends CI_Controller {
 			)
 		);
 		$query = $query->result_array();
+		$nb_insc = $this->db->query("SELECT COUNT(`id`) FROM `user_modules` WHERE `state` = 'REGISTERED' AND `module_id` = ?",
+			array(
+				$id
+			)
+		);
+		$nb_insc = $nb_insc->result_array();
 		if ($query[0]["COUNT(`id`)"] == 0)
 		{
 			$data["button"] = array(
 						"name" => "Inscription",
-						"url" => base_url() . "module/module_register/" . $id,
+						"url" => strtotime($module->dt_end_insc) > time() || $nb_insc[0]["COUNT(`id`)"] >= $module->nb_place ? base_url() . "module/module_register/" . $id : NULL,
 						"class" => array("class" => "btn btn-lg btn-success")
 					);
 		}
@@ -37,11 +45,10 @@ class Module extends CI_Controller {
 		{
 			$data["button"] = array(
 						"name" => "Desinscription",
-						"url" => base_url() . "module/module_unregister/" . $id,
+						"url" => strtotime($module->dt_end_insc) > time() ? base_url() . "module/module_unregister/" . $id : NULL,
 						"class" => array("class" => "btn btn-lg btn-danger")
 					);
 		}
-
 		$data['projects'] = $this->projects_m->get_projects($id);
 		loader($this, 'user/projects_list', $data);
 	}
@@ -52,7 +59,10 @@ class Module extends CI_Controller {
 		$data['project'] = $this->projects_m->get_project_by_id($id);
 		$query = $this->db->query("SELECT COUNT(`id`) FROM `user_modules` WHERE `user_id` = ? AND `module_id` = ?", array($this->session->userdata("user_id"), $data["project"]->id_modules));
 		$query = $query->result_array();
-		if ($query[0]["COUNT(`id`)"] == 0)
+		$nb_insc = $this->db->query("SELECT COUNT(`id`) FROM `user_projects` WHERE `state` = 'REGISTERED' AND `project_id` = ?", array($id));
+		$nb_insc = $nb_insc->result_array();
+		$data["nb_insc"] = $nb_insc[0]["COUNT(`id`)"];
+		if ($query[0]["COUNT(`id`)"] == 0 || strtotime($data['project']->dt_end_insc) < time() || $nb_insc[0]["COUNT(`id`)"] >= $data['project']->nb_place)
 			$data["available"] = FALSE;
 		else
 			$data["available"] = TRUE;

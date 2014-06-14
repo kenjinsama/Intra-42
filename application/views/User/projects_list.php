@@ -2,7 +2,8 @@
 
 <H1>Projects list</H1>
 <?php
-echo anchor($button["url"], $button["name"], $button["class"]);
+if ($button["url"])
+	echo anchor($button["url"], $button["name"], $button["class"]);
 ?>
 <DIV id="projects">
 <?PHP foreach ($projects as $project): ?>

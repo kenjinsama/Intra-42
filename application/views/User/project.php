@@ -8,7 +8,7 @@ if ($project->auto_insc == "TRUE")
 $state = $this->projects_m->get_project_stats($project->id, $this->session->userdata['user_login']);
 if ((!isset($inscription) && $available == TRUE) || (isset($inscription) && $inscription["state"] == "UNREGISTERED" && $available == TRUE))
 	echo anchor(base_url().'module/project_register?id='.$project->id.'&name='.$project->name, 'Inscription', array('class' => 'btn btn-lg btn-success'));
-else if ($available == TRUE)
+else if ($available == TRUE || ($inscription["state"] == "REGISTERED" && $nb_insc >= $project->nb_place))
 	echo anchor(base_url().'module/project_unregister/'.$project->id, 'Desinscription', array('class' => 'btn btn-lg btn-danger'));
 echo br();
 echo br();

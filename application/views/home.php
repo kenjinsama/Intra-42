@@ -16,7 +16,9 @@
 			if (!isset($this->projects_m))
 				$this->load->model('projects_m');
 			$state = $this->projects_m->get_project_stats($project->id, $this->session->userdata['user_login']);
-			if ($state == 'UNREGISTERED')
+			$nb_insc = $this->db->query("SELECT COUNT(`id`) FROM `user_projects` WHERE `state` = 'REGISTERED' AND `project_id` = ?", array($project->id));
+			$nb_insc = $nb_insc->result_array();
+			if ($state == 'UNREGISTERED' && strtotime($project->dt_end_insc) > time() && $nb_insc[0]["COUNT(`id`)"] < $project->nb_place)
 				echo anchor(base_url().'module/project_register?id='.$project->id.'&name='.$project->name, 'Inscription', array('class' => 'button'));
 			else
 			{

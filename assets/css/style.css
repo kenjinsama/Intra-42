@@ -75,7 +75,7 @@ HEADER
 	width: 100%;
 	height: 100px;
 	position: fixed;
-	background-color: #999;
+	background-color: rgb(42, 44, 46);
 }
 
 td
@@ -111,7 +111,7 @@ td
 	top: 100px;
 	width: 150px;
 	height: 200px;
-	background-color: #AAA;
+	background-color: rgb(18, 153, 179);
 }
 
 #search-background
@@ -171,7 +171,9 @@ NAV
 	left: 0;
 	width: 200px;
 	height: 100%;
-	background-color: #777;
+	border-right: 4px solid rgb(17, 193, 248);
+	background-color: rgb(42, 44, 46);
+	color: white;
 }
 
 #img-nav
@@ -185,17 +187,18 @@ NAV
 }
 .semestre_link
 {
-	color: rgb(200, 240, 248);
+	padding-left: 1em;
+	color: rgb(119, 119, 119);
 }
 .module_link
 {
 	color: rgb(137, 241, 255);
-	padding-left: 1em;
+	padding-left: 2em;
 }
 
 .project_link
 {
-	padding-left: 2em;
+	padding-left: 3em;
 }
 
 /*
@@ -212,9 +215,12 @@ FOOTER
 /*
 ** ALL
 */
-.button
+#content_page
 {
-
+	width: 80%;
+	position: relative;
+	padding-top: 3em;
+	left: 5%;
 }
 
 .e-learning-title

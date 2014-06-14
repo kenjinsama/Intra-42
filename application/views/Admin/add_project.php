@@ -104,10 +104,10 @@ echo	form_textarea(array('name' => 'rating_scale', 'id' => 'rating_scale', 'plac
 <DIV id="usage">
 	titre=TITRE;<BR />
 	pref=PREFACE;<BR />
-	a repeter pour chaque modules de notation: <BR />
+	à répéter pour chaque module de notation: <BR />
 	mod-titre=TITRE DU MODULE;<BR />
 	desc-pts=DESCRIPTION DES POINTS;<BR />
-	nb-pts=NOMBRES DE POINTS (1-2-5 => 3 radio avec les valeurs indiquer);<BR />
+	nb-pts=NOMBRES DE POINTS (1-2-5 => 3 radios avec les valeurs indiquées);<BR />
 </DIV>
 <?PHP
 echo	"</div>";

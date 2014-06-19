@@ -115,6 +115,21 @@ class Forum_m extends CI_Model {
 		}
 		return ($urls);
 	}
+
+	function new_category($name, $parent = '', $time = 0)
+	{
+		$data = array('name' => $name);
+		if ($parent != '')
+		{
+			$id = $this->get_categorie_id($parent);
+			$data['id_parent'] = $id;
+		}
+		if ($time != 0)
+			$data['visibility_date'] = $time;
+		else
+			$data['visibility_date'] = time();
+		$this->db->insert('categories', $data);
+	}
 }
 
 ?>
